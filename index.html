@@ -3,52 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <title>My Anime World</title>
-
-  <!-- Step #1: Make it mobile responsive -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Step #2: Add internal CSS for styling -->
+  
   <style>
-    /* Body default (light mode) */
+    /* #1: Default body style */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: #f3f3f3;
+      background: #f0f0f0;
       color: #000;
       transition: all 0.3s ease;
     }
 
-    /* Step #3: Dark Mode Style */
+    /* #2: Dark mode */
     .dark-mode {
       background: #111;
       color: #fff;
     }
 
-    /* Step #4: Top navbar with menu + search + toggle */
+    /* #3: Navbar */
     .navbar {
       display: flex;
       justify-content: space-between;
-      background: #222;
-      color: white;
-      padding: 10px 15px;
       align-items: center;
-    }
-
-    .navbar input {
-      padding: 8px;
-      border-radius: 5px;
-      border: none;
-      width: 50%;
-    }
-
-    .navbar button {
-      background: #ff3c3c;
-      border: none;
+      background: #222;
+      padding: 10px 15px;
       color: white;
-      padding: 8px 12px;
-      border-radius: 5px;
-      cursor: pointer;
     }
 
     .menu-icon {
@@ -56,68 +37,79 @@
       cursor: pointer;
     }
 
-    /* Step #5: Banner with background */
+    .navbar input {
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      width: 40%;
+    }
+
+    .toggle-mode {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #444;
+      color: white;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* #4: Banner */
     .banner {
       background: url('img/banner.jpg') no-repeat center center/cover;
       padding: 60px 20px;
+      text-align: center;
       color: white;
       text-shadow: 2px 2px 4px #000;
-      text-align: center;
     }
 
-    /* Step #6: Anime Card Grid */
+    /* #5: Grid for anime cards */
     .anime-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
+      padding: 20px;
     }
 
+    /* #6: Anime card style */
     .anime-card {
       background: #fff;
       border-radius: 10px;
-      width: 200px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      cursor: pointer;
       text-align: center;
-      padding: 10px;
-      transition: transform 0.2s;
-      box-shadow: 0 0 10px #ccc;
     }
 
     .anime-card:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
 
     .anime-card img {
       width: 100%;
-      border-radius: 10px;
+      height: 200px;
+      object-fit: cover;
     }
 
     .anime-card h2 {
-      margin: 10px 0;
+      padding: 10px;
+      margin: 0;
       color: #000;
     }
 
-    .anime-card a {
-      display: inline-block;
-      padding: 8px 12px;
-      background: #ff3c3c;
-      color: white;
-      border-radius: 5px;
-      text-decoration: none;
-    }
-
-    /* Step #7: Dark mode inside cards */
     .dark-mode .anime-card {
       background: #222;
-      box-shadow: none;
     }
 
     .dark-mode .anime-card h2 {
-      color: white;
+      color: #fff;
     }
 
-    /* Step #8: Footer */
+    /* #7: Footer */
     footer {
       text-align: center;
       padding: 15px;
@@ -126,70 +118,80 @@
     }
   </style>
 </head>
-
 <body>
 
-  <!-- Step #9: Top navbar -->
+  <!-- #8: Navbar -->
   <div class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">☰</div>
     <input type="text" id="searchBox" placeholder="Search anime...">
-    <button onclick="toggleMode()">🌙</button>
+    <button class="toggle-mode" onclick="toggleMode()">
+      <span id="mode-icon">🌙</span> Mode
+    </button>
   </div>
 
-  <!-- Step #10: Banner section -->
+  <!-- #9: Banner -->
   <div class="banner">
     <h1>🎌 Welcome to My Anime World</h1>
     <p>Watch and Enjoy Unlimited Anime</p>
   </div>
 
-  <!-- Step #11: Anime list -->
+  <!-- #10: Anime Card Section -->
   <main class="anime-grid" id="animeList">
 
-    <!-- Anime Card 1 -->
-    <div class="anime-card">
+    <!-- Card 1 -->
+    <div class="anime-card" onclick="location.href='watch-naruto.html'">
       <img src="img/naruto.jpg" alt="Naruto">
       <h2>Naruto</h2>
-      <a href="watch-naruto.html">🎬 Watch Now</a>
     </div>
 
-    <!-- Anime Card 2 -->
-    <div class="anime-card">
+    <!-- Card 2 -->
+    <div class="anime-card" onclick="location.href='watch-onepiece.html'">
       <img src="img/onepiece.jpg" alt="One Piece">
       <h2>One Piece</h2>
-      <a href="watch-onepiece.html">🎬 Watch Now</a>
     </div>
 
-    <!-- Anime Card 3 -->
-    <div class="anime-card">
+    <!-- Card 3 -->
+    <div class="anime-card" onclick="location.href='watch-aot.html'">
       <img src="img/aot.jpg" alt="Attack on Titan">
       <h2>Attack on Titan</h2>
-      <a href="watch-aot.html">🎬 Watch Now</a>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="anime-card" onclick="location.href='watch-demonslayer.html'">
+      <img src="img/demonslayer.jpg" alt="Demon Slayer">
+      <h2>Demon Slayer</h2>
     </div>
 
   </main>
 
-  <!-- Step #12: Footer -->
+  <!-- #11: Footer -->
   <footer>
     <p>&copy; 2025 My Anime World</p>
   </footer>
 
-  <!-- Step #13: JavaScript for dark mode, menu, search -->
+  <!-- #12: JavaScript -->
   <script>
     function toggleMode() {
-      document.body.classList.toggle("dark-mode");
+      const body = document.body;
+      const icon = document.getElementById('mode-icon');
+      body.classList.toggle("dark-mode");
+      if (body.classList.contains("dark-mode")) {
+        icon.textContent = "☀️";
+      } else {
+        icon.textContent = "🌙";
+      }
     }
 
     function toggleMenu() {
-      alert("☰ Menu clicked! (Customize later)");
+      alert("☰ Menu clicked! Customize later...");
     }
 
-    // 🔍 Step #14: Live search filter
     document.getElementById('searchBox').addEventListener('keyup', function () {
       const keyword = this.value.toLowerCase();
       const cards = document.querySelectorAll('.anime-card');
       cards.forEach(card => {
         const title = card.querySelector('h2').innerText.toLowerCase();
-        card.style.display = title.includes(keyword) ? 'inline-block' : 'none';
+        card.style.display = title.includes(keyword) ? 'block' : 'none';
       });
     });
   </script>
