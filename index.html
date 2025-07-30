@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>My Anime World</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
-    /* #1: Body & Base Styles */
+    /* Body & Dark mode */
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       background: #f0f0f0;
       color: #000;
       transition: all 0.3s ease;
     }
-
     .dark-mode {
       background: #111;
       color: #fff;
     }
 
-    /* #2: Navbar */
+    /* Navbar */
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -30,19 +28,16 @@
       padding: 10px 15px;
       color: white;
     }
-
     .menu-icon {
       font-size: 24px;
       cursor: pointer;
     }
-
     .navbar input {
       padding: 8px;
       border-radius: 5px;
       border: none;
       width: 40%;
     }
-
     .toggle-mode {
       display: flex;
       align-items: center;
@@ -56,7 +51,7 @@
       font-size: 16px;
     }
 
-    /* #3: Banner */
+    /* Banner */
     .banner {
       background: url('img/banner.jpg') no-repeat center center/cover;
       padding: 60px 20px;
@@ -65,30 +60,37 @@
       text-shadow: 2px 2px 4px #000;
     }
 
-    /* #4: Section Headings */
+    /* Section Titles */
     .section {
       padding: 20px;
     }
-
     .section-title {
       font-size: 26px;
       font-weight: bold;
       margin-bottom: 15px;
       color: #333;
     }
-
     .dark-mode .section-title {
       color: #fff;
     }
 
-    /* #5: Anime Card Grid */
-    .anime-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 0 20px 30px;
+    /* Horizontal Scroll container for Most Popular */
+    .anime-scroll {
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scroll-behavior: smooth;
+    }
+    .anime-scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+    .anime-scroll::-webkit-scrollbar-thumb {
+      background: #999;
+      border-radius: 10px;
     }
 
+    /* Anime Card */
     .anime-card {
       background: #fff;
       border-radius: 10px;
@@ -97,98 +99,130 @@
       transition: transform 0.3s;
       cursor: pointer;
       text-align: center;
+      min-width: 200px; /* for horizontal scroll cards */
+      flex-shrink: 0; /* don’t shrink */
     }
-
     .anime-card:hover {
       transform: scale(1.03);
     }
-
     .anime-card img {
       width: 100%;
       height: 200px;
       object-fit: cover;
     }
-
     .anime-card h2 {
       padding: 10px;
       margin: 0;
       color: #000;
     }
-
     .dark-mode .anime-card {
       background: #222;
     }
-
     .dark-mode .anime-card h2 {
       color: #fff;
     }
 
-    /* #6: Footer */
+    /* New Release Section uses grid */
+    .new-release-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding-top: 10px;
+    }
+
+    /* Footer */
     footer {
       text-align: center;
       padding: 15px;
       background: #1a1a1a;
       color: white;
     }
+
+    /* Responsive tweaks */
+    @media(max-width: 600px) {
+      .navbar input {
+        width: 50%;
+      }
+      .anime-card {
+        min-width: 150px;
+      }
+      .banner {
+        padding: 40px 15px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- #7: Navbar -->
+  <!-- Navbar -->
   <div class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">☰</div>
-    <input type="text" id="searchBox" placeholder="Search anime...">
+    <input type="text" id="searchBox" placeholder="Search anime..." />
     <button class="toggle-mode" onclick="toggleMode()">
       <span id="mode-icon">🌙</span> Mode
     </button>
   </div>
 
-  <!-- #8: Banner -->
+  <!-- Banner -->
   <div class="banner">
     <h1>🎌 Welcome to My Anime World</h1>
     <p>Watch and Enjoy Unlimited Anime</p>
   </div>
 
-  <!-- #9: Most Popular Section -->
+  <!-- Most Popular Section (horizontal scroll) -->
   <section class="section">
     <h2 class="section-title">🔥 Most Popular</h2>
-    <div class="anime-grid">
-      <!-- Card 1 -->
+    <div class="anime-scroll" id="mostPopular">
       <div class="anime-card" onclick="location.href='watch-naruto.html'">
-        <img src="https://graph.org/file/52bfb4c77b3a86a79d0b5-eca45f96e85ca793f6.jpg" alt="Naruto">
+        <img src="https://graph.org/file/52bfb4c77b3a86a79d0b5-eca45f96e85ca793f6.jpg" alt="Naruto" />
         <h2>Naruto</h2>
       </div>
-      <!-- Card 2 -->
       <div class="anime-card" onclick="location.href='watch-onepiece.html'">
-        <img src="https://graph.org/file/ebd4a7d5cbdac37fa26ca-82f97e7586754d87a5.jpg" alt="One Piece">
+        <img src="https://graph.org/file/ebd4a7d5cbdac37fa26ca-82f97e7586754d87a5.jpg" alt="One Piece" />
         <h2>One Piece</h2>
       </div>
-    </div>
-  </section>
-
-  <!-- #10: New Release Section -->
-  <section class="section">
-    <h2 class="section-title">🆕 New Release</h2>
-    <div class="anime-grid">
-      <!-- Card 3 -->
       <div class="anime-card" onclick="location.href='watch-aot.html'">
-        <img src="https://graph.org/file/826c6dc0200a30e1bf669-1f6d5b765741ec8026.jpg" alt="Attack on Titan">
+        <img src="https://graph.org/file/826c6dc0200a30e1bf669-1f6d5b765741ec8026.jpg" alt="Attack on Titan" />
         <h2>Attack on Titan</h2>
       </div>
-      <!-- Card 4 -->
       <div class="anime-card" onclick="location.href='watch-demonslayer.html'">
-        <img src="https://graph.org/file/68f19e86e6862e56a3061-16d5ec0730a17598b8.jpg" alt="Demon Slayer">
+        <img src="https://graph.org/file/68f19e86e6862e56a3061-16d5ec0730a17598b8.jpg" alt="Demon Slayer" />
         <h2>Demon Slayer</h2>
       </div>
+      <!-- Add more cards here if you want -->
     </div>
   </section>
 
-  <!-- #11: Footer -->
+  <!-- New Release Section (grid) -->
+  <section class="section">
+    <h2 class="section-title">🆕 New Release</h2>
+    <div class="new-release-grid" id="newRelease">
+      <div class="anime-card" onclick="location.href='watch-jujutsu.html'">
+        <img src="https://graph.org/file/ab1ef34a36a5bb409204e.jpg" alt="Jujutsu Kaisen" />
+        <h2>Jujutsu Kaisen</h2>
+      </div>
+      <div class="anime-card" onclick="location.href='watch-mha.html'">
+        <img src="https://graph.org/file/f13a45d8a7321eeef9bd4.jpg" alt="My Hero Academia" />
+        <h2>My Hero Academia</h2>
+      </div>
+      <div class="anime-card" onclick="location.href='watch-drstone.html'">
+        <img src="https://graph.org/file/d27bd1c95e81ec8f0c5aa.jpg" alt="Dr. Stone" />
+        <h2>Dr. Stone</h2>
+      </div>
+      <div class="anime-card" onclick="location.href='watch-boku.html'">
+        <img src="https://graph.org/file/f26ad63f5f5de988ca5c1.jpg" alt="Boku no Hero" />
+        <h2>Boku no Hero</h2>
+      </div>
+      <!-- More new release cards can be added here -->
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer>
     <p>&copy; 2025 My Anime World</p>
   </footer>
 
-  <!-- #12: JavaScript -->
+  <!-- JavaScript -->
   <script>
     function toggleMode() {
       const body = document.body;
@@ -201,6 +235,7 @@
       alert("☰ Menu clicked! Customize later...");
     }
 
+    // Search filter (works on all cards)
     document.getElementById('searchBox').addEventListener('keyup', function () {
       const keyword = this.value.toLowerCase();
       const cards = document.querySelectorAll('.anime-card');
@@ -210,6 +245,5 @@
       });
     });
   </script>
-
 </body>
 </html>
