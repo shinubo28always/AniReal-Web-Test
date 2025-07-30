@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    /* #1: Default body style */
+    /* #1: Body & Base Styles */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -16,13 +16,12 @@
       transition: all 0.3s ease;
     }
 
-    /* #2: Dark mode */
     .dark-mode {
       background: #111;
       color: #fff;
     }
 
-    /* #3: Navbar */
+    /* #2: Navbar */
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -32,65 +31,64 @@
       color: white;
     }
 
-    .navbar-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
     .menu-icon {
       font-size: 24px;
       cursor: pointer;
     }
 
-    .logo {
-      height: 40px;
-      border-radius: 5px;
-    }
-
-    .navbar-center {
-      flex: 1;
-      text-align: center;
-    }
-
-    .navbar-center input {
+    .navbar input {
       padding: 8px;
       border-radius: 5px;
       border: none;
-      width: 60%;
+      width: 40%;
     }
 
     .toggle-mode {
-      background: #444;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
       display: flex;
       align-items: center;
       gap: 5px;
+      background: #444;
+      color: white;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
     }
 
-    /* #4: Banner */
+    /* #3: Banner */
     .banner {
-      background: url('https://graph.org/file/8517466703e210fae55b2-142042e1fa993276c8.jpg') no-repeat center center/cover;
+      background: url('img/banner.jpg') no-repeat center center/cover;
       padding: 60px 20px;
       text-align: center;
       color: white;
       text-shadow: 2px 2px 4px #000;
     }
 
-    /* #5: Grid for anime cards */
-    .anime-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+    /* #4: Section Headings */
+    .section {
       padding: 20px;
     }
 
-    /* #6: Anime card style */
+    .section-title {
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .dark-mode .section-title {
+      color: #fff;
+    }
+
+    /* #5: Anime Card Grid */
+    .anime-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 0 20px 30px;
+    }
+
     .anime-card {
       background: #fff;
       border-radius: 10px;
@@ -125,76 +123,65 @@
       color: #fff;
     }
 
-    /* #7: Footer */
+    /* #6: Footer */
     footer {
       text-align: center;
       padding: 15px;
       background: #1a1a1a;
       color: white;
     }
-
-    .navbar-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
   </style>
 </head>
 <body>
 
-  <!-- #8: Navbar with logo, menu, search, mode -->
+  <!-- #7: Navbar -->
   <div class="navbar">
-    <div class="navbar-left">
-      <div class="menu-icon" onclick="toggleMenu()">☰</div>
-      <!-- #8.1: Logo from Telegraph -->
-      <img src="https://graph.org/file/8517466703e210fae55b2-142042e1fa993276c8.jpg" alt="Logo" class="logo">
-    </div>
-
-    <div class="navbar-center">
-      <input type="text" id="searchBox" placeholder="Search anime...">
-    </div>
-
-    <div class="navbar-right">
-      <button class="toggle-mode" onclick="toggleMode()">
-        <span id="mode-icon">🌙</span> Mode
-      </button>
-    </div>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <input type="text" id="searchBox" placeholder="Search anime...">
+    <button class="toggle-mode" onclick="toggleMode()">
+      <span id="mode-icon">🌙</span> Mode
+    </button>
   </div>
 
-  <!-- #9: Banner -->
+  <!-- #8: Banner -->
   <div class="banner">
     <h1>🎌 Welcome to My Anime World</h1>
     <p>Watch and Enjoy Unlimited Anime</p>
   </div>
 
-  <!-- #10: Anime Card Section -->
-  <main class="anime-grid" id="animeList">
-
-    <!-- Card 1 -->
-    <div class="anime-card" onclick="location.href='watch-naruto.html'">
-      <img src="https://graph.org/file/52bfb4c77b3a86a79d0b5-eca45f96e85ca793f6.jpg" alt="Naruto">
-      <h2>Naruto</h2>
+  <!-- #9: Most Popular Section -->
+  <section class="section">
+    <h2 class="section-title">🔥 Most Popular</h2>
+    <div class="anime-grid">
+      <!-- Card 1 -->
+      <div class="anime-card" onclick="location.href='watch-naruto.html'">
+        <img src="https://graph.org/file/52bfb4c77b3a86a79d0b5-eca45f96e85ca793f6.jpg" alt="Naruto">
+        <h2>Naruto</h2>
+      </div>
+      <!-- Card 2 -->
+      <div class="anime-card" onclick="location.href='watch-onepiece.html'">
+        <img src="https://graph.org/file/ebd4a7d5cbdac37fa26ca-82f97e7586754d87a5.jpg" alt="One Piece">
+        <h2>One Piece</h2>
+      </div>
     </div>
+  </section>
 
-    <!-- Card 2 -->
-    <div class="anime-card" onclick="location.href='watch-onepiece.html'">
-      <img src="https://graph.org/file/ebd4a7d5cbdac37fa26ca-82f97e7586754d87a5.jpg" alt="One Piece">
-      <h2>One Piece</h2>
+  <!-- #10: New Release Section -->
+  <section class="section">
+    <h2 class="section-title">🆕 New Release</h2>
+    <div class="anime-grid">
+      <!-- Card 3 -->
+      <div class="anime-card" onclick="location.href='watch-aot.html'">
+        <img src="https://graph.org/file/826c6dc0200a30e1bf669-1f6d5b765741ec8026.jpg" alt="Attack on Titan">
+        <h2>Attack on Titan</h2>
+      </div>
+      <!-- Card 4 -->
+      <div class="anime-card" onclick="location.href='watch-demonslayer.html'">
+        <img src="https://graph.org/file/68f19e86e6862e56a3061-16d5ec0730a17598b8.jpg" alt="Demon Slayer">
+        <h2>Demon Slayer</h2>
+      </div>
     </div>
-
-    <!-- Card 3 -->
-    <div class="anime-card" onclick="location.href='watch-aot.html'">
-      <img src="https://graph.org/file/826c6dc0200a30e1bf669-1f6d5b765741ec8026.jpg" alt="Attack on Titan">
-      <h2>Attack on Titan</h2>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="anime-card" onclick="location.href='watch-demonslayer.html'">
-      <img src="https://graph.org/file/68f19e86e6862e56a3061-16d5ec0730a17598b8.jpg" alt="Demon Slayer">
-      <h2>Demon Slayer</h2>
-    </div>
-
-  </main>
+  </section>
 
   <!-- #11: Footer -->
   <footer>
