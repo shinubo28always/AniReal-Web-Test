@@ -2,107 +2,190 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AniLab‑Style Anime Home</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AniWorld</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      margin:0; padding:0; font-family: Arial, sans-serif;
-      background:#121212; color:#e0e0e0;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
     }
     .navbar {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:10px; background:#1f1f1f;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1c1c1c;
+      padding: 10px 15px;
     }
-    .menu-icon, .toggle-mode { color:#e0e0e0; cursor:pointer; }
-    .toggle-mode { background:none; border:none; font-size:18px; }
+    .menu-icon, .toggle-mode {
+      font-size: 20px;
+      color: #fff;
+      cursor: pointer;
+    }
     .search-box {
-      flex:1; margin:0 10px;
-      background:#2a2a2a; border:none; color:#fff;
-      padding:8px; border-radius:5px;
+      flex: 1;
+      margin: 0 10px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: none;
+      background: #333;
+      color: #fff;
     }
-    .banner {
-      position:relative; height:200px; overflow:hidden;
+
+    /* 🔥 Banner Slider */
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
     }
-    .banner img {
-      width:100%; height:100%; object-fit:cover;
+    .slides {
+      display: flex;
+      width: 500%;
+      height: 100%;
+      animation: slide 15s infinite;
     }
-    .section { margin-top:20px; }
+    .slides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(0); }
+      25% { transform: translateX(-100%); }
+      45% { transform: translateX(-100%); }
+      50% { transform: translateX(-200%); }
+      70% { transform: translateX(-200%); }
+      75% { transform: translateX(-300%); }
+      95% { transform: translateX(-300%); }
+      100% { transform: translateX(0); }
+    }
+
+    /* 🌀 Section Title */
     .section-title {
-      margin:10px 20px; font-size:20px; font-weight:bold;
-      color:#ffffff;
+      margin: 20px 15px 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #f5f5f5;
     }
-    .anime-scroll {
-      display:flex; overflow-x:auto; padding:0 20px;
-      gap:10px; scroll-behavior:smooth;
+
+    /* 📦 Horizontal scroll */
+    .scroll-row {
+      display: flex;
+      overflow-x: auto;
+      padding: 0 15px;
+      gap: 10px;
+      scroll-behavior: smooth;
     }
-    .anime-scroll .anime-card {
-      min-width:140px; flex-shrink:0;
-      background:#1f1f1f; border-radius:8px;
-      overflow:hidden; cursor:pointer;
+    .anime-card {
+      min-width: 130px;
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .anime-card:hover {
+      transform: scale(1.05);
     }
     .anime-card img {
-      width:100%; height:200px; object-fit:cover;
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
     }
     .anime-card h3 {
-      margin:5px; font-size:14px; color:#fff;
+      text-align: center;
+      font-size: 14px;
+      margin: 8px 0;
+      color: #fff;
     }
+
     footer {
-      text-align:center; padding:15px; background:#1f1f1f;
-      color:#888;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      background: #1a1a1a;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
 
+  <!-- 🔘 Navbar -->
   <div class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">☰</div>
     <input class="search-box" id="searchBox" placeholder="Search anime...">
-    <button class="toggle-mode" onclick="toggleMode()">🌙</button>
+    <div class="toggle-mode" onclick="toggleMode()">🌙</div>
   </div>
 
-  <div class="banner">
-    <img src="https://graph.org/file/example-banner.jpg" alt="Banner">
-  </div>
-
-  <div class="section">
-    <div class="section-title">🔥 Trending Now</div>
-    <div class="anime-scroll" id="trending">
-      <!-- cards -->
-      <div class="anime-card" onclick="location.href='watch-naruto.html'">
-        <img src="https://graph.org/file/52bfb4c77b3a86a79d0b5-eca45f96e85ca793276c8.jpg">
-        <h3>Naruto</h3>
-      </div>
-      <!-- more cards -->
+  <!-- 🎞️ Banner Slider -->
+  <div class="slider">
+    <div class="slides">
+      <img src="https://graph.org/file/52bfb4c77b3a86a79d0b5-eca45f96e85ca793f6.jpg" alt="Naruto">
+      <img src="https://graph.org/file/ebd4a7d5cbdac37fa26ca-82f97e7586754d87a5.jpg" alt="One Piece">
+      <img src="https://graph.org/file/68f19e86e6862e56a3061-16d5ec0730a17598b8.jpg" alt="Demon Slayer">
+      <img src="https://graph.org/file/826c6dc0200a30e1bf669-1f6d5b765741ec8026.jpg" alt="Attack on Titan">
     </div>
   </div>
 
-  <div class="section">
-    <div class="section-title">⭐ Recommended</div>
-    <div class="anime-scroll">
-      <div class="anime-card"><img src="https://graph.org/..."><h3>One Piece</h3></div>
-      <div class="anime-card"><img src="https://graph.org/..."><h3>AOT</h3></div>
-      <!-- more -->
+  <!-- 🏷️ Section: Trending Now -->
+  <div class="section-title">🔥 Trending Now</div>
+  <div class="scroll-row">
+    <div class="anime-card">
+      <img src="https://graph.org/file/52bfb4c77b3a86a79d0b5-eca45f96e85ca793f6.jpg" alt="Naruto">
+      <h3>Naruto</h3>
+    </div>
+    <div class="anime-card">
+      <img src="https://graph.org/file/ebd4a7d5cbdac37fa26ca-82f97e7586754d87a5.jpg" alt="One Piece">
+      <h3>One Piece</h3>
+    </div>
+    <div class="anime-card">
+      <img src="https://graph.org/file/68f19e86e6862e56a3061-16d5ec0730a17598b8.jpg" alt="Demon Slayer">
+      <h3>Demon Slayer</h3>
     </div>
   </div>
 
-  <footer>&copy; 2025 My Anime World</footer>
+  <!-- 🆕 Section: New Releases -->
+  <div class="section-title">🆕 New Releases</div>
+  <div class="scroll-row">
+    <div class="anime-card">
+      <img src="https://graph.org/file/826c6dc0200a30e1bf669-1f6d5b765741ec8026.jpg" alt="AOT">
+      <h3>AOT</h3>
+    </div>
+    <div class="anime-card">
+      <img src="https://graph.org/file/9a55b680e424e5c9a8e69-25e3f2a2c9807d154c.jpg" alt="Tokyo Revengers">
+      <h3>Tokyo Revengers</h3>
+    </div>
+    <div class="anime-card">
+      <img src="https://graph.org/file/e201678f36f4c03a347df-b86ed5df6785405351.jpg" alt="Bleach">
+      <h3>Bleach</h3>
+    </div>
+  </div>
 
-<script>
-  function toggleMode() {
-    document.body.classList.toggle("dark-mode");
-    document.querySelector('.toggle-mode').textContent =
-      document.body.classList.contains("dark-mode") ? '☀️' : '🌙';
-  }
-  function toggleMenu() { alert("Menu clicked"); }
+  <!-- 🧾 Footer -->
+  <footer>
+    &copy; 2025 AniWorld | Made by You
+  </footer>
 
-  document.getElementById('searchBox').addEventListener('keyup', function(){
-    const keyword = this.value.toLowerCase();
-    document.querySelectorAll('.anime-card').forEach(card => {
-      const title = card.querySelector('h3').innerText.toLowerCase();
-      card.style.display = title.includes(keyword) ? 'inline-block' : 'none';
+  <!-- ⚙️ Script -->
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle("light");
+    }
+    function toggleMenu() {
+      alert("Menu clicked! Add sidebar later.");
+    }
+    document.getElementById('searchBox').addEventListener('input', function () {
+      const keyword = this.value.toLowerCase();
+      document.querySelectorAll('.anime-card').forEach(card => {
+        const title = card.querySelector('h3').innerText.toLowerCase();
+        card.style.display = title.includes(keyword) ? 'inline-block' : 'none';
+      });
     });
-  });
-</script>
+  </script>
 
 </body>
 </html>
