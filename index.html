@@ -456,17 +456,44 @@ setInterval(showNextSlide, 3000);
     }
 
     function handleSearch(query) {
-      const lower = query.toLowerCase();
-      const allCards = document.querySelectorAll(".anime-card");
-      const resultsContainer = document.getElementById("searchResults");
-      resultsContainer.innerHTML = "";
+  const lower = query.toLowerCase();
+  const allCards = document.querySelectorAll("#animeGrid .anime-card");
+  const resultsContainer = document.getElementById("searchResults");
+  const welcomeText = document.querySelector("main p");
+  const topHits = document.getElementById("top-hits");
+  const slider = document.getElementById("slider");
 
-      if (lower.trim() === "") {
-        resultsContainer.style.display = "none";
-        document.getElementById("slider").style.display = "block";
-        document.getElementById("animeGrid").style.display = "flex";
-        return;
-      }
+  resultsContainer.innerHTML = "";
+
+  if (lower.trim() === "") {
+    // If search is empty, show normal homepage elements
+    resultsContainer.style.display = "none";
+    welcomeText.style.display = "block";
+    topHits.style.display = "block";
+    slider.style.display = "block";
+    return;
+  }
+
+  welcomeText.style.display = "none";
+  topHits.style.display = "none";
+  slider.style.display = "none";
+
+  let found = 0;
+  allCards.forEach(card => {
+    const title = card.querySelector("h3").textContent.toLowerCase();
+    if (title.includes(lower)) {
+      resultsContainer.appendChild(card.cloneNode(true));
+      found++;
+    }
+  });
+
+  if (found > 0) {
+    resultsContainer.style.display = "flex";
+  } else {
+    resultsContainer.innerHTML = '<p>No anime found.</p>';
+    resultsContainer.style.display = "flex";
+  }
+}
 
       let found = 0;
       allCards.forEach(card => {
