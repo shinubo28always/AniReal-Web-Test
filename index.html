@@ -272,12 +272,28 @@ body.dark .slide-text {
       user-select: none;
     }
 
-    .search-results {
-      display: none;
-      flex-wrap: wrap;
-      gap: 15px;
-      padding: 15px;
-    }
+    /* Update search-results style for grid 2 per row */
+.search-results {
+  display: none;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px;
+  justify-content: center;
+}
+
+.search-results p {
+  font-size: 18px;
+  color: var(--text-color);
+  width: 100%;
+  text-align: center;
+}
+
+.search-results .anime-card {
+  flex: 1 1 calc(50% - 15px); /* 2 cards per row with gap */
+  max-width: calc(50% - 15px);
+  min-width: unset;
+  margin-bottom: 15px;
+}
   </style>
 </head>
 <body>
