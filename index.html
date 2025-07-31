@@ -7,11 +7,11 @@
   <title>AniReal - Anime Zone</title>
   <style>
     :root {
-      --bg-color: #ffffff;
-      --text-color: #000000;
-      --nav-color: #f0f0f0;
-      --slide-text-color: #000000;
-    }
+  --slide-text-color: #000000;
+}
+body.dark {
+  --slide-text-color: #ffffff;
+}
 
     body.dark {
       --bg-color: #121212;
@@ -108,16 +108,15 @@
     }
 
     .slide-text {
-      position: absolute;
-      bottom: 10px;
-      left: 15px;
-      color: var(--slide-text-color);
-      background-color: rgba(0, 0, 0, 0.3);
-      padding: 8px 12px;
-      border-radius: 5px;
-      max-width: 70%;
-      user-select: none;
-    }
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+  padding: 8px 12px;
+  border-radius: 5px;
+  color: var(--slide-text-color);
+  user-select: none;
+}
 
     .slide-text h3 {
       margin: 0;
