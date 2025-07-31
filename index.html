@@ -94,26 +94,34 @@
     }
     .anime-card {
       min-width: 140px;
-      background: white;
+      aspect-ratio: 9 / 16;
+      position: relative;
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      text-align: center;
-      cursor: pointer;
       flex-shrink: 0;
+      cursor: pointer;
     }
     .anime-card img {
       width: 100%;
-      height: 180px;
+      height: 100%;
       object-fit: cover;
+      display: block;
     }
     .anime-card h3 {
-      font-size: 14px;
-      padding: 5px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-size: 12px;
+      padding: 4px 6px;
+      text-align: center;
+      line-height: 1.2em;
     }
     .dark-mode .anime-card {
       background: #1c1c1c;
-      color: white;
     }
 
     /* #6: Footer */
@@ -163,7 +171,7 @@
     </div>
     <div class="anime-card">
       <img src="https://envs.sh/BNE.jpg" alt="Reborn as a Vending Machine, I Now Wander the Dungeon">
-      <h3>Reborn as a Vending <br> Machine, I Now Wander <br> the Dungeon</h3>
+      <h3>Reborn as a Vending <br>Machine, I Now Wander <br>the Dungeon</h3>
     </div>
     <div class="anime-card">
       <img src="https://envs.sh/BNQ.jpg" alt="Gachiakuta">
