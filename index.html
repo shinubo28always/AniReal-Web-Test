@@ -76,6 +76,7 @@
       font-weight: bold;
       transition: all 0.3s ease;
       white-space: nowrap;
+      user-select: none;
     }
 
     .search-box {
@@ -92,7 +93,7 @@
     }
 
     body.hide-title .search-box {
-      display: none
+      display: inline-block;
     }
 
     .dark .search-box {
@@ -118,10 +119,10 @@
     }
 
     .slider a {
-      position: relative;
       display: none;
       width: 100%;
       height: 100%;
+      position: relative;
       color: white;
       text-decoration: none;
     }
@@ -130,41 +131,31 @@
       display: block;
     }
 
-    .slider img {
+    /* Title & genre overlay on slider */
+    .slider .info {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background-color: rgba(0,0,0,0.4);
+      padding: 5px 10px;
+      border-radius: 4px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 16px;
+      user-select: none;
+    }
+
+    body.dark .slider .info {
+      background-color: rgba(255,255,255,0.3);
+      color: #000;
+      font-weight: bold;
+    }
+
+    .slider a img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-    }
-
-    /* Slide text container */
-    .slide-text {
-      position: absolute;
-      bottom: 15px;
-      left: 15px;
-      padding: 8px 12px;
-      border-radius: 5px;
-      background-color: rgba(0, 0, 0, 0.4);
-      color: white;
-      max-width: 70%;
-      user-select: none;
-    }
-
-    .slide-text h3 {
-      margin: 0 0 4px 0;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .slide-text p {
-      margin: 0;
-      font-size: 14px;
-      opacity: 0.9;
-    }
-
-    body.dark .slide-text {
-      background-color: rgba(255, 255, 255, 0.3);
-      color: #000;
     }
 
     /* Anime Section */
@@ -181,7 +172,7 @@
       user-select: none;
     }
 
-    /* Anime Grid Horizontal Scroll */
+    /* Anime Grid horizontal scroll removed for search result */
     .anime-grid {
       display: flex;
       gap: 15px;
@@ -189,9 +180,7 @@
       padding-bottom: 10px;
       scrollbar-width: thin;
       scrollbar-color: #ff4757 transparent;
-      flex-wrap: nowrap; /* no wrapping */
     }
-    /* Scrollbar for Webkit */
     .anime-grid::-webkit-scrollbar {
       height: 8px;
     }
@@ -203,9 +192,23 @@
       background: transparent;
     }
 
+    /* Search Results Grid (2 columns) */
+    .search-results {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
+      gap: 15px;
+      margin: 20px 15px;
+    }
+
+    .no-result-msg {
+      margin: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff4757;
+      user-select: none;
+    }
+
     .anime-card {
-      min-width: 150px;
-      flex-shrink: 0;
       background-color: var(--nav-color);
       border-radius: 8px;
       overflow: hidden;
@@ -217,6 +220,7 @@
       flex-direction: column;
       text-decoration: none;
       color: var(--text-color);
+      min-width: 150px;
     }
 
     .anime-card:hover {
@@ -237,6 +241,9 @@
       padding: 10px;
       margin: 0;
       flex-grow: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .anime-card p {
@@ -244,6 +251,9 @@
       color: gray;
       padding: 0 10px 10px;
       margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     main {
@@ -291,66 +301,72 @@
 
   <!-- Slider -->
   <div class="slider" id="slider">
-    <a href="https://t.me/One_Piece_in_Hindi_Dub_Original" target="_blank" class="slide active" data-title="One Piece" data-genre="Adventure, Fantasy">
+    <a href="https://t.me/One_Piece_in_Hindi_Dub_Original" target="_blank" class="slide active" tabindex="0" aria-label="One Piece">
       <img src="https://envs.sh/ILz.jpg" alt="One Piece" />
-      <div class="slide-text">
-        <h3>One Piece</h3>
-        <p>Adventure, Fantasy</p>
+      <div class="info">
+        <div>One Piece</div>
+        <div style="font-weight: normal; font-size: 12px;">Adventure, Action</div>
       </div>
     </a>
-    <a href="https://t.me/+k2wGvZpxSU41NWI1" target="_blank" class="slide" data-title="Attack on Titan" data-genre="Action, Drama">
+    <a href="https://t.me/+k2wGvZpxSU41NWI1" target="_blank" class="slide" tabindex="0" aria-label="Attack on Titan">
       <img src="https://envs.sh/ILX.jpg" alt="Attack on Titan" />
-      <div class="slide-text">
-        <h3>Attack on Titan</h3>
-        <p>Action, Drama</p>
+      <div class="info">
+        <div>Attack on Titan</div>
+        <div style="font-weight: normal; font-size: 12px;">Drama, Fantasy</div>
       </div>
     </a>
-    <a href="https://t.me/Naruto_Org_Hindi_Dub" target="_blank" class="slide" data-title="Naruto" data-genre="Adventure, Ninja">
+    <a href="https://t.me/Naruto_Org_Hindi_Dub" target="_blank" class="slide" tabindex="0" aria-label="Naruto">
       <img src="https://envs.sh/I57.jpg" alt="Naruto" />
-      <div class="slide-text">
-        <h3>Naruto</h3>
-        <p>Adventure, Ninja</p>
+      <div class="info">
+        <div>Naruto</div>
+        <div style="font-weight: normal; font-size: 12px;">Shounen, Adventure</div>
       </div>
     </a>
-    <a href="https://t.me/Demon_Slayer_Hindi_Dub05" target="_blank" class="slide" data-title="Demon Slayer" data-genre="Action, Supernatural">
+    <a href="https://t.me/Demon_Slayer_Hindi_Dub05" target="_blank" class="slide" tabindex="0" aria-label="Demon Slayer">
       <img src="https://envs.sh/IGZ.jpg" alt="Demon Slayer" />
-      <div class="slide-text">
-        <h3>Demon Slayer</h3>
-        <p>Action, Supernatural</p>
+      <div class="info">
+        <div>Demon Slayer</div>
+        <div style="font-weight: normal; font-size: 12px;">Action, Supernatural</div>
       </div>
     </a>
   </div>
 
   <!-- Main -->
   <main>
-    <p>Welcome! This is the beginning of your Anime website homepage.</p>
+    <p id="welcomeText">Welcome! This is the beginning of your Anime website homepage.</p>
   </main>
 
-  <!-- Anime Section -->
+  <!-- Top Hits Anime Section -->
   <section id="top-hits" class="anime-section">
     <h2>🔥 Top Hits Anime</h2>
-    <div class="anime-grid" id="animeGrid">
+    <div class="anime-grid" id="topHitsGrid">
       <!-- Anime Card 1 -->
-      <a href="https://example.com/watch/naruto" target="_blank" class="anime-card" data-title="Dan Da Dan">
+      <a href="https://example.com/watch/naruto" target="_blank" class="anime-card">
         <img src="https://envs.sh/IlB.jpg" alt="Dan Da Dan" />
         <h3>Dan Da Dan</h3>
         <p>Episodes: 12</p>
       </a>
 
       <!-- Anime Card 2 -->
-      <a href="https://example.com/watch/one-piece" target="_blank" class="anime-card" data-title="Dr. Stone">
+      <a href="https://example.com/watch/one-piece" target="_blank" class="anime-card">
         <img src="https://envs.sh/IlI.jpg" alt="Dr. Stone" />
         <h3>Dr. Stone</h3>
         <p>Episodes: 25+</p>
       </a>
 
       <!-- Anime Card 3 -->
-      <a href="https://example.com/watch/demon-slayer" target="_blank" class="anime-card" data-title="Gachiakuta">
+      <a href="https://example.com/watch/demon-slayer" target="_blank" class="anime-card">
         <img src="https://envs.sh/BNQ.jpg" alt="Gachiakuta" />
         <h3>Gachiakuta</h3>
         <p>Episodes: 12</p>
       </a>
     </div>
+  </section>
+
+  <!-- Search Results -->
+  <section id="searchResults" class="anime-section" style="display:none;">
+    <div class="search-results" id="searchResultsGrid"></div>
+    <div class="no-result-msg" id="noResultMsg" style="display:none;">No anime found with that name.</div>
   </section>
 
   <!-- Footer -->
@@ -375,7 +391,7 @@
       menu.style.display = menu.style.display === "block" ? "none" : "block";
     }
 
-    // Hide dropdown when clicking outside
+    // Hide dropdown when clicking outside & hide search box when clicking outside navbar/search/input
     document.addEventListener("click", function (event) {
       const dropdown = document.getElementById("dropdown");
       const icon = document.querySelector(".menu-icon");
@@ -387,7 +403,6 @@
         dropdown.style.display = "none";
       }
 
-      // Hide Search Box on outside click except navbar or search icon or input
       if (
         !navbar.contains(event.target) &&
         !isSearchIcon &&
@@ -395,7 +410,12 @@
       ) {
         document.body.classList.remove("hide-title");
         document.getElementById("searchExpanded").style.display = "none";
-        resetFilter();
+
+        // Show main content again
+        document.getElementById("welcomeText").style.display = "block";
+        document.getElementById("top-hits").style.display = "block";
+        document.getElementById("searchResults").style.display = "none";
+        clearSearch();
       }
     });
 
@@ -434,51 +454,98 @@
         searchInput.focus();
       } else {
         searchInput.style.display = "none";
-        resetFilter();
+        clearSearch();
+        showMainContent();
       }
     }
 
-    // Search filter functionality
-    const searchInput = document.getElementById("searchExpanded");
-    const animeGrid = document.getElementById("animeGrid");
-    const slider = document.getElementById("slider");
-    const animeCards = animeGrid.querySelectorAll(".anime-card");
-
-    searchInput.addEventListener("input", function () {
-      const query = this.value.trim().toLowerCase();
-
-      if (query.length === 0) {
-        // Show all cards and slider
-        animeCards.forEach(card => card.style.display = "flex");
-        slider.style.display = "block";
-      } else {
-        // Hide slider
-        slider.style.display = "none";
-
-        // Filter cards
-        let anyVisible = false;
-        animeCards.forEach(card => {
-          const title = card.getAttribute("data-title").toLowerCase();
-          if (title.includes(query)) {
-            card.style.display = "flex";
-            anyVisible = true;
-          } else {
-            card.style.display = "none";
-          }
-        });
-
-        // If no cards match, you can show a message or just show nothing
-        if (!anyVisible) {
-          // Optional: Show "No results" message here
-        }
+    // Anime data for search demo
+    const animeList = [
+      {
+        title: "Dan Da Dan",
+        episodes: "12",
+        img: "https://envs.sh/IlB.jpg",
+        link: "https://example.com/watch/naruto",
+      },
+      {
+        title: "Dr. Stone",
+        episodes: "25+",
+        img: "https://envs.sh/IlI.jpg",
+        link: "https://example.com/watch/one-piece",
+      },
+      {
+        title: "Gachiakuta",
+        episodes: "12",
+        img: "https://envs.sh/BNQ.jpg",
+        link: "https://example.com/watch/demon-slayer",
+      },
+      {
+        title: "One Piece",
+        episodes: "1000+",
+        img: "https://envs.sh/ILz.jpg",
+        link: "https://t.me/One_Piece_in_Hindi_Dub_Original",
+      },
+      {
+        title: "Attack on Titan",
+        episodes: "75",
+        img: "https://envs.sh/ILX.jpg",
+        link: "https://t.me/+k2wGvZpxSU41NWI1",
+      },
+      {
+        title: "Naruto",
+        episodes: "220",
+        img: "https://envs.sh/I57.jpg",
+        link: "https://t.me/Naruto_Org_Hindi_Dub",
+      },
+      {
+        title: "Demon Slayer",
+        episodes: "26",
+        img: "https://envs.sh/IGZ.jpg",
+        link: "https://t.me/Demon_Slayer_Hindi_Dub05",
       }
+    ];
+
+    // Search input event
+    const searchInput = document.getElementById("searchExpanded");
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      if (query.length === 0) {
+        clearSearch();
+        showMainContent();
+        return;
+      }
+      doSearch(query);
     });
 
-    function resetFilter() {
-      animeCards.forEach(card => card.style.display = "flex");
-      slider.style.display = "block";
-      searchInput.value = "";
-    }
-  </script>
-</body>
-</html>
+    function doSearch(query) {
+      const resultsGrid = document.getElementById("searchResultsGrid");
+      const noResultMsg = document.getElementById("noResultMsg");
+      const welcomeText = document.getElementById("welcomeText");
+      const topHits = document.getElementById("top-hits");
+      const slider = document.getElementById("slider");
+
+      // Filter anime by query (title match)
+      const filtered = animeList.filter(anime =>
+        anime.title.toLowerCase().includes(query)
+      );
+
+      // Show search results section, hide welcome text and top hits and slider
+      document.getElementById("searchResults").style.display = "block";
+      welcomeText.style.display = "none";
+      topHits.style.display = "none";
+      slider.style.display = "none";
+
+      resultsGrid.innerHTML = "";
+      if (filtered.length === 0) {
+        noResultMsg.style.display = "block";
+      } else {
+        noResultMsg.style.display = "none";
+        filtered.forEach(anime => {
+          const card = document.createElement("a");
+          card.className = "anime-card";
+          card.href = anime.link;
+          card.target = "_blank";
+          card.innerHTML = `
+            <img src="${anime.img}" alt="${anime.title}" />
+            <h3>${anime.title}</h3>
+            <p>Episodes: ${anime.
