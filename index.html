@@ -384,6 +384,7 @@ body.dark .slide-text {
     <p>&copy; 2025 AniReal. All rights reserved.</p>
   </footer>
 
+
   <script>
 let current = 0;
 const slides = document.querySelectorAll(".slider a");
@@ -394,68 +395,74 @@ function showNextSlide() {
 }
 setInterval(showNextSlide, 3000);
 
-    function toggleDropdown() {
-      const menu = document.getElementById("dropdown");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-    }
+function toggleDropdown() {
+  const menu = document.getElementById("dropdown");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
 
-    document.addEventListener("click", function (event) {
-      const dropdown = document.getElementById("dropdown");
-      const icon = document.querySelector(".menu-icon");
-      const navbar = document.getElementById("navbar");
-      const isSearchIcon = event.target.classList.contains("search-toggle-icon");
-      const isInput = event.target.id === "searchExpanded";
+document.addEventListener("click", function (event) {
+  const dropdown = document.getElementById("dropdown");
+  const icon = document.querySelector(".menu-icon");
+  const navbar = document.getElementById("navbar");
+  const isSearchIcon = event.target.classList.contains("search-toggle-icon");
+  const isInput = event.target.id === "searchExpanded";
 
-      if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
-        dropdown.style.display = "none";
-      }
+  if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
+    dropdown.style.display = "none";
+  }
 
-      if (!navbar.contains(event.target) && !isSearchIcon && !isInput) {
-        document.body.classList.remove("hide-title");
-        document.getElementById("searchExpanded").style.display = "none";
-        document.getElementById("slider").style.display = "block";
-        document.getElementById("animeGrid").style.display = "flex";
-        document.getElementById("searchResults").style.display = "none";
-      }
-    });
+  if (!navbar.contains(event.target) && !isSearchIcon && !isInput) {
+    document.body.classList.remove("hide-title");
+    document.getElementById("searchExpanded").style.display = "none";
+    document.getElementById("slider").style.display = "block";
+    document.getElementById("top-hits").style.display = "block";
+    document.querySelector("main p").style.display = "block";
+    document.getElementById("searchResults").style.display = "none";
+  }
+});
 
-    const themeToggleBtn = document.getElementById("themeToggle");
-    function applySavedTheme() {
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "dark") {
-        document.body.classList.add("dark");
-        themeToggleBtn.textContent = "Light Mode";
-      } else {
-        document.body.classList.remove("dark");
-        themeToggleBtn.textContent = "Dark Mode";
-      }
-    }
+const themeToggleBtn = document.getElementById("themeToggle");
+function applySavedTheme() {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark");
+    themeToggleBtn.textContent = "Light Mode";
+  } else {
+    document.body.classList.remove("dark");
+    themeToggleBtn.textContent = "Dark Mode";
+  }
+}
 
-    function toggleTheme() {
-      document.body.classList.toggle("dark");
-      if (document.body.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
-        themeToggleBtn.textContent = "Light Mode";
-      } else {
-        localStorage.setItem("theme", "light");
-        themeToggleBtn.textContent = "Dark Mode";
-      }
-    }
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+  if (document.body.classList.contains("dark")) {
+    localStorage.setItem("theme", "dark");
+    themeToggleBtn.textContent = "Light Mode";
+  } else {
+    localStorage.setItem("theme", "light");
+    themeToggleBtn.textContent = "Dark Mode";
+  }
+}
 
-    applySavedTheme();
+applySavedTheme();
 
-    function toggleSearch() {
-      document.body.classList.toggle("hide-title");
-      const searchInput = document.getElementById("searchExpanded");
-      if (document.body.classList.contains("hide-title")) {
-        searchInput.style.display = "inline-block";
-        searchInput.focus();
-      } else {
-        searchInput.style.display = "none";
-      }
-    }
+function toggleSearch() {
+  document.body.classList.toggle("hide-title");
+  const searchInput = document.getElementById("searchExpanded");
+  if (document.body.classList.contains("hide-title")) {
+    searchInput.style.display = "inline-block";
+    searchInput.focus();
+  } else {
+    searchInput.style.display = "none";
+    // Reset search view when search is closed
+    document.getElementById("slider").style.display = "block";
+    document.getElementById("top-hits").style.display = "block";
+    document.querySelector("main p").style.display = "block";
+    document.getElementById("searchResults").style.display = "none";
+  }
+}
 
-    function handleSearch(query) {
+function handleSearch(query) {
   const lower = query.toLowerCase();
   const allCards = document.querySelectorAll("#animeGrid .anime-card");
   const resultsContainer = document.getElementById("searchResults");
@@ -466,7 +473,7 @@ setInterval(showNextSlide, 3000);
   resultsContainer.innerHTML = "";
 
   if (lower.trim() === "") {
-    // If search is empty, show normal homepage elements
+    // Show normal homepage elements
     resultsContainer.style.display = "none";
     welcomeText.style.display = "block";
     topHits.style.display = "block";
@@ -474,6 +481,7 @@ setInterval(showNextSlide, 3000);
     return;
   }
 
+  // Hide normal elements during search
   welcomeText.style.display = "none";
   topHits.style.display = "none";
   slider.style.display = "none";
@@ -494,25 +502,6 @@ setInterval(showNextSlide, 3000);
     resultsContainer.style.display = "flex";
   }
 }
-
-      let found = 0;
-      allCards.forEach(card => {
-        const title = card.dataset.title.toLowerCase();
-        if (title.includes(lower)) {
-          resultsContainer.appendChild(card.cloneNode(true));
-          found++;
-        }
-      });
-
-      if (found > 0) {
-        document.getElementById("slider").style.display = "none";
-        document.getElementById("animeGrid").style.display = "none";
-        resultsContainer.style.display = "flex";
-      } else {
-        resultsContainer.innerHTML = '<p>No anime found.</p>';
-        resultsContainer.style.display = "flex";
-      }
-    }
-  </script>
+</script>
 </body>
 </html>
