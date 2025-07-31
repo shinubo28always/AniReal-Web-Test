@@ -19,12 +19,15 @@
 }
 
 .anime-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  display: flex;
   gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
 }
 
 .anime-card {
+  min-width: 150px;
+  flex-shrink: 0;
   background-color: var(--nav-color);
   border-radius: 8px;
   overflow: hidden;
