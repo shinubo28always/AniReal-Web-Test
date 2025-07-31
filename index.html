@@ -76,7 +76,6 @@
       font-weight: bold;
       transition: all 0.3s ease;
       white-space: nowrap;
-      user-select: none;
     }
 
     .search-box {
@@ -92,9 +91,9 @@
       transition: all 0.3s ease;
     }
 
-    body.hide-title .search-box {
-      display: inline-block;
-    }
+    body.hide-title .title {
+    display: none;
+   }
 
     .dark .search-box {
       background-color: #2b2b2b;
@@ -109,56 +108,81 @@
       user-select: none;
     }
 
-    /* Slider styles */
-    .slider {
-      width: 100%;
-      height: 200px;
-      overflow: hidden;
-      position: relative;
-      margin-top: 10px;
-    }
-
     .slider a {
-      display: none;
-      width: 100%;
-      height: 100%;
-      position: relative;
-      color: white;
-      text-decoration: none;
-    }
+  position: relative;
+  display: none;
+  width: 100%;
+  height: 100%;
+  color: white; /* text color by default */
+  text-decoration: none;
+}
 
-    .slider a.active {
-      display: block;
-    }
+.slider a.active {
+  display: block;
+}
 
-    /* Title & genre overlay on slider */
-    .slider .info {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      background-color: rgba(0,0,0,0.4);
-      padding: 5px 10px;
-      border-radius: 4px;
-      color: #fff;
-      font-weight: bold;
-      font-size: 16px;
-      user-select: none;
-    }
+.slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-    body.dark .slider .info {
-      background-color: rgba(255,255,255,0.3);
-      color: #000;
-      font-weight: bold;
-    }
+/* Slide text container */
+.slide-text {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.4); /* Light mode default: halka black */
+  color: white;
+  max-width: 70%;
+  user-select: none;
+}
 
-    .slider a img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+.slide-text h3 {
+  margin: 0 0 4px 0;
+  font-weight: bold;
+  font-size: 18px;
+}
 
-    /* Anime Section */
+.slide-text p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* Dark mode style for slide-text background */
+body.dark .slide-text {
+  background-color: rgba(255, 255, 255, 0.3); /* halka white transparent */
+  color: #000; /* dark mode te text dark korbo */
+}
+
+/* Text overlay on image */
+.slide-text {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  color: var(--text-color);
+  user-select: none;
+  /* No background or transparent background */
+}
+
+.slide-text h3 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.slide-text p {
+  margin: 2px 0 0 0;
+  font-size: 14px;
+  font-weight: normal;
+  opacity: 0.8;
+}
+
     .anime-section {
       margin: 30px 15px;
     }
@@ -172,7 +196,6 @@
       user-select: none;
     }
 
-    /* Anime Grid horizontal scroll removed for search result */
     .anime-grid {
       display: flex;
       gap: 15px;
@@ -181,6 +204,7 @@
       scrollbar-width: thin;
       scrollbar-color: #ff4757 transparent;
     }
+
     .anime-grid::-webkit-scrollbar {
       height: 8px;
     }
@@ -192,23 +216,9 @@
       background: transparent;
     }
 
-    /* Search Results Grid (2 columns) */
-    .search-results {
-      display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
-      gap: 15px;
-      margin: 20px 15px;
-    }
-
-    .no-result-msg {
-      margin: 30px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #ff4757;
-      user-select: none;
-    }
-
     .anime-card {
+      min-width: 150px;
+      flex-shrink: 0;
       background-color: var(--nav-color);
       border-radius: 8px;
       overflow: hidden;
@@ -220,7 +230,6 @@
       flex-direction: column;
       text-decoration: none;
       color: var(--text-color);
-      min-width: 150px;
     }
 
     .anime-card:hover {
@@ -241,9 +250,6 @@
       padding: 10px;
       margin: 0;
       flex-grow: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .anime-card p {
@@ -251,9 +257,6 @@
       color: gray;
       padding: 0 10px 10px;
       margin: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     main {
@@ -268,16 +271,19 @@
       color: gray;
       user-select: none;
     }
+
+    .search-results {
+      display: none;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 15px;
+    }
   </style>
 </head>
 <body>
-
-  <!-- Navbar -->
   <div class="navbar" id="navbar">
     <div class="navbar-left">
       <span class="menu-icon" onclick="toggleDropdown()">☰</span>
-
-      <!-- Dropdown Menu -->
       <div class="dropdown" id="dropdown">
         <button onclick="toggleTheme()" id="themeToggle">Dark Mode</button>
       </div>
@@ -290,6 +296,7 @@
       id="searchExpanded"
       class="search-box"
       placeholder="Search Anime..."
+      oninput="handleSearch(this.value)"
       autocomplete="off"
     />
 
@@ -300,98 +307,82 @@
   </div>
 
   <!-- Slider -->
-  <div class="slider" id="slider">
-    <a href="https://t.me/One_Piece_in_Hindi_Dub_Original" target="_blank" class="slide active" tabindex="0" aria-label="One Piece">
-      <img src="https://envs.sh/ILz.jpg" alt="One Piece" />
-      <div class="info">
-        <div>One Piece</div>
-        <div style="font-weight: normal; font-size: 12px;">Adventure, Action</div>
-      </div>
-    </a>
-    <a href="https://t.me/+k2wGvZpxSU41NWI1" target="_blank" class="slide" tabindex="0" aria-label="Attack on Titan">
-      <img src="https://envs.sh/ILX.jpg" alt="Attack on Titan" />
-      <div class="info">
-        <div>Attack on Titan</div>
-        <div style="font-weight: normal; font-size: 12px;">Drama, Fantasy</div>
-      </div>
-    </a>
-    <a href="https://t.me/Naruto_Org_Hindi_Dub" target="_blank" class="slide" tabindex="0" aria-label="Naruto">
-      <img src="https://envs.sh/I57.jpg" alt="Naruto" />
-      <div class="info">
-        <div>Naruto</div>
-        <div style="font-weight: normal; font-size: 12px;">Shounen, Adventure</div>
-      </div>
-    </a>
-    <a href="https://t.me/Demon_Slayer_Hindi_Dub05" target="_blank" class="slide" tabindex="0" aria-label="Demon Slayer">
-      <img src="https://envs.sh/IGZ.jpg" alt="Demon Slayer" />
-      <div class="info">
-        <div>Demon Slayer</div>
-        <div style="font-weight: normal; font-size: 12px;">Action, Supernatural</div>
-      </div>
-    </a>
-  </div>
+<div class="slider" id="slider">
+  <a href="https://t.me/One_Piece_in_Hindi_Dub_Original" target="_blank" class="slide active">
+    <img src="https://envs.sh/ILz.jpg" alt="One Piece" />
+    <div class="slide-text">
+      <h3>One Piece</h3>
+      <p>Adventure, Fantasy</p>
+    </div>
+  </a>
+  <a href="https://t.me/+k2wGvZpxSU41NWI1" target="_blank" class="slide">
+    <img src="https://envs.sh/ILX.jpg" alt="Attack on Titan" />
+    <div class="slide-text">
+      <h3>Attack on Titan</h3>
+      <p>Action, Drama</p>
+    </div>
+  </a>
+  <a href="https://t.me/Naruto_Org_Hindi_Dub" target="_blank" class="slide">
+    <img src="https://envs.sh/I57.jpg" alt="Naruto" />
+    <div class="slide-text">
+      <h3>Naruto</h3>
+      <p>Action, Ninja</p>
+    </div>
+  </a>
+  <a href="https://t.me/Demon_Slayer_Hindi_Dub05" target="_blank" class="slide">
+    <img src="https://envs.sh/IGZ.jpg" alt="Demon Slayer" />
+    <div class="slide-text">
+      <h3>Demon Slayer</h3>
+      <p>Action, Supernatural</p>
+    </div>
+  </a>
+</div>
 
-  <!-- Main -->
   <main>
-    <p id="welcomeText">Welcome! This is the beginning of your Anime website homepage.</p>
+    <p>Welcome! This is the beginning of your Anime website homepage.</p>
   </main>
 
-  <!-- Top Hits Anime Section -->
   <section id="top-hits" class="anime-section">
     <h2>🔥 Top Hits Anime</h2>
-    <div class="anime-grid" id="topHitsGrid">
-      <!-- Anime Card 1 -->
+    <div class="anime-grid" id="animeGrid">
       <a href="https://example.com/watch/naruto" target="_blank" class="anime-card">
-        <img src="https://envs.sh/IlB.jpg" alt="Dan Da Dan" />
-        <h3>Dan Da Dan</h3>
-        <p>Episodes: 12</p>
-      </a>
-
-      <!-- Anime Card 2 -->
-      <a href="https://example.com/watch/one-piece" target="_blank" class="anime-card">
-        <img src="https://envs.sh/IlI.jpg" alt="Dr. Stone" />
+  <img src="https://envs.sh/IlB.jpg" alt="Dan Da Dan" />
+  <h3>Dan Da Dan</h3>
+  <p>Episodes: 12</p>
+</a>
+      <a href="#" class="anime-card" data-title="Dr. Stone">
+        <img src="https://envs.sh/IlI.jpg" />
         <h3>Dr. Stone</h3>
         <p>Episodes: 25+</p>
       </a>
-
-      <!-- Anime Card 3 -->
-      <a href="https://example.com/watch/demon-slayer" target="_blank" class="anime-card">
-        <img src="https://envs.sh/BNQ.jpg" alt="Gachiakuta" />
+      <a href="#" class="anime-card" data-title="Gachiakuta">
+        <img src="https://envs.sh/BNQ.jpg" />
         <h3>Gachiakuta</h3>
         <p>Episodes: 12</p>
       </a>
     </div>
+    <div class="search-results" id="searchResults"></div>
   </section>
 
-  <!-- Search Results -->
-  <section id="searchResults" class="anime-section" style="display:none;">
-    <div class="search-results" id="searchResultsGrid"></div>
-    <div class="no-result-msg" id="noResultMsg" style="display:none;">No anime found with that name.</div>
-  </section>
-
-  <!-- Footer -->
   <footer>
     <p>&copy; 2025 AniReal. All rights reserved.</p>
   </footer>
 
   <script>
-    // Auto Slider
-    let current = 0;
-    const slides = document.querySelectorAll(".slider a");
-    function showNextSlide() {
-      slides[current].classList.remove("active");
-      current = (current + 1) % slides.length;
-      slides[current].classList.add("active");
-    }
-    setInterval(showNextSlide, 3000);
+let current = 0;
+const slides = document.querySelectorAll(".slider a");
+function showNextSlide() {
+  slides[current].classList.remove("active");
+  current = (current + 1) % slides.length;
+  slides[current].classList.add("active");
+}
+setInterval(showNextSlide, 3000);
 
-    // Dropdown toggle
     function toggleDropdown() {
       const menu = document.getElementById("dropdown");
       menu.style.display = menu.style.display === "block" ? "none" : "block";
     }
 
-    // Hide dropdown when clicking outside & hide search box when clicking outside navbar/search/input
     document.addEventListener("click", function (event) {
       const dropdown = document.getElementById("dropdown");
       const icon = document.querySelector(".menu-icon");
@@ -403,23 +394,15 @@
         dropdown.style.display = "none";
       }
 
-      if (
-        !navbar.contains(event.target) &&
-        !isSearchIcon &&
-        !isInput
-      ) {
+      if (!navbar.contains(event.target) && !isSearchIcon && !isInput) {
         document.body.classList.remove("hide-title");
         document.getElementById("searchExpanded").style.display = "none";
-
-        // Show main content again
-        document.getElementById("welcomeText").style.display = "block";
-        document.getElementById("top-hits").style.display = "block";
+        document.getElementById("slider").style.display = "block";
+        document.getElementById("animeGrid").style.display = "flex";
         document.getElementById("searchResults").style.display = "none";
-        clearSearch();
       }
     });
 
-    // Theme toggle with localStorage
     const themeToggleBtn = document.getElementById("themeToggle");
     function applySavedTheme() {
       const savedTheme = localStorage.getItem("theme");
@@ -445,7 +428,6 @@
 
     applySavedTheme();
 
-    // Toggle Search Box and Title
     function toggleSearch() {
       document.body.classList.toggle("hide-title");
       const searchInput = document.getElementById("searchExpanded");
@@ -454,98 +436,40 @@
         searchInput.focus();
       } else {
         searchInput.style.display = "none";
-        clearSearch();
-        showMainContent();
       }
     }
 
-    // Anime data for search demo
-    const animeList = [
-      {
-        title: "Dan Da Dan",
-        episodes: "12",
-        img: "https://envs.sh/IlB.jpg",
-        link: "https://example.com/watch/naruto",
-      },
-      {
-        title: "Dr. Stone",
-        episodes: "25+",
-        img: "https://envs.sh/IlI.jpg",
-        link: "https://example.com/watch/one-piece",
-      },
-      {
-        title: "Gachiakuta",
-        episodes: "12",
-        img: "https://envs.sh/BNQ.jpg",
-        link: "https://example.com/watch/demon-slayer",
-      },
-      {
-        title: "One Piece",
-        episodes: "1000+",
-        img: "https://envs.sh/ILz.jpg",
-        link: "https://t.me/One_Piece_in_Hindi_Dub_Original",
-      },
-      {
-        title: "Attack on Titan",
-        episodes: "75",
-        img: "https://envs.sh/ILX.jpg",
-        link: "https://t.me/+k2wGvZpxSU41NWI1",
-      },
-      {
-        title: "Naruto",
-        episodes: "220",
-        img: "https://envs.sh/I57.jpg",
-        link: "https://t.me/Naruto_Org_Hindi_Dub",
-      },
-      {
-        title: "Demon Slayer",
-        episodes: "26",
-        img: "https://envs.sh/IGZ.jpg",
-        link: "https://t.me/Demon_Slayer_Hindi_Dub05",
-      }
-    ];
+    function handleSearch(query) {
+      const lower = query.toLowerCase();
+      const allCards = document.querySelectorAll(".anime-card");
+      const resultsContainer = document.getElementById("searchResults");
+      resultsContainer.innerHTML = "";
 
-    // Search input event
-    const searchInput = document.getElementById("searchExpanded");
-    searchInput.addEventListener("input", () => {
-      const query = searchInput.value.trim().toLowerCase();
-      if (query.length === 0) {
-        clearSearch();
-        showMainContent();
+      if (lower.trim() === "") {
+        resultsContainer.style.display = "none";
+        document.getElementById("slider").style.display = "block";
+        document.getElementById("animeGrid").style.display = "flex";
         return;
       }
-      doSearch(query);
-    });
 
-    function doSearch(query) {
-      const resultsGrid = document.getElementById("searchResultsGrid");
-      const noResultMsg = document.getElementById("noResultMsg");
-      const welcomeText = document.getElementById("welcomeText");
-      const topHits = document.getElementById("top-hits");
-      const slider = document.getElementById("slider");
+      let found = 0;
+      allCards.forEach(card => {
+        const title = card.dataset.title.toLowerCase();
+        if (title.includes(lower)) {
+          resultsContainer.appendChild(card.cloneNode(true));
+          found++;
+        }
+      });
 
-      // Filter anime by query (title match)
-      const filtered = animeList.filter(anime =>
-        anime.title.toLowerCase().includes(query)
-      );
-
-      // Show search results section, hide welcome text and top hits and slider
-      document.getElementById("searchResults").style.display = "block";
-      welcomeText.style.display = "none";
-      topHits.style.display = "none";
-      slider.style.display = "none";
-
-      resultsGrid.innerHTML = "";
-      if (filtered.length === 0) {
-        noResultMsg.style.display = "block";
+      if (found > 0) {
+        document.getElementById("slider").style.display = "none";
+        document.getElementById("animeGrid").style.display = "none";
+        resultsContainer.style.display = "flex";
       } else {
-        noResultMsg.style.display = "none";
-        filtered.forEach(anime => {
-          const card = document.createElement("a");
-          card.className = "anime-card";
-          card.href = anime.link;
-          card.target = "_blank";
-          card.innerHTML = `
-            <img src="${anime.img}" alt="${anime.title}" />
-            <h3>${anime.title}</h3>
-            <p>Episodes: ${anime.
+        resultsContainer.innerHTML = '<p>No anime found.</p>';
+        resultsContainer.style.display = "flex";
+      }
+    }
+  </script>
+</body>
+</html>
