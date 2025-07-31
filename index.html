@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,8 +94,8 @@
       scroll-behavior: smooth;
     }
     .anime-card {
-      min-width: 140px;
-      aspect-ratio: 9 / 16;
+      width: 120px;
+      height: 190px;
       position: relative;
       border-radius: 10px;
       overflow: hidden;
@@ -157,63 +158,13 @@
   <!-- 🔥 New Release Hindi Dub -->
   <h2 class="section-title">🔥 New Release Hindi Dub</h2>
   <div class="anime-scroll" id="HindiAnimeZone">
-    <div class="anime-card">
-      <img src="https://envs.sh/Bv6.jpg" alt="New Saga">
-      <h3>New Saga</h3>
-    </div>
-    <div class="anime-card">
-      <img src="https://envs.sh/Bvx.jpg" alt="Rent a Girlfriend">
-      <h3>Rent a Girlfriend</h3>
-    </div>
-    <div class="anime-card">
-      <img src="https://envs.sh/Bv-.jpg" alt="Lord of Mysteries">
-      <h3>Lord of Mysteries</h3>
-    </div>
-    <div class="anime-card">
-      <img src="https://envs.sh/BNE.jpg" alt="Reborn as a Vending Machine, I Now Wander the Dungeon">
-      <h3>Reborn as a Vending <br>Machine, I Now Wander <br>the Dungeon</h3>
-    </div>
-    <div class="anime-card">
-      <img src="https://envs.sh/BNQ.jpg" alt="Gachiakuta">
-      <h3>Gachiakuta</h3>
-    </div>
-    <div class="anime-card">
-      <img src="https://envs.sh/BNh.jpg" alt="Fairy Tail">
-      <h3>Fairy Tail</h3>
-    </div>
+    <!-- Cards here -->
   </div>
 
   <!-- ⚜️ Most Popular -->
   <h2 class="section-title">⚜️ Most Popular ⚜️</h2>
   <div class="anime-scroll" id="MostPopular">
-    <div class="anime-card">
-      <img src="https://envs.sh/BvK.jpg" alt="Naruto">
-      <h3>Naruto</h3>
-    </div>
-    <div class="anime-card">
-      <img src="https://envs.sh/BvG.jpg" alt="One Piece">
-      <h3>One Piece</h3>
-    </div>
-    <div class="anime-card">
-      <img src="https://envs.sh/Bv5.jpg" alt="Demon Slayer">
-      <h3>Demon Slayer</h3>
-    </div>
-    <div class="anime-card">
-      <img src="https://envs.sh/BvL.jpg" alt="AOT">
-      <h3>Attack on Titan</h3>
-    </div>
-    <div class="anime-card">
-      <img src="https://envs.sh/Bvz.jpg" alt="JJK">
-      <h3>Jujutsu Kaisen</h3>
-    </div>
-    <div class="anime-card">
-      <img src="https://envs.sh/BvY.jpg" alt="Solo Leveling">
-      <h3>Solo Leveling</h3>
-    </div>
-    <div class="anime-card">
-      <img src="https://envs.sh/BvC.jpg" alt="Bleach TYBW">
-      <h3>Bleach: TYBW</h3>
-    </div>
+    <!-- Cards here -->
   </div>
 
   <!-- Footer -->
@@ -223,20 +174,15 @@
 
   <!-- JS -->
   <script>
-    // Dark mode toggle
     function toggleMode() {
       const body = document.body;
       const icon = document.getElementById('mode-icon');
       body.classList.toggle("dark-mode");
       icon.textContent = body.classList.contains("dark-mode") ? "☀️" : "🌙";
     }
-
-    // Dummy menu toggle
     function toggleMenu() {
       alert("Menu Clicked! You can add links later.");
     }
-
-    // Search Filter
     document.getElementById('searchBox').addEventListener('keyup', function () {
       const keyword = this.value.toLowerCase();
       document.querySelectorAll('.anime-card').forEach(card => {
@@ -244,25 +190,21 @@
         card.style.display = title.includes(keyword) ? 'block' : 'none';
       });
     });
-
-    // Auto Slider
     let slides = document.querySelectorAll('.slide');
     let currentSlide = 0;
-
     function showSlide(index) {
       slides.forEach((slide, i) => {
         slide.classList.toggle('active', i === index);
       });
     }
-
     function nextSlide() {
       currentSlide = (currentSlide + 1) % slides.length;
       showSlide(currentSlide);
     }
-
-    showSlide(currentSlide); // Initial show
-    setInterval(nextSlide, 3000); // Change every 3 sec
+    showSlide(currentSlide);
+    setInterval(nextSlide, 3000);
   </script>
 
 </body>
 </html>
+```
