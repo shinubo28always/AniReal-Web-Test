@@ -6,6 +6,55 @@
   <title>AniReal - Anime Zone</title>
 
   <style>
+.anime-section {
+  margin: 30px 15px;
+}
+
+.anime-section h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: var(--text-color);
+  border-left: 5px solid #ff4757;
+  padding-left: 10px;
+}
+
+.anime-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.anime-card {
+  background-color: var(--nav-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.anime-card:hover {
+  transform: scale(1.03);
+}
+
+.anime-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.anime-card h3 {
+  font-size: 16px;
+  padding: 10px;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.anime-card p {
+  font-size: 14px;
+  color: gray;
+  padding: 0 10px 10px;
+}
     :root {
       --bg-color: #ffffff;
       --text-color: #000000;
