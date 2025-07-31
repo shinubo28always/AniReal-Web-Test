@@ -4,25 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AniReal - Anime</title>
+  
+  <!-- Font Awesome CDN for icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-yN4Gp4EUM38FvKZ59mcZGKmM7DsERpxW2fya5c3xu6Rm61dYqG0Og7QW9o0SyDXqG9FS6OaZdcYuvIv5rJq8Xw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --nav-color: #f0f0f0;
     }
+
     body {
       font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      color: #000000;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
     }
 
     .navbar {
-      background-color: #f0f0f0;
+      background-color: var(--nav-color);
       padding: 12px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative;
     }
 
     .navbar-left, .navbar-right {
@@ -34,6 +47,27 @@
     .menu-icon {
       font-size: 22px;
       cursor: pointer;
+      user-select: none;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 50px;
+      left: 20px;
+      background-color: var(--nav-color);
+      border: 1px solid #ccc;
+      padding: 10px;
+      display: none;
+      z-index: 10;
+      border-radius: 5px;
+    }
+
+    .dropdown button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--text-color);
     }
 
     .title {
@@ -44,6 +78,7 @@
     .icon {
       font-size: 20px;
       cursor: pointer;
+      color: var(--text-color);
     }
 
     main {
@@ -51,7 +86,6 @@
       text-align: center;
     }
 
-    /* 🔄 Slider Styles */
     .slider {
       width: 100%;
       height: 200px;
@@ -82,6 +116,12 @@
       font-size: 14px;
       color: gray;
     }
+
+    .dark {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --nav-color: #1e1e1e;
+    }
   </style>
 </head>
 <body>
@@ -89,16 +129,21 @@
   <!-- Navbar -->
   <div class="navbar">
     <div class="navbar-left">
-      <span class="menu-icon">☰</span>
+      <span class="menu-icon" onclick="toggleDropdown()">☰</span>
+
+      <!-- Dropdown Menu -->
+      <div class="dropdown" id="dropdown">
+        <button onclick="toggleTheme()" id="themeToggle">Dark Mode</button>
+      </div>
     </div>
     <div class="title">AniReal - Anime</div>
     <div class="navbar-right">
-      <span class="icon">🔍</span>
-      <span class="icon">🔔</span>
+      <i class="fas fa-search icon"></i>
+      <i class="fas fa-bell icon"></i>
     </div>
   </div>
 
-  <!-- 🔄 Auto Slider -->
+  <!-- Slider -->
   <div class="slider" id="slider">
     <a href="https://t.me/One_Piece_in_Hindi_Dub_Original" target="_blank" class="slide active">
       <img src="https://envs.sh/ILz.jpg" alt="One Piece">
@@ -124,8 +169,9 @@
     <p>&copy; 2025 AniReal. All rights reserved.</p>
   </footer>
 
-  <!-- JS for Slider -->
+  <!-- JS -->
   <script>
+    // Auto Slider
     let current = 0;
     const slides = document.querySelectorAll('.slider a');
 
@@ -135,7 +181,20 @@
       slides[current].classList.add('active');
     }
 
-    setInterval(showNextSlide, 3000); // 3 seconds
+    setInterval(showNextSlide, 3000);
+
+    // Dropdown toggle
+    function toggleDropdown() {
+      const menu = document.getElementById('dropdown');
+      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    }
+
+    // Theme toggle
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      const btn = document.getElementById('themeToggle');
+      btn.textContent = document.body.classList.contains('dark') ? "Light Mode" : "Dark Mode";
+    }
   </script>
 
 </body>
