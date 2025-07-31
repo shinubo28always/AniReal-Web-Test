@@ -10,6 +10,14 @@
       --bg-color: #ffffff;
       --text-color: #000000;
       --nav-color: #f0f0f0;
+      --slide-text-color: #000000;
+    }
+
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --nav-color: #1e1e1e;
+      --slide-text-color: #ffffff;
     }
 
     body {
@@ -18,12 +26,6 @@
       color: var(--text-color);
       transition: background-color 0.3s, color 0.3s;
       margin: 0;
-    }
-
-    .dark {
-      --bg-color: #121212;
-      --text-color: #ffffff;
-      --nav-color: #1e1e1e;
     }
 
     .navbar {
@@ -84,21 +86,15 @@
       border: 1px solid #ccc;
       border-radius: 20px;
       outline: none;
-      background-color: #fff;
-      color: #000;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       width: 180px;
       display: none;
       transition: all 0.3s ease;
     }
 
     body.hide-title .title {
-    display: none;
-   }
-
-    .dark .search-box {
-      background-color: #2b2b2b;
-      color: #fff;
-      border: 1px solid #555;
+      display: none;
     }
 
     .notification-icon,
@@ -109,79 +105,47 @@
     }
 
     .slider a {
-  position: relative;
-  display: none;
-  width: 100%;
-  height: 100%;
-  color: white; /* text color by default */
-  text-decoration: none;
-}
+      position: relative;
+      display: none;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+    }
 
-.slider a.active {
-  display: block;
-}
+    .slider a.active {
+      display: block;
+    }
 
-.slider img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+    .slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-/* Slide text container */
-.slide-text {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  padding: 8px 12px;
-  border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.4); /* Light mode default: halka black */
-  color: white;
-  max-width: 70%;
-  user-select: none;
-}
+    .slide-text {
+      position: absolute;
+      bottom: 10px;
+      left: 15px;
+      color: var(--slide-text-color);
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 8px 12px;
+      border-radius: 5px;
+      max-width: 70%;
+      user-select: none;
+    }
 
-.slide-text h3 {
-  margin: 0 0 4px 0;
-  font-weight: bold;
-  font-size: 18px;
-}
+    .slide-text h3 {
+      margin: 0 0 4px 0;
+      font-weight: bold;
+      font-size: 18px;
+    }
 
-.slide-text p {
-  margin: 0;
-  font-size: 14px;
-  opacity: 0.9;
-}
-
-/* Dark mode style for slide-text background */
-body.dark .slide-text {
-  background-color: rgba(255, 255, 255, 0.3); /* halka white transparent */
-  color: #000; /* dark mode te text dark korbo */
-}
-
-/* Text overlay on image */
-.slide-text {
-  position: absolute;
-  bottom: 10px;
-  left: 15px;
-  color: var(--text-color);
-  user-select: none;
-  /* No background or transparent background */
-}
-
-.slide-text h3 {
-  margin: 0;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 1.1;
-}
-
-.slide-text p {
-  margin: 2px 0 0 0;
-  font-size: 14px;
-  font-weight: normal;
-  opacity: 0.8;
-}
+    .slide-text p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
 
     .anime-section {
       margin: 30px 15px;
@@ -208,10 +172,12 @@ body.dark .slide-text {
     .anime-grid::-webkit-scrollbar {
       height: 8px;
     }
+
     .anime-grid::-webkit-scrollbar-thumb {
       background-color: #ff4757;
       border-radius: 4px;
     }
+
     .anime-grid::-webkit-scrollbar-track {
       background: transparent;
     }
@@ -272,28 +238,27 @@ body.dark .slide-text {
       user-select: none;
     }
 
-    /* Update search-results style for grid 2 per row */
-.search-results {
-  display: none;
-  flex-wrap: wrap;
-  gap: 15px;
-  padding: 15px;
-  justify-content: center;
-}
+    .search-results {
+      display: none;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 15px;
+      justify-content: center;
+    }
 
-.search-results p {
-  font-size: 18px;
-  color: var(--text-color);
-  width: 100%;
-  text-align: center;
-}
+    .search-results p {
+      font-size: 18px;
+      color: var(--text-color);
+      width: 100%;
+      text-align: center;
+    }
 
-.search-results .anime-card {
-  flex: 1 1 calc(50% - 15px); /* 2 cards per row with gap */
-  max-width: calc(50% - 15px);
-  min-width: unset;
-  margin-bottom: 15px;
-}
+    .search-results .anime-card {
+      flex: 1 1 calc(50% - 15px);
+      max-width: calc(50% - 15px);
+      min-width: unset;
+      margin-bottom: 15px;
+    }
   </style>
 </head>
 <body>
@@ -323,68 +288,66 @@ body.dark .slide-text {
   </div>
 
   <!-- Slider -->
-<div class="slider" id="slider">
-  <a href="https://t.me/One_Piece_in_Hindi_Dub_Original" target="_blank" class="slide active">
-    <img src="https://envs.sh/ILz.jpg" alt="One Piece" />
-    <div class="slide-text">
-      <h3>One Piece</h3>
-      <p>Adventure, Fantasy</p>
-    </div>
-  </a>
-  <a href="https://t.me/+k2wGvZpxSU41NWI1" target="_blank" class="slide">
-    <img src="https://envs.sh/ILX.jpg" alt="Attack on Titan" />
-    <div class="slide-text">
-      <h3>Attack on Titan</h3>
-      <p>Action, Drama</p>
-    </div>
-  </a>
-  <a href="https://t.me/Naruto_Org_Hindi_Dub" target="_blank" class="slide">
-    <img src="https://envs.sh/I57.jpg" alt="Naruto" />
-    <div class="slide-text">
-      <h3>Naruto</h3>
-      <p>Action, Ninja</p>
-    </div>
-  </a>
-  <a href="https://t.me/Demon_Slayer_Hindi_Dub05" target="_blank" class="slide">
-    <img src="https://envs.sh/IGZ.jpg" alt="Demon Slayer" />
-    <div class="slide-text">
-      <h3>Demon Slayer</h3>
-      <p>Action, Supernatural</p>
-    </div>
-  </a>
-</div>
+  <div class="slider" id="slider">
+    <a href="https://t.me/One_Piece_in_Hindi_Dub_Original" target="_blank" class="slide active">
+      <img src="https://envs.sh/ILz.jpg" alt="One Piece" />
+      <div class="slide-text">
+        <h3>One Piece</h3>
+        <p>Adventure, Fantasy</p>
+      </div>
+    </a>
+    <a href="https://t.me/+k2wGvZpxSU41NWI1" target="_blank" class="slide">
+      <img src="https://envs.sh/ILX.jpg" alt="Attack on Titan" />
+      <div class="slide-text">
+        <h3>Attack on Titan</h3>
+        <p>Action, Drama</p>
+      </div>
+    </a>
+    <a href="https://t.me/Naruto_Org_Hindi_Dub" target="_blank" class="slide">
+      <img src="https://envs.sh/I57.jpg" alt="Naruto" />
+      <div class="slide-text">
+        <h3>Naruto</h3>
+        <p>Action, Ninja</p>
+      </div>
+    </a>
+    <a href="https://t.me/Demon_Slayer_Hindi_Dub05" target="_blank" class="slide">
+      <img src="https://envs.sh/IGZ.jpg" alt="Demon Slayer" />
+      <div class="slide-text">
+        <h3>Demon Slayer</h3>
+        <p>Action, Supernatural</p>
+      </div>
+    </a>
+  </div>
 
   <main>
     <p>Welcome! This is the beginning of your Anime website homepage.</p>
   </main>
 
   <section id="top-hits" class="anime-section">
- <h2>🔥 Top Hits Anime</h2>
-<div class="anime-grid" id="animeGrid">
-  <div class="anime-card">
-    <a href="https://example.com/watch/naruto" target="_blank">
-      <img src="https://envs.sh/IlB.jpg" alt="Dan Da Dan" />
-      <h3>Dan Da Dan</h3>
-      <p>Episodes: 12</p>
-    </a>
-  </div>
-
-  <div class="anime-card">
-    <a href="#" target="_blank">
-      <img src="https://envs.sh/IlI.jpg" alt="Dr. Stone" />
-      <h3>Dr. Stone</h3>
-      <p>Episodes: 25+</p>
-    </a>
-  </div>
-
-  <div class="anime-card">
-    <a href="#" target="_blank">
-      <img src="https://envs.sh/BNQ.jpg" alt="Gachiakuta" />
-      <h3>Gachiakuta</h3>
-      <p>Episodes: 12</p>
-    </a>
-  </div>
-</div>
+    <h2>🔥 Top Hits Anime</h2>
+    <div class="anime-grid" id="animeGrid">
+      <div class="anime-card">
+        <a href="https://example.com/watch/naruto" target="_blank">
+          <img src="https://envs.sh/IlB.jpg" alt="Dan Da Dan" />
+          <h3>Dan Da Dan</h3>
+          <p>Episodes: 12</p>
+        </a>
+      </div>
+      <div class="anime-card">
+        <a href="#" target="_blank">
+          <img src="https://envs.sh/IlI.jpg" alt="Dr. Stone" />
+          <h3>Dr. Stone</h3>
+          <p>Episodes: 25+</p>
+        </a>
+      </div>
+      <div class="anime-card">
+        <a href="#" target="_blank">
+          <img src="https://envs.sh/BNQ.jpg" alt="Gachiakuta" />
+          <h3>Gachiakuta</h3>
+          <p>Episodes: 12</p>
+        </a>
+      </div>
+    </div>
     <div class="search-results" id="searchResults"></div>
   </section>
 
@@ -392,124 +355,118 @@ body.dark .slide-text {
     <p>&copy; 2025 AniReal. All rights reserved.</p>
   </footer>
 
-
   <script>
-let current = 0;
-const slides = document.querySelectorAll(".slider a");
-function showNextSlide() {
-  slides[current].classList.remove("active");
-  current = (current + 1) % slides.length;
-  slides[current].classList.add("active");
-}
-setInterval(showNextSlide, 3000);
-
-function toggleDropdown() {
-  const menu = document.getElementById("dropdown");
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
-
-document.addEventListener("click", function (event) {
-  const dropdown = document.getElementById("dropdown");
-  const icon = document.querySelector(".menu-icon");
-  const navbar = document.getElementById("navbar");
-  const isSearchIcon = event.target.classList.contains("search-toggle-icon");
-  const isInput = event.target.id === "searchExpanded";
-
-  if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
-    dropdown.style.display = "none";
-  }
-
-  if (!navbar.contains(event.target) && !isSearchIcon && !isInput) {
-    document.body.classList.remove("hide-title");
-    document.getElementById("searchExpanded").style.display = "none";
-    document.getElementById("slider").style.display = "block";
-    document.getElementById("top-hits").style.display = "block";
-    document.querySelector("main p").style.display = "block";
-    document.getElementById("searchResults").style.display = "none";
-  }
-});
-
-const themeToggleBtn = document.getElementById("themeToggle");
-function applySavedTheme() {
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") {
-    document.body.classList.add("dark");
-    themeToggleBtn.textContent = "Light Mode";
-  } else {
-    document.body.classList.remove("dark");
-    themeToggleBtn.textContent = "Dark Mode";
-  }
-}
-
-function toggleTheme() {
-  document.body.classList.toggle("dark");
-  if (document.body.classList.contains("dark")) {
-    localStorage.setItem("theme", "dark");
-    themeToggleBtn.textContent = "Light Mode";
-  } else {
-    localStorage.setItem("theme", "light");
-    themeToggleBtn.textContent = "Dark Mode";
-  }
-}
-
-applySavedTheme();
-
-function toggleSearch() {
-  document.body.classList.toggle("hide-title");
-  const searchInput = document.getElementById("searchExpanded");
-  if (document.body.classList.contains("hide-title")) {
-    searchInput.style.display = "inline-block";
-    searchInput.focus();
-  } else {
-    searchInput.style.display = "none";
-    // Reset search view when search is closed
-    document.getElementById("slider").style.display = "block";
-    document.getElementById("top-hits").style.display = "block";
-    document.querySelector("main p").style.display = "block";
-    document.getElementById("searchResults").style.display = "none";
-  }
-}
-
-function handleSearch(query) {
-  const lower = query.toLowerCase();
-  const allCards = document.querySelectorAll("#animeGrid .anime-card");
-  const resultsContainer = document.getElementById("searchResults");
-  const welcomeText = document.querySelector("main p");
-  const topHits = document.getElementById("top-hits");
-  const slider = document.getElementById("slider");
-
-  resultsContainer.innerHTML = "";
-
-  if (lower.trim() === "") {
-    // Show normal homepage elements
-    resultsContainer.style.display = "none";
-    welcomeText.style.display = "block";
-    topHits.style.display = "block";
-    slider.style.display = "block";
-    return;
-  }
-
-  // Hide normal elements during search
-  welcomeText.style.display = "none";
-  topHits.style.display = "none";
-  slider.style.display = "none";
-
-  let found = 0;
-  allCards.forEach(card => {
-    const title = card.querySelector("h3").textContent.toLowerCase();
-    if (title.includes(lower)) {
-      resultsContainer.appendChild(card.cloneNode(true));
-      found++;
+    let current = 0;
+    const slides = document.querySelectorAll(".slider a");
+    function showNextSlide() {
+      slides[current].classList.remove("active");
+      current = (current + 1) % slides.length;
+      slides[current].classList.add("active");
     }
-  });
+    setInterval(showNextSlide, 3000);
 
-  if (found > 0) {
-    resultsContainer.style.display = "flex";
-  } else {
-    resultsContainer.innerHTML = '<p>No anime found.</p>';
-    resultsContainer.style.display = "flex";
-  }
-}
-</script>
+    function toggleDropdown() {
+      const menu = document.getElementById("dropdown");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    document.addEventListener("click", function (event) {
+      const dropdown = document.getElementById("dropdown");
+      const icon = document.querySelector(".menu-icon");
+      const navbar = document.getElementById("navbar");
+      const isSearchIcon = event.target.classList.contains("search-toggle-icon");
+      const isInput = event.target.id === "searchExpanded";
+
+      if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
+        dropdown.style.display = "none";
+      }
+
+      if (!navbar.contains(event.target) && !isSearchIcon && !isInput) {
+        document.body.classList.remove("hide-title");
+        document.getElementById("searchExpanded").style.display = "none";
+        document.getElementById("slider").style.display = "block";
+        document.getElementById("top-hits").style.display = "block";
+        document.querySelector("main p").style.display = "block";
+        document.getElementById("searchResults").style.display = "none";
+      }
+    });
+
+    const themeToggleBtn = document.getElementById("themeToggle");
+    function applySavedTheme() {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        themeToggleBtn.textContent = "Light Mode";
+      } else {
+        document.body.classList.remove("dark");
+        themeToggleBtn.textContent = "Dark Mode";
+      }
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      if (document.body.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        themeToggleBtn.textContent = "Light Mode";
+      } else {
+        localStorage.setItem("theme", "light");
+        themeToggleBtn.textContent = "Dark Mode";
+      }
+    }
+
+    applySavedTheme();
+
+    function toggleSearch() {
+      document.body.classList.toggle("hide-title");
+      const searchInput = document.getElementById("searchExpanded");
+      if (document.body.classList.contains("hide-title")) {
+        searchInput.style.display = "inline-block";
+        searchInput.focus();
+      } else {
+        searchInput.style.display = "none";
+        document.getElementById("slider").style.display = "block";
+        document.getElementById("top-hits").style.display = "block";
+        document.querySelector("main p").style.display = "block";
+        document.getElementById("searchResults").style.display = "none";
+      }
+    }
+
+    function handleSearch(query) {
+      const lower = query.toLowerCase();
+      const allCards = document.querySelectorAll("#animeGrid .anime-card");
+      const resultsContainer = document.getElementById("searchResults");
+      const welcomeText = document.querySelector("main p");
+      const topHits = document.getElementById("top-hits");
+      const slider = document.getElementById("slider");
+
+      resultsContainer.innerHTML = "";
+
+      if (lower.trim() === "") {
+        resultsContainer.style.display = "none";
+        welcomeText.style.display = "block";
+        topHits.style.display = "block";
+        slider.style.display = "block";
+        return;
+      }
+
+      welcomeText.style.display = "none";
+      topHits.style.display = "none";
+      slider.style.display = "none";
+
+      let found = 0;
+      allCards.forEach(card => {
+        const title = card.querySelector("h3").textContent.toLowerCase();
+        if (title.includes(lower)) {
+          resultsContainer.appendChild(card.cloneNode(true));
+          found++;
+        }
+      });
+
+      resultsContainer.style.display = "flex";
+      if (found === 0) {
+        resultsContainer.innerHTML = '<p>No anime found.</p>';
+      }
+    }
+  </script>
 </body>
 </html>
