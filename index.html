@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AniReal - Anime</title>
-  
-  <!-- Font Awesome CDN for icons -->
+
+  <!-- ✅ Font Awesome CDN -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    integrity="sha512-yN4Gp4EUM38FvKZ59mcZGKmM7DsERpxW2fya5c3xu6Rm61dYqG0Og7QW9o0SyDXqG9FS6OaZdcYuvIv5rJq8Xw=="
+    integrity="sha512-RXf+QSDCUQs6LhK+T9U92kLC+VYl4kF3Vz+s4Q5yNsk2OyFzE+Zr6J6p/j7cVtS3tY8yzNprV+8QckrjXDuK4w=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
@@ -26,6 +26,12 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       transition: background-color 0.3s, color 0.3s;
+    }
+
+    .dark {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --nav-color: #1e1e1e;
     }
 
     .navbar {
@@ -48,6 +54,7 @@
       font-size: 22px;
       cursor: pointer;
       user-select: none;
+      color: var(--text-color);
     }
 
     .dropdown {
@@ -116,12 +123,6 @@
       font-size: 14px;
       color: gray;
     }
-
-    .dark {
-      --bg-color: #121212;
-      --text-color: #ffffff;
-      --nav-color: #1e1e1e;
-    }
   </style>
 </head>
 <body>
@@ -159,7 +160,7 @@
     </a>
   </div>
 
-  <!-- Main Content -->
+  <!-- Main -->
   <main>
     <p>Welcome! This is the beginning of your Anime website homepage.</p>
   </main>
@@ -169,32 +170,59 @@
     <p>&copy; 2025 AniReal. All rights reserved.</p>
   </footer>
 
-  <!-- JS -->
+  <!-- JavaScript -->
   <script>
-    // Auto Slider
+    // ✅ Auto Slider
     let current = 0;
     const slides = document.querySelectorAll('.slider a');
-
     function showNextSlide() {
       slides[current].classList.remove('active');
       current = (current + 1) % slides.length;
       slides[current].classList.add('active');
     }
-
     setInterval(showNextSlide, 3000);
 
-    // Dropdown toggle
+    // ✅ Dropdown toggle
     function toggleDropdown() {
       const menu = document.getElementById('dropdown');
-      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
     }
 
-    // Theme toggle
-    function toggleTheme() {
-      document.body.classList.toggle('dark');
-      const btn = document.getElementById('themeToggle');
-      btn.textContent = document.body.classList.contains('dark') ? "Light Mode" : "Dark Mode";
+    // ✅ Hide dropdown when clicking outside
+    document.addEventListener("click", function(event) {
+      const dropdown = document.getElementById("dropdown");
+      const icon = document.querySelector(".menu-icon");
+      if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // ✅ Theme toggle with localStorage
+    const themeToggleBtn = document.getElementById("themeToggle");
+
+    function applySavedTheme() {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        themeToggleBtn.textContent = "Light Mode";
+      } else {
+        document.body.classList.remove("dark");
+        themeToggleBtn.textContent = "Dark Mode";
+      }
     }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      if (document.body.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        themeToggleBtn.textContent = "Light Mode";
+      } else {
+        localStorage.setItem("theme", "light");
+        themeToggleBtn.textContent = "Dark Mode";
+      }
+    }
+
+    applySavedTheme(); // ✅ apply theme on load
   </script>
 
 </body>
