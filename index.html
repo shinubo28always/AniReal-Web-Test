@@ -89,13 +89,12 @@
     }
 
     /* Slider base styles (if not already set) */
-.slider {
-  position: relative;
-  display: flex;
-  overflow-x: auto;
-  gap: 10px;
+.slide img {
+  width: 100%;
+  height: 150px; /* ✅ Fixed height to prevent large image */
+  object-fit: cover;
+  display: block;
 }
-
 .slide {
   position: relative;
   min-width: 250px;
