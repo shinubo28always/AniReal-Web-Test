@@ -1,52 +1,54 @@
-<!-- PLACE THIS IN YOUR HTML FILE -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AniReal - Anime Zone</title>
+
   <style>
     :root {
-  --slide-text-color: #000000;
-}
-body.dark {
-  --slide-text-color: #ffffff;
-}
-
-    body.dark {
-      --bg-color: #121212;
-      --text-color: #ffffff;
-      --nav-color: #1e1e1e;
-      --slide-text-color: #ffffff;
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --nav-color: #f0f0f0;
     }
 
     body {
       font-family: Arial, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
-      margin: 0;
       transition: background-color 0.3s, color 0.3s;
+      margin: 0;
+    }
+
+    .dark {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --nav-color: #1e1e1e;
     }
 
     .navbar {
       background-color: var(--nav-color);
       padding: 12px 20px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       flex-wrap: wrap;
       gap: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative;
     }
 
     .navbar-left, .navbar-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
     }
 
     .menu-icon {
-      font-size: 20px;
+      font-size: 22px;
       cursor: pointer;
+      user-select: none;
+      color: var(--text-color);
     }
 
     .dropdown {
@@ -64,321 +66,128 @@ body.dark {
     .dropdown button {
       background: none;
       border: none;
-      color: var(--text-color);
       cursor: pointer;
+      font-size: 16px;
+      color: var(--text-color);
     }
 
     .title {
       font-size: 20px;
       font-weight: bold;
+      transition: all 0.3s ease;
+      white-space: nowrap;
     }
 
     .search-box {
-      padding: 6px 12px;
+      padding: 5px 10px;
       font-size: 14px;
-      border-radius: 20px;
       border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+      background-color: #fff;
+      color: #000;
+      width: 180px;
       display: none;
-      background: var(--bg-color);
-      color: var(--text-color);
+      transition: all 0.3s ease;
     }
 
+    body.hide-title .search-box {
+      display: inline-block;
+    }
+
+    .dark .search-box {
+      background-color: #2b2b2b;
+      color: #fff;
+      border: 1px solid #555;
+    }
+
+    .notification-icon,
     .search-toggle-icon {
+      font-size: 18px;
       cursor: pointer;
+      user-select: none;
     }
 
+    /* Dropdown styles */
+    /* ... already above ... */
+
+    /* Slider styles */
     .slider {
-      position: relative;
+      width: 100%;
+      height: 200px;
       overflow: hidden;
+      position: relative;
+      margin-top: 10px;
     }
 
     .slider a {
       display: none;
-      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slider a img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .slider a.active {
       display: block;
     }
 
-    .slider img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .slide-text {
-  position: absolute;
-  bottom: 10px;
-  left: 15px;
-  background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
-  padding: 8px 12px;
-  border-radius: 5px;
-  color: var(--slide-text-color);
-  user-select: none;
-}
-
-    .slide-text h3 {
-      margin: 0;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .slide-text p {
-      margin: 0;
-      font-size: 14px;
-      opacity: 0.9;
-    }
-
-    main p {
-      margin: 20px;
-    }
-
+    /* Anime Section */
     .anime-section {
-      padding: 20px;
+      margin: 30px 15px;
     }
 
     .anime-section h2 {
-      border-left: 4px solid #ff4757;
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: var(--text-color);
+      border-left: 5px solid #ff4757;
       padding-left: 10px;
+      user-select: none;
     }
 
+    /* Anime Grid Horizontal Scroll */
     .anime-grid {
       display: flex;
       gap: 15px;
       overflow-x: auto;
       padding-bottom: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: #ff4757 transparent;
+    }
+    /* Scrollbar for Webkit */
+    .anime-grid::-webkit-scrollbar {
+      height: 8px;
+    }
+    .anime-grid::-webkit-scrollbar-thumb {
+      background-color: #ff4757;
+      border-radius: 4px;
+    }
+    .anime-grid::-webkit-scrollbar-track {
+      background: transparent;
     }
 
     .anime-card {
       min-width: 150px;
+      flex-shrink: 0;
       background-color: var(--nav-color);
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       transition: transform 0.2s;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
       text-decoration: none;
       color: var(--text-color);
     }
 
     .anime-card:hover {
       transform: scale(1.03);
+      box-shadow: 0 5px 15px rgba(255, 71, 87, 0.6);
     }
-
-    .anime-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .anime-card h3 {
-      margin: 10px;
-      font-size: 16px;
-    }
-
-    .anime-card p {
-      margin: 0 10px 10px;
-      font-size: 14px;
-      color: gray;
-    }
-
-    .search-results {
-      display: none;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .search-results p {
-      width: 100%;
-      text-align: center;
-      font-size: 18px;
-    }
-  </style>
-</head>
-<body>
-  <div class="navbar">
-    <div class="navbar-left">
-      <span class="menu-icon" onclick="toggleDropdown()">☰</span>
-      <div class="dropdown" id="dropdown">
-        <button onclick="toggleTheme()" id="themeToggle">Dark Mode</button>
-      </div>
-    </div>
-    <div class="title">AniReal - Anime Zone</div>
-    <input
-      type="text"
-      id="searchInput"
-      class="search-box"
-      placeholder="Search Anime..."
-      oninput="handleSearch(this.value)"
-    />
-    <div class="navbar-right">
-      <span class="search-toggle-icon" onclick="toggleSearch()">🔍</span>
-    </div>
-  </div>
-
-  <div class="slider" id="slider">
-    <a href="#" class="slide active">
-      <img src="https://envs.sh/ILz.jpg" />
-      <div class="slide-text">
-        <h3>One Piece</h3>
-        <p>Adventure, Fantasy</p>
-      </div>
-    </a>
-    <a href="#" class="slide">
-      <img src="https://envs.sh/ILX.jpg" />
-      <div class="slide-text">
-        <h3>Attack on Titan</h3>
-        <p>Action, Drama</p>
-      </div>
-    </a>
-  </div>
-
-  <main>
-    <p>Welcome! This is the beginning of your Anime website homepage.</p>
-  </main>
-
-  <section id="top-hits" class="anime-section">
-    <h2>🔥 Top Hits Anime</h2>
-    <div class="anime-grid" id="animeGrid">
-      <div class="anime-card">
-        <img src="https://envs.sh/IlB.jpg" />
-        <h3>Dan Da Dan</h3>
-        <p>Episodes: 12</p>
-      </div>
-      <div class="anime-card">
-        <img src="https://envs.sh/IlI.jpg" />
-        <h3>Dr. Stone</h3>
-        <p>Episodes: 25+</p>
-      </div>
-      <div class="anime-card">
-        <img src="https://envs.sh/BNQ.jpg" />
-        <h3>Gachiakuta</h3>
-        <p>Episodes: 12</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="search-results" id="searchResults"></div>
-
-  <footer>
-    <p>&copy; 2025 AniReal. All rights reserved.</p>
-  </footer>
-
-  <script>
-  // Theme toggle
-  const themeToggleBtn = document.getElementById("themeToggle");
-  function applySavedTheme() {
-    const saved = localStorage.getItem("theme");
-    if (saved === "dark") {
-      document.body.classList.add("dark");
-      themeToggleBtn.textContent = "Light Mode";
-    } else {
-      document.body.classList.remove("dark");
-      themeToggleBtn.textContent = "Dark Mode";
-    }
-  }
-  function toggleTheme() {
-    document.body.classList.toggle("dark");
-    const dark = document.body.classList.contains("dark");
-    themeToggleBtn.textContent = dark ? "Light Mode" : "Dark Mode";
-    localStorage.setItem("theme", dark ? "dark" : "light");
-  }
-  applySavedTheme();
-
-  // Toggle dropdown menu
-  function toggleDropdown() {
-    const dropdown = document.getElementById("dropdown");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-  }
-
-  // Toggle search box
-  function toggleSearch() {
-    const box = document.getElementById("searchInput");
-    const title = document.querySelector("main p");
-    const topHits = document.getElementById("top-hits");
-    const slider = document.getElementById("slider");
-
-    if (box.style.display === "inline-block") {
-      box.style.display = "none";
-      title.style.display = "block";
-      topHits.style.display = "block";
-      slider.style.display = "block";
-    } else {
-      box.style.display = "inline-block";
-      box.focus();
-      title.style.display = "none";
-      topHits.style.display = "none";
-      slider.style.display = "none";
-    }
-  }
-
-  // Hide dropdown and search box on outside click
-  document.addEventListener("click", function (e) {
-    const dropdown = document.getElementById("dropdown");
-    const searchBox = document.getElementById("searchInput");
-    const menuIcon = document.querySelector(".menu-icon");
-    const searchIcon = document.querySelector(".search-toggle-icon");
-
-    if (!dropdown.contains(e.target) && !menuIcon.contains(e.target)) {
-      dropdown.style.display = "none";
-    }
-
-    if (!searchBox.contains(e.target) && !searchIcon.contains(e.target)) {
-      searchBox.style.display = "none";
-      document.querySelector("main p").style.display = "block";
-      document.getElementById("top-hits").style.display = "block";
-      document.getElementById("slider").style.display = "block";
-    }
-  });
-
-  // Handle search functionality
-  function handleSearch(query) {
-    const allCards = document.querySelectorAll("#animeGrid .anime-card");
-    const resultBox = document.getElementById("searchResults");
-    const welcomeText = document.querySelector("main p");
-    const topHits = document.getElementById("top-hits");
-    const slider = document.getElementById("slider");
-
-    resultBox.innerHTML = "";
-    const value = query.trim().toLowerCase();
-
-    if (value === "") {
-      resultBox.style.display = "none";
-      welcomeText.style.display = "block";
-      topHits.style.display = "block";
-      slider.style.display = "block";
-      return;
-    }
-
-    welcomeText.style.display = "none";
-    topHits.style.display = "none";
-    slider.style.display = "none";
-
-    let found = 0;
-    allCards.forEach(card => {
-      const title = card.querySelector("h3").textContent.toLowerCase();
-      if (title.includes(value)) {
-        resultBox.appendChild(card.cloneNode(true));
-        found++;
-      }
-    });
-
-    resultBox.style.display = "flex";
-    if (found === 0) {
-      resultBox.innerHTML = "<p style='padding:10px;'>No anime found with that name.</p>";
-    }
-  }
-
-  // Auto-slide logic
-  const slides = document.querySelectorAll(".slider .slide");
-  let current = 0;
-  setInterval(() => {
-    slides[current].classList.remove("active");
-    current = (current + 1) % slides.length;
-    slides[current].classList.add("active");
-  }, 3000);
-</script>
-</body>
-</html>
