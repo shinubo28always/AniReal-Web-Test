@@ -295,13 +295,45 @@
       }
     });
 
-    // Toggle search bar
-    function toggleSearch() {
-      document.body.classList.toggle("hide-title");
-      const searchInput = document.getElementById("searchExpanded");
-      searchInput.style.display = document.body.classList.contains("hide-title") ? "inline-block" : "none";
-      if (searchInput.style.display === "inline-block") searchInput.focus();
-    }
+// Toggle search bar
+function toggleSearch() {
+  const searchInput = document.getElementById("searchExpanded");
+  const mainTitle = document.getElementById("mainTitle");
+
+  if (searchInput.style.display === "inline-block") {
+    // Hide search, show title
+    searchInput.style.display = "none";
+    mainTitle.style.display = "block";
+  } else {
+    // Show search, hide title
+    searchInput.style.display = "inline-block";
+    searchInput.focus();
+    mainTitle.style.display = "none";
+  }
+}
+
+// Outside click
+document.addEventListener("click", function (event) {
+  const dropdown = document.getElementById("dropdown");
+  const menuIcon = document.querySelector(".menu-icon");
+  const searchIcon = document.querySelector(".search-toggle-icon");
+  const searchInput = document.getElementById("searchExpanded");
+  const mainTitle = document.getElementById("mainTitle");
+
+  // Close dropdown
+  if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
+    dropdown.style.display = "none";
+  }
+
+  // Clicked outside search input or icon
+  if (
+    !searchInput.contains(event.target) &&
+    !searchIcon.contains(event.target)
+  ) {
+    searchInput.style.display = "none";
+    mainTitle.style.display = "block";
+  }
+});
 
     // Search
     const searchInput = document.getElementById("searchExpanded");
