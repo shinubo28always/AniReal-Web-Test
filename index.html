@@ -191,3 +191,145 @@
       transform: scale(1.03);
       box-shadow: 0 5px 15px rgba(255, 71, 87, 0.6);
     }
+    .anime-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .anime-card h3 {
+      font-size: 16px;
+      padding: 10px;
+      margin: 0;
+      flex-grow: 1;
+    }
+
+    .anime-card p {
+      font-size: 14px;
+      color: gray;
+      padding: 0 10px 10px;
+      margin: 0;
+    }
+
+    main {
+      padding: 20px;
+      text-align: center;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: gray;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar" id="navbar">
+    <div class="navbar-left">
+      <span class="menu-icon" onclick="toggleDropdown()">☰</span>
+
+      <!-- Dropdown Menu -->
+      <div class="dropdown" id="dropdown">
+        <button onclick="toggleTheme()" id="themeToggle">Dark Mode</button>
+      </div>
+    </div>
+
+    <div class="title" id="mainTitle">AniReal - Anime Zone</div>
+
+    <input
+      type="text"
+      id="searchExpanded"
+      class="search-box"
+      placeholder="Search Anime..."
+      autocomplete="off"
+    />
+
+    <div class="navbar-right">
+      <span class="search-toggle-icon" onclick="toggleSearch()">🔍</span>
+      <span class="notification-icon">🔔</span>
+    </div>
+  </div>
+
+  <!-- Slider -->
+  <div class="slider" id="slider">
+    <a href="https://t.me/One_Piece_in_Hindi_Dub_Original" target="_blank" class="slide active">
+      <img src="https://envs.sh/ILz.jpg" alt="One Piece" />
+    </a>
+    <a href="https://t.me/+k2wGvZpxSU41NWI1" target="_blank" class="slide">
+      <img src="https://envs.sh/ILX.jpg" alt="Attack on Titan" />
+    </a>
+    <a href="https://t.me/Naruto_Org_Hindi_Dub" target="_blank" class="slide">
+      <img src="https://envs.sh/I57.jpg" alt="Naruto" />
+    </a>
+    <a href="https://t.me/Demon_Slayer_Hindi_Dub05" target="_blank" class="slide">
+      <img src="https://envs.sh/IGZ.jpg" alt="Demon Slayer" />
+    </a>
+  </div>
+
+  <!-- Main -->
+  <main>
+    <p>Welcome! This is the beginning of your Anime website homepage.</p>
+  </main>
+
+  <!-- Top Hits Anime Section -->
+  <section id="top-hits" class="anime-section">
+    <h2>🔥 Top Hits Anime</h2>
+    <div class="anime-grid">
+      <!-- Anime Card 1 -->
+      <a href="https://example.com/watch/naruto" target="_blank" class="anime-card">
+        <img src="https://envs.sh/IlB.jpg" alt="Dan Da Dan" />
+        <h3>Dan Da Dan</h3>
+        <p>Episodes: 12</p>
+      </a>
+
+      <!-- Anime Card 2 -->
+      <a href="https://example.com/watch/one-piece" target="_blank" class="anime-card">
+        <img src="https://envs.sh/IlI.jpg" alt="Dr. Stone" />
+        <h3>Dr. Stone</h3>
+        <p>Episodes: 25+</p>
+      </a>
+
+      <!-- Anime Card 3 -->
+      <a href="https://example.com/watch/demon-slayer" target="_blank" class="anime-card">
+        <img src="https://envs.sh/BNQ.jpg" alt="Gachiakuta" />
+        <h3>Gachiakuta</h3>
+        <p>Episodes: 12</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 AniReal. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Auto Slider
+    let current = 0;
+    const slides = document.querySelectorAll(".slider a");
+    function showNextSlide() {
+      slides[current].classList.remove("active");
+      current = (current + 1) % slides.length;
+      slides[current].classList.add("active");
+    }
+    setInterval(showNextSlide, 3000);
+
+    // Dropdown toggle
+    function toggleDropdown() {
+      const menu = document.getElementById("dropdown");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    // Hide dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+      const dropdown = document.getElementById("dropdown");
+      const icon = document.querySelector(".menu-icon");
+      const navbar = document.getElementById("navbar");
+      const isSearchIcon = event.target.classList.contains("search-toggle-icon");
+      const isInput = event.target.id === "searchExpanded";
