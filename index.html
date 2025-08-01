@@ -108,10 +108,6 @@
       user-select: none;
     }
 
-    /* Dropdown styles */
-    /* ... already above ... */
-
-    /* Slider styles */
     .slider {
       width: 100%;
       height: 200px;
@@ -136,7 +132,6 @@
       display: block;
     }
 
-    /* Anime Section */
     .anime-section {
       margin: 30px 15px;
     }
@@ -150,7 +145,6 @@
       user-select: none;
     }
 
-    /* Anime Grid Horizontal Scroll */
     .anime-grid {
       display: flex;
       gap: 15px;
@@ -159,14 +153,16 @@
       scrollbar-width: thin;
       scrollbar-color: #ff4757 transparent;
     }
-    /* Scrollbar for Webkit */
+
     .anime-grid::-webkit-scrollbar {
       height: 8px;
     }
+
     .anime-grid::-webkit-scrollbar-thumb {
       background-color: #ff4757;
       border-radius: 4px;
     }
+
     .anime-grid::-webkit-scrollbar-track {
       background: transparent;
     }
@@ -191,6 +187,7 @@
       transform: scale(1.03);
       box-shadow: 0 5px 15px rgba(255, 71, 87, 0.6);
     }
+
     .anime-card img {
       width: 100%;
       height: 200px;
@@ -233,8 +230,6 @@
   <div class="navbar" id="navbar">
     <div class="navbar-left">
       <span class="menu-icon" onclick="toggleDropdown()">☰</span>
-
-      <!-- Dropdown Menu -->
       <div class="dropdown" id="dropdown">
         <button onclick="toggleTheme()" id="themeToggle">Dark Mode</button>
       </div>
@@ -242,13 +237,7 @@
 
     <div class="title" id="mainTitle">AniReal - Anime Zone</div>
 
-    <input
-      type="text"
-      id="searchExpanded"
-      class="search-box"
-      placeholder="Search Anime..."
-      autocomplete="off"
-    />
+    <input type="text" id="searchExpanded" class="search-box" placeholder="Search Anime..." autocomplete="off" />
 
     <div class="navbar-right">
       <span class="search-toggle-icon" onclick="toggleSearch()">🔍</span>
@@ -258,53 +247,35 @@
 
   <!-- Slider -->
   <div class="slider" id="slider">
-    <a href="https://t.me/One_Piece_in_Hindi_Dub_Original" target="_blank" class="slide active">
-      <img src="https://envs.sh/ILz.jpg" alt="One Piece" />
-    </a>
-    <a href="https://t.me/+k2wGvZpxSU41NWI1" target="_blank" class="slide">
-      <img src="https://envs.sh/ILX.jpg" alt="Attack on Titan" />
-    </a>
-    <a href="https://t.me/Naruto_Org_Hindi_Dub" target="_blank" class="slide">
-      <img src="https://envs.sh/I57.jpg" alt="Naruto" />
-    </a>
-    <a href="https://t.me/Demon_Slayer_Hindi_Dub05" target="_blank" class="slide">
-      <img src="https://envs.sh/IGZ.jpg" alt="Demon Slayer" />
-    </a>
+    <a href="#" target="_blank" class="slide active"><img src="https://envs.sh/ILz.jpg" alt="One Piece" /></a>
+    <a href="#" target="_blank" class="slide"><img src="https://envs.sh/ILX.jpg" alt="AOT" /></a>
+    <a href="#" target="_blank" class="slide"><img src="https://envs.sh/I57.jpg" alt="Naruto" /></a>
+    <a href="#" target="_blank" class="slide"><img src="https://envs.sh/IGZ.jpg" alt="Demon Slayer" /></a>
   </div>
 
-  <!-- Main -->
   <main>
     <p>Welcome! This is the beginning of your Anime website homepage.</p>
   </main>
 
-  <!-- Top Hits Anime Section -->
+  <!-- Top Hits -->
   <section id="top-hits" class="anime-section">
     <h2>🔥 Top Hits Anime</h2>
     <div class="anime-grid">
-      <!-- Anime Card 1 -->
-      <a href="https://example.com/watch/naruto" target="_blank" class="anime-card">
+      <a href="#" class="anime-card" data-title="dan da dan">
         <img src="https://envs.sh/IlB.jpg" alt="Dan Da Dan" />
-        <h3>Dan Da Dan</h3>
-        <p>Episodes: 12</p>
+        <h3>Dan Da Dan</h3><p>Episodes: 12</p>
       </a>
-
-      <!-- Anime Card 2 -->
-      <a href="https://example.com/watch/one-piece" target="_blank" class="anime-card">
+      <a href="#" class="anime-card" data-title="dr. stone">
         <img src="https://envs.sh/IlI.jpg" alt="Dr. Stone" />
-        <h3>Dr. Stone</h3>
-        <p>Episodes: 25+</p>
+        <h3>Dr. Stone</h3><p>Episodes: 25+</p>
       </a>
-
-      <!-- Anime Card 3 -->
-      <a href="https://example.com/watch/demon-slayer" target="_blank" class="anime-card">
+      <a href="#" class="anime-card" data-title="gachiakuta">
         <img src="https://envs.sh/BNQ.jpg" alt="Gachiakuta" />
-        <h3>Gachiakuta</h3>
-        <p>Episodes: 12</p>
+        <h3>Gachiakuta</h3><p>Episodes: 12</p>
       </a>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2025 AniReal. All rights reserved.</p>
   </footer>
@@ -326,7 +297,6 @@
       menu.style.display = menu.style.display === "block" ? "none" : "block";
     }
 
-    // Hide dropdown when clicking outside
     document.addEventListener("click", function (event) {
       const dropdown = document.getElementById("dropdown");
       const icon = document.querySelector(".menu-icon");
@@ -334,22 +304,15 @@
       const isSearchIcon = event.target.classList.contains("search-toggle-icon");
       const isInput = event.target.id === "searchExpanded";
 
-if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
+      if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
         dropdown.style.display = "none";
       }
-
-      // Hide Search Box on outside click except navbar or search icon or input
-      if (
-        !navbar.contains(event.target) &&
-        !isSearchIcon &&
-        !isInput
-      ) {
+      if (!navbar.contains(event.target) && !isSearchIcon && !isInput) {
         document.body.classList.remove("hide-title");
         document.getElementById("searchExpanded").style.display = "none";
       }
     });
 
-    // Theme toggle with localStorage
     const themeToggleBtn = document.getElementById("themeToggle");
     function applySavedTheme() {
       const savedTheme = localStorage.getItem("theme");
@@ -364,28 +327,66 @@ if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
 
     function toggleTheme() {
       document.body.classList.toggle("dark");
-      if (document.body.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
-        themeToggleBtn.textContent = "Light Mode";
-      } else {
-        localStorage.setItem("theme", "light");
-        themeToggleBtn.textContent = "Dark Mode";
-      }
+      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+      themeToggleBtn.textContent = document.body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
     }
 
     applySavedTheme();
 
-    // Toggle Search Box and Title
     function toggleSearch() {
       document.body.classList.toggle("hide-title");
       const searchInput = document.getElementById("searchExpanded");
-      if (document.body.classList.contains("hide-title")) {
-        searchInput.style.display = "inline-block";
-        searchInput.focus();
+      searchInput.style.display = document.body.classList.contains("hide-title") ? "inline-block" : "none";
+      if (searchInput.style.display === "inline-block") searchInput.focus();
+    }
+
+    // Search Functionality
+    const searchInput = document.getElementById("searchExpanded");
+    const cards = document.querySelectorAll(".anime-card");
+    const animeSection = document.getElementById("top-hits");
+    const slider = document.getElementById("slider");
+    const mainTitle = document.getElementById("mainTitle");
+
+    function filterAnime(query) {
+      const lowerQuery = query.toLowerCase();
+      let found = false;
+
+      cards.forEach(card => {
+        const title = card.getAttribute("data-title");
+        const match = title.toLowerCase().includes(lowerQuery);
+        card.style.display = match ? "flex" : "none";
+        if (match) found = true;
+      });
+
+      if (lowerQuery.trim() === "") {
+        animeSection.style.display = "block";
+        slider.style.display = "block";
+        mainTitle.style.display = "block";
       } else {
-        searchInput.style.display = "none";
+        animeSection.style.display = found ? "block" : "none";
+        slider.style.display = "none";
+        mainTitle.style.display = "none";
+      }
+
+      const old = document.getElementById("noResult");
+      if (!found && lowerQuery !== "") {
+        if (!old) {
+          const msg = document.createElement("p");
+          msg.id = "noResult";
+          msg.textContent = "No Anime Found 😢";
+          msg.style.color = "gray";
+          msg.style.textAlign = "center";
+          animeSection.appendChild(msg);
+        }
+      } else {
+        if (old) old.remove();
       }
     }
+
+    searchInput.addEventListener("input", () => filterAnime(searchInput.value));
+    searchInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") filterAnime(searchInput.value);
+    });
   </script>
 </body>
 </html>
