@@ -92,10 +92,16 @@
   position: relative;
   width: 100%;
   max-width: 100%;
-  height: 350px; /* or joto height lagbe */
+  aspect-ratio: 16/9;   /* cinematic ratio */
+  height: auto;
+
+  /* fallback old browser er jonno */
+  height: 350px;
+
   margin: 0 auto;
   overflow: hidden;
   border-radius: 10px;
+  background: #000; /* black bars fallback */
 }
 
 .slide {
@@ -112,11 +118,10 @@
 }
 
 .slide img {
-  width: 320px;        /* apni chaile boro/chhoto korte parben */
-  aspect-ratio: 19/9;  /* 19:9 ratio auto maintain hobe */
-  object-fit: cover;   /* crop hoye box er moddhe fit hobe */
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* image pura dekhabe */
+  background: #000;      /* gap hole black fill hobe */
 }
 
     /* Overlay text */
