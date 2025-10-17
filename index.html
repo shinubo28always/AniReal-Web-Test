@@ -16,8 +16,8 @@
       font-family: Arial, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
-      margin: 0;
       transition: background-color 0.3s, color 0.3s;
+      margin: 0;
     }
 
     .navbar {
@@ -77,6 +77,10 @@
       transition: all 0.3s ease;
     }
 
+    body.hide-title .search-box {
+      display: inline-block;
+    }
+
     .notification-icon,
     .search-toggle-icon {
       font-size: 18px;
@@ -84,56 +88,52 @@
       user-select: none;
     }
 
-    /* Slider */
     .slider {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16/9;
-      max-height: 450px;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 10px;
-      background: #000;
-    }
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 350px; /* or joto height lagbe */
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 10px;
+}
 
-    .slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: none;
-      transition: opacity 0.8s ease;
-    }
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
 
-    .slide.active {
-      display: block;
-      opacity: 1;
-    }
+.slide.active {
+  display: block;
+}
 
-    .slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain; /* maintain aspect ratio, black bars */
-      background: #000;
-    }
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* or contain jodi pura image show korte chao */
+}
 
-    /* Overlay text (Left Top) */
+    /* Overlay text */
     .slide-text {
       position: absolute;
-      top: 15px;
-      left: 15px;
-      padding: 12px 18px;
-      max-width: 70%;
-      color: #fff;
-      background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0));
-      border-radius: 8px;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      color: white;
+      font-size: 16px;
     }
 
     .slide-text strong {
+      font-weight: bold;
       display: block;
-      font-size: 20px;
-      margin-bottom: 5px;
+      font-size: 18px;
+      margin-bottom: 4px;
     }
 
     .genre {
@@ -185,6 +185,7 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       transition: transform 0.2s;
       cursor: pointer;
+      user-select: none;
       display: flex;
       flex-direction: column;
       text-decoration: none;
@@ -200,6 +201,7 @@
       width: 100%;
       height: 200px;
       object-fit: cover;
+      display: block;
       border-bottom: 1px solid #444;
     }
 
@@ -237,7 +239,9 @@
   <div class="navbar" id="navbar">
     <div class="navbar-left">
       <span class="menu-icon" onclick="toggleDropdown()">☰</span>
-      <div class="dropdown" id="dropdown"></div>
+      <div class="dropdown" id="dropdown">
+        <!-- Dark Mode Button Removed -->
+      </div>
     </div>
 
     <div class="title" id="mainTitle">AniReal - Anime Zone</div>
@@ -250,66 +254,64 @@
     </div>
   </div>
 
-  <!-- Slider -->
-  <div class="slider" id="slider">
-    <a href="https://t.me/One_Piece_in_Hindi_Dub_Original" target="_blank" class="slide active">
-      <img src="https://photo.chelpbot.me/AgACAgUAAyEFAASaAAEylQADEWiU1tgqIp1IJb6Nuu6PYVEwX6pfAAKXwzEbiLbhV1Qd9ShGfhLgAQADAgADeQADNgQ/photo.jpg" alt="One Piece" />
-      <div class="slide-text">
-        <strong>One Piece</strong>
-        <div class="genre">Action, Fantasy</div>
-      </div>
-    </a>
+  
+<!-- Slider -->
+<div class="slider" id="slider">
+  <a href="https://t.me/One_Piece_in_Hindi_Dub_Original" target="_blank" class="slide active">
+    <img src="https://photo.chelpbot.me/AgACAgUAAyEFAASaAAEylQADEWiU1tgqIp1IJb6Nuu6PYVEwX6pfAAKXwzEbiLbhV1Qd9ShGfhLgAQADAgADeQADNgQ/photo.jpg" alt="One Piece" />
+    <div class="slide-text">
+      <strong>One Piece</strong>
+      <div class="genre"Action, Fantasy</div>
+    </div>
+  </a>
 
-    <a href="https://t.me/+k2wGvZpxSU41NWI1" target="_blank" class="slide">
-      <img src="https://photo.chelpbot.me/AgACAgUAAxkBVhdORmiU132Pt3NlsFIXOi6PARnW3iWFAAIhyTEbjUPRVqohEV0vJ2NAAQADAgADeQADNgQ/photo.jpg" alt="AOT" />
-      <div class="slide-text">
-        <strong>Attack on Titan</strong>
-        <div class="genre">Action, Drama</div>
-      </div>
-    </a>
+  <a href="https://t.me/+k2wGvZpxSU41NWI1" target="_blank" class="slide">
+    <img src="https://photo.chelpbot.me/AgACAgUAAxkBVhdORmiU132Pt3NlsFIXOi6PARnW3iWFAAIhyTEbjUPRVqohEV0vJ2NAAQADAgADeQADNgQ/photo.jpg" alt="AOT" />
+    <div class="slide-text">
+      <strong>Attack on Titan</strong>
+      <div class="genre">Action, Drama</div>
+    </div>
+  </a>
 
-    <a href="https://t.me/+Py8nEUlgG01mYjE1" target="_blank" class="slide">
-      <img src="https://photo.chelpbot.me/AgACAgUAAxkBVhdTuGiU1-iUZpaw4pulnSu1qaN0RYkhAAIzxjEbgIdYVn_RSBv7wE6rAQADAgADeQADNgQ/photo.jpg" alt="Naruto" />
-      <div class="slide-text">
-        <strong>Naruto</strong>
-        <div class="genre">Action, Ninja</div>
-      </div>
-    </a>
+  <a href="https://t.me/+Py8nEUlgG01mYjE1" target="_blank" class="slide">
+    <img src="https://photo.chelpbot.me/AgACAgUAAxkBVhdTuGiU1-iUZpaw4pulnSu1qaN0RYkhAAIzxjEbgIdYVn_RSBv7wE6rAQADAgADeQADNgQ/photo.jpg" alt="Naruto" />
+    <div class="slide-text">
+      <strong>Naruto</strong>
+      <div class="genre">Action, Ninja</div>
+    </div>
+  </a>
 
-    <a href="https://t.me/Demon_Slayer_Hindi_Dub05" target="_blank" class="slide">
-      <img src="https://photo.chelpbot.me/AgACAgUAAxkBVhelmmiU3ZF_ytS68JPcstgBzUKdXqonAAI5yTEbGFqhVC7yka4lms_GAQADAgADeAADNgQ/photo.jpg" alt="Demon Slayer" />
-      <div class="slide-text">
-        <strong>Demon Slayer</strong>
-        <div class="genre">Supernatural, Sword</div>
-      </div>
-    </a>
-  </div>
+  <a href="https://t.me/Demon_Slayer_Hindi_Dub05" target="_blank" class="slide">
+    <img src="https://photo.chelpbot.me/AgACAgUAAxkBVhelmmiU3ZF_ytS68JPcstgBzUKdXqonAAI5yTEbGFqhVC7yka4lms_GAQADAgADeAADNgQ/photo.jpg" alt="Demon Slayer" />
+    <div class="slide-text">
+      <strong>Demon Slayer</strong>
+      <div class="genre">Supernatural, Sword</div>
+    </div>
+  </a>
+</div>
 
   <main>
     <p>Welcome! This is the beginning of your Anime website. Here You Can Watch All Hindi Dub Animes</p>
   </main>
 
- <!-- Top Hits -->
-<section id="top-hits" class="anime-section">
-  <h2>🔥 Top Hits Anime</h2>
-  <div class="anime-grid">
-    <a href="#" class="anime-card" data-title="dan da dan">
-      <img src="https://envs.sh/IlB.jpg" alt="Dan Da Dan" />
-      <h3>Dan Da Dan</h3>
-      <p>Episodes: 12</p>
-    </a>
-    <a href="#" class="anime-card" data-title="dr. stone">
-      <img src="https://envs.sh/IlI.jpg" alt="Dr. Stone" />
-      <h3>Dr. Stone</h3>
-      <p>Episodes: 25+</p>
-    </a>
-    <a href="#" class="anime-card" data-title="gachiakuta">
-      <img src="https://envs.sh/BNQ.jpg" alt="Gachiakuta" />
-      <h3>Gachiakuta</h3>
-      <p>Episodes: 12</p>
-    </a>
-  </div>
-</section>
+  <!-- Top Hits -->
+  <section id="top-hits" class="anime-section">
+    <h2>🔥 Top Hits Anime</h2>
+    <div class="anime-grid">
+      <a href="#" class="anime-card" data-title="dan da dan">
+        <img src="https://envs.sh/IlB.jpg" alt="Dan Da Dan" />
+        <h3>Dan Da Dan</h3><p>Episodes: 12</p>
+      </a>
+      <a href="#" class="anime-card" data-title="dr. stone">
+        <img src="https://envs.sh/IlI.jpg" alt="Dr. Stone" />
+        <h3>Dr. Stone</h3><p>Episodes: 25+</p>
+      </a>
+      <a href="#" class="anime-card" data-title="gachiakuta">
+        <img src="https://envs.sh/BNQ.jpg" alt="Gachiakuta" />
+        <h3>Gachiakuta</h3><p>Episodes: 12</p>
+      </a>
+    </div>
+  </section>
 
 <!-- New Releases -->
 <section id="new-releases" class="anime-section">
@@ -317,18 +319,131 @@
   <div class="anime-grid">
     <a href="#" class="anime-card" data-title="solo leveling">
       <img src="https://envs.sh/NEW1.jpg" alt="Solo Leveling" />
-      <h3>Solo Leveling</h3>
-      <p>Episodes: 10</p>
+      <h3>Solo Leveling</h3><p>Episodes: 10</p>
     </a>
     <a href="#" class="anime-card" data-title="kaiju no.8">
       <img src="https://envs.sh/NEW2.jpg" alt="Kaiju No. 8" />
-      <h3>Kaiju No. 8</h3>
-      <p>Episodes: 8</p>
+      <h3>Kaiju No. 8</h3><p>Episodes: 8</p>
     </a>
     <a href="#" class="anime-card" data-title="wind breaker">
       <img src="https://envs.sh/NEW3.jpg" alt="Wind Breaker" />
-      <h3>Wind Breaker</h3>
-      <p>Episodes: 5</p>
+      <h3>Wind Breaker</h3><p>Episodes: 5</p>
     </a>
   </div>
 </section>
+
+  <footer>
+    <p>&copy; 2025 AniReal. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Slider auto-slide with pause on search active
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".slide");
+    const sliderContainer = document.getElementById("slider");
+    const searchInput = document.getElementById("searchExpanded");
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+      });
+    }
+
+    function nextSlide() {
+      // Pause slider if search input visible
+      if (searchInput.style.display === "inline-block") return;
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    showSlide(currentSlide);
+    setInterval(nextSlide, 3000);
+
+    // Dropdown toggle
+    function toggleDropdown() {
+      const menu = document.getElementById("dropdown");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    // Outside click to close dropdown and hide search
+    document.addEventListener("click", function (event) {
+      const dropdown = document.getElementById("dropdown");
+      const menuIcon = document.querySelector(".menu-icon");
+      const searchIcon = document.querySelector(".search-toggle-icon");
+      const mainTitle = document.getElementById("mainTitle");
+
+      if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
+        dropdown.style.display = "none";
+      }
+
+      if (
+        !searchInput.contains(event.target) &&
+        !searchIcon.contains(event.target)
+      ) {
+        searchInput.style.display = "none";
+        mainTitle.style.display = "block";
+      }
+    });
+
+    // Toggle search bar and title
+    function toggleSearch() {
+      const mainTitle = document.getElementById("mainTitle");
+
+      if (searchInput.style.display === "inline-block") {
+        searchInput.style.display = "none";
+        mainTitle.style.display = "block";
+      } else {
+        searchInput.style.display = "inline-block";
+        searchInput.focus();
+        mainTitle.style.display = "none";
+      }
+    }
+
+    // Search filter
+    const cards = document.querySelectorAll(".anime-card");
+    const animeSection = document.getElementById("top-hits");
+    const slider = document.getElementById("slider");
+
+    function filterAnime(query) {
+      const lowerQuery = query.toLowerCase();
+      let found = false;
+
+      cards.forEach(card => {
+        const title = card.getAttribute("data-title");
+        const match = title.toLowerCase().includes(lowerQuery);
+        card.style.display = match ? "flex" : "none";
+        if (match) found = true;
+      });
+
+      if (lowerQuery.trim() === "") {
+        animeSection.style.display = "block";
+        slider.style.display = "block";
+        document.getElementById("mainTitle").style.display = "block";
+      } else {
+        animeSection.style.display = found ? "block" : "none";
+        slider.style.display = "none";
+        document.getElementById("mainTitle").style.display = "none";
+      }
+
+      const old = document.getElementById("noResult");
+      if (!found && lowerQuery !== "") {
+        if (!old) {
+          const msg = document.createElement("p");
+          msg.id = "noResult";
+          msg.textContent = "No Anime Found 😢";
+          msg.style.color = "gray";
+          msg.style.textAlign = "center";
+          animeSection.appendChild(msg);
+        }
+      } else {
+        if (old) old.remove();
+      }
+    }
+
+    searchInput.addEventListener("input", () => filterAnime(searchInput.value));
+    searchInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") filterAnime(searchInput.value);
+    });
+  </script>
+</body>
+</html>
