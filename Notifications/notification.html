@@ -4,57 +4,57 @@
 <meta charset="UTF-8">
 <title>Notifications</title>
 <style>
-body { 
+  body { 
     font-family: Arial, sans-serif; 
     background:#121212; 
     color:#fff; 
     padding:20px; 
     margin:0;
-}
+  }
 
-/* Header styled like home page title, bigger now */
-h1 { 
-    text-align: center; 
-    font-size: 10vw; /* Bigger header */
-    font-weight: bold; 
-    margin-bottom: 30px; 
-    background: linear-gradient(90deg, #FFD700, #FFA500); /* Gold gradient */
+  /* Header */
+  h1 {
+    text-align:center; 
+    font-size:48px; /* boro header */
+    margin-bottom:30px; 
+    font-weight: bold;
+    background: linear-gradient(90deg, #FFD700, #FFA500);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: fadeIn 0.8s ease-in-out;
-}
+    animation: fadeIn 1s ease-in-out;
+  }
 
-/* Notification card */
-.notification-card { 
+  /* Notification Card */
+  .notification-card { 
     background:#1e1e1e; 
-    padding:20px; 
-    margin-bottom:15px; 
-    border-radius:8px; 
-    box-shadow: 0 2px 6px rgba(255,215,0,0.3);
-    font-size: 22px; /* Bigger text */
-    animation: fadeIn 0.6s ease-in-out;
-    word-wrap: break-word;
-}
+    padding:25px 30px; /* boro padding */
+    margin-bottom:20px; 
+    border-radius:12px; 
+    font-size:22px; /* boro text */
+    max-width:600px;
+    width:90%; /* responsive */
+    margin-left:auto;
+    margin-right:auto;
+    box-shadow: 0 4px 15px rgba(255,215,0,0.3); /* gold glow */
+    animation: fadeIn 0.8s ease-in-out;
+    line-height:1.5;
+  }
 
-/* Fade animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+  /* Fade in animation */
+  @keyframes fadeIn {
+    from { opacity:0; transform:translateY(-10px); }
+    to { opacity:1; transform:translateY(0); }
+  }
 
-/* Media queries for small screens */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 18vw; /* Bigger header for phones, still fits */
-    }
-    .notification-card {
-        font-size: 18px; /* Slightly smaller for phone */
-        padding: 14px;
-    }
-}
+  /* Responsive */
+  @media (max-width: 600px) {
+    h1 { font-size:36px; }
+    .notification-card { font-size:18px; padding:20px; }
+  }
 </style>
 </head>
 <body>
+
 <h1>Notifications</h1>
 <div id="notificationList"></div>
 
