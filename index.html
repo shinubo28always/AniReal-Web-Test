@@ -337,6 +337,9 @@
   const searchInput = document.getElementById("searchExpanded");
   const mainTitle = document.getElementById("mainTitle");
   const searchIcon = document.querySelector(".search-toggle-icon");
+  const welcomeMsg = document.querySelector("main p"); // 👈 Welcome message select
+  const topHits = document.getElementById("top-hits");
+  const newReleases = document.getElementById("new-releases");
 
   function showSlide(index) {
     slides.forEach((slide, i) => {
@@ -374,6 +377,12 @@
     if (!searchInput.contains(event.target) && !searchIcon.contains(event.target)) {
       searchInput.style.display = "none";
       mainTitle.style.display = "block";
+
+      // Restore all sections when search closed
+      welcomeMsg.style.display = "block";
+      topHits.style.display = "block";
+      newReleases.style.display = "block";
+      sliderContainer.style.display = "block";
     }
   });
 
@@ -382,6 +391,12 @@
     if (searchInput.style.display === "inline-block") {
       searchInput.style.display = "none";
       mainTitle.style.display = "block";
+
+      // Restore sections when closed
+      welcomeMsg.style.display = "block";
+      topHits.style.display = "block";
+      newReleases.style.display = "block";
+      sliderContainer.style.display = "block";
     } else {
       searchInput.style.display = "inline-block";
       searchInput.focus();
@@ -391,8 +406,6 @@
 
   // Search filter
   const cards = document.querySelectorAll(".anime-card");
-  const animeSection = document.getElementById("top-hits");
-  const slider = document.getElementById("slider");
 
   function filterAnime(query) {
     const lowerQuery = query.toLowerCase();
@@ -405,30 +418,36 @@
       if (match) found = true;
     });
 
-    if (lowerQuery.trim() === "") {
-      // When search bar is active but empty → hide title anyway
-      animeSection.style.display = "block";
-      slider.style.display = "block";
-      mainTitle.style.display = "none"; // 👈 title will never show while search is open
-    } else {
-      animeSection.style.display = found ? "block" : "none";
-      slider.style.display = "none";
-      mainTitle.style.display = "none";
-    }
-
-    // "No result" message
     const old = document.getElementById("noResult");
-    if (!found && lowerQuery !== "") {
-      if (!old) {
-        const msg = document.createElement("p");
-        msg.id = "noResult";
-        msg.textContent = "No Anime Found 😢";
-        msg.style.color = "gray";
-        msg.style.textAlign = "center";
-        animeSection.appendChild(msg);
-      }
-    } else {
+
+    if (lowerQuery.trim() === "") {
+      // Empty search → restore all
+      sliderContainer.style.display = "block";
+      topHits.style.display = "block";
+      newReleases.style.display = "block";
+      welcomeMsg.style.display = "block";
+      mainTitle.style.display = "none"; // keep hidden while search visible
       if (old) old.remove();
+    } else {
+      // When searching → hide everything except results
+      sliderContainer.style.display = "none";
+      topHits.style.display = found ? "block" : "none";
+      newReleases.style.display = "none";
+      welcomeMsg.style.display = "none";
+      mainTitle.style.display = "none";
+
+      if (!found) {
+        if (!old) {
+          const msg = document.createElement("p");
+          msg.id = "noResult";
+          msg.textContent = "No Anime Found 😢";
+          msg.style.color = "gray";
+          msg.style.textAlign = "center";
+          topHits.appendChild(msg);
+        }
+      } else {
+        if (old) old.remove();
+      }
     }
   }
 
