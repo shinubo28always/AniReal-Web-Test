@@ -473,19 +473,26 @@
   }
 
   // === Outside click handler ===
-  document.addEventListener("click", function (event) {
-    const dropdown = document.getElementById("dropdown");
-    const menuIcon = document.querySelector(".menu-icon");
-    if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
-      dropdown.style.display = "none";
-    }
+ document.addEventListener("click", function (event) {
+  const dropdown = document.getElementById("dropdown");
+  const menuIcon = document.querySelector(".menu-icon");
 
-    if (!searchInput.contains(event.target) && !searchIcon.contains(event.target)) {
-      searchInput.style.display = "none";
-      mainTitle.style.display = "block";
-      resetPageView();
-    }
-  });
+  // Dropdown toggle logic
+  if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
+    dropdown.style.display = "none";
+  }
+
+  // Search input & search results logic
+  if (
+    !searchInput.contains(event.target) &&
+    !searchIcon.contains(event.target) &&
+    !searchResults.contains(event.target)
+  ) {
+    searchInput.style.display = "none";
+    mainTitle.style.display = "block";
+    resetPageView();
+  }
+});
 
   // === Toggle Search Bar ===
   function toggleSearch() {
