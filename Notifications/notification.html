@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications</title>
+  <link rel="stylesheet" href="notification.css">
+  <style>
+    body { font-family: Arial, sans-serif; background: #121212; color: #fff; padding: 20px; }
+    h1 { text-align: center; color: #ff6a00; margin-bottom: 20px; }
+    #notifList { display: flex; flex-direction: column; gap: 12px; }
+    .notif-card { background: #1e1e1e; padding: 12px 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .deleteBtn { background: #ff4757; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; color: #fff; }
+    .deleteBtn:hover { background: #ff2d4b; }
+    #addContainer { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
+    #newNotif { padding: 8px 12px; border-radius: 5px; border: 1px solid #555; background: #2b2b2b; color: #fff; outline: none; width: 60%; }
+    #addBtn { padding: 8px 15px; border: none; border-radius: 5px; background: #ff6a00; color: #fff; cursor: pointer; }
+    #addBtn:hover { background: #ee5400; }
+  </style>
+</head>
+<body>
+
+  <h1>Manage Notifications</h1>
+
+  <div id="addContainer">
+    <input type="text" id="newNotif" placeholder="Add new notification...">
+    <button id="addBtn">Add</button>
+  </div>
+
+  <div id="notifList"></div>
+
+  <script src="notification.js"></script>
+  <script>
+    // Initial render
+    renderNotifications();
+
+    // Add new notification button
+    const addBtn = document.getElementById("addBtn");
+    const newNotifInput = document.getElementById("newNotif");
+
+    addBtn.addEventListener("click", () => {
+      addNotification(newNotifInput.value);
+      newNotifInput.value = "";
+    });
+
+    // Enter key support
+    newNotifInput.addEventListener("keydown", (e) => {
+      if(e.key === "Enter"){
+        addNotification(newNotifInput.value);
+        newNotifInput.value = "";
+      }
+    });
+  </script>
+</body>
+</html>
