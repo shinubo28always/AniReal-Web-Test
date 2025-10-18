@@ -43,3 +43,7 @@ updateBadge();
 // notifications.push("New episode of Demon Slayer released!");
 // renderNotifications();
 // updateBadge();
+// Example: remove first notification
+notifications.splice(0, 1);
+renderNotifications();
+updateBadge();
