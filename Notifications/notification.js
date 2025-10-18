@@ -1,6 +1,6 @@
 // === Notifications Array ===
 const notifications = [
-    "👄👄👄"
+    ""
 ];
 
 // Badge on home page
@@ -36,7 +36,7 @@ function updateBadge() {
 renderNotifications();
 updateBadge();
 
-notifications.push("Test Msg😂");
+notifications.push("Join Here: TG:- AniReal - Anime Zone");
 renderNotifications();
 updateBadge();
 // === Example: add notification dynamically ===
