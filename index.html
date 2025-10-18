@@ -312,3 +312,47 @@ footer { padding: 20px; text-align: center; font-size: 14px; color: gray; user-s
     searchGrid.innerHTML = "";
     notFoundMsg.style.display = "none";
   }
+
+  // === Filter Anime Based on Search ===
+  function filterAnime(query) {
+    const lowerQuery = query.toLowerCase().trim();
+    searchGrid.innerHTML = "";
+    notFoundMsg.style.display = "none";
+
+    if (lowerQuery === "") {
+      resetPageView();
+      mainTitle.style.display = "none";
+      return;
+    }
+
+    // Hide everything except search results
+    sliderContainer.style.display = "none";
+    welcomeMsg.style.display = "none";
+    topHits.style.display = "none";
+    newReleases.style.display = "none";
+    mainTitle.style.display = "none";
+
+    let found = false;
+
+    allCards.forEach(card => {
+      const title = card.getAttribute("data-title");
+      if (title.toLowerCase().includes(lowerQuery)) {
+        const clone = card.cloneNode(true);
+        searchGrid.appendChild(clone);
+        found = true;
+      }
+    });
+
+    searchResults.style.display = "block";
+    document.getElementById("searchTitle").style.display = found ? "block" : "none";
+    notFoundMsg.style.display = found ? "none" : "block";
+  }
+
+  // === Input Event Listeners ===
+  searchInput.addEventListener("input", () => filterAnime(searchInput.value));
+  searchInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") filterAnime(searchInput.value);
+  });
+</script>
+</body>
+</html>
