@@ -138,21 +138,39 @@
 <body>
 
   <!-- NAVBAR -->
-  <div class="navbar">
+  <div class="navbar" id="navbar">
     <div class="navbar-left">
-      <span class="menu-icon">☰</span>
+      <span class="menu-icon"
+onclick="toggleDropdown()">☰</span>
+      <div class="dropdown" id="dropdown">
+      </div>
+     </div>
+
       <div class="title" id="mainTitle">AniReal - Anime Zone</div>
-    </div>
+    
 
     <input type="text" id="searchExpanded" class="search-box" placeholder="Search Anime..." autocomplete="off" />
 
     <div class="navbar-right">
-      <span class="search-toggle-icon" onclick="toggleSearch()">🔍</span>
+      <span class="search-toggle-icon" onclick="toggleSearch()"
+style="cursor:pointer;">🔍</span>
 
       <!-- notification (example badge) -->
-      <a class="notification-icon" href="Notifications/notification.html">🔔
-        <span id="notifBadge">0</span>
-      </a>
+    <a href="Notifications/notification.html" class="notification-icon"
+       style="position: relative; display: inline-block; color: inherit; text-decoration: none; cursor: pointer; margin-left: 15px;">
+      🔔
+      <span id="notifBadge" 
+            style="position: absolute;
+                   top: -5px;
+                   right: -5px;
+                   background: red;
+                   color: #fff;
+                   font-size: 12px;
+                   padding: 2px 6px;
+                   border-radius: 50%;
+                   display: none;">
+      </span>
+    </a>
     </div>
   </div>
 
