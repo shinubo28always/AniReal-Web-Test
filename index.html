@@ -10,7 +10,6 @@
       --text-color:#ffffff;
       --nav-color:#1e1e1e;
     }
-    /* Reset / base */
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -19,41 +18,78 @@
       color:var(--text-color);
     }
 
-    /* Navbar */
-    .navbar{
-      background:var(--nav-color);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 18px;
-      box-shadow:0 2px 4px rgba(0,0,0,0.12);
-    }
-    .navbar-left, .navbar-right{display:flex;align-items:center;gap:12px;}
-    .menu-icon{font-size:20px;cursor:pointer}
-    .title{font-weight:700;font-size:18px;white-space:nowrap}
-    .search-box{
-      display:none;
-      padding:6px 10px;
-      border-radius:20px;
-      border:1px solid #444;
-      background:#262626;
-      color:#fff;
-      outline:none;
-    }
-    .search-toggle-icon{cursor:pointer;font-size:18px}
-
-    /* Notification icon */
-    .notification-icon{position:relative; display:inline-block; text-decoration:none; color:inherit; cursor:pointer}
-    #notifBadge{
-      position:absolute; top:-6px; right:-6px;
-      background:red; color:#fff; font-size:12px;
-      padding:2px 6px; border-radius:999px; display:none;
+    /* ========== Navbar ========== */
+    .navbar {
+      background-color: var(--nav-color);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative;
     }
 
+    .navbar-left, .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .menu-icon {
+      font-size: 22px;
+      cursor: pointer;
+      user-select: none;
+      color: var(--text-color);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 50px;
+      left: 20px;
+      background-color: var(--nav-color);
+      border: 1px solid #ccc;
+      padding: 10px;
+      display: none;
+      z-index: 10;
+      border-radius: 5px;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .search-box {
+      padding: 5px 10px;
+      font-size: 14px;
+      border: 1px solid #555;
+      border-radius: 20px;
+      outline: none;
+      background-color: #2b2b2b;
+      color: #fff;
+      width: 180px;
+      display: none;
+      transition: all 0.3s ease;
+    }
+
+    body.hide-title .search-box {
+      display: inline-block;
+    }
+
+    .notification-icon,
+    .search-toggle-icon {
+      font-size: 18px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* ====== Other existing CSS ====== */
     main{padding:18px; text-align:center}
 
-    /* Sections */
     .anime-section{margin:22px 12px}
     .anime-section h2{
       font-size:20px; margin:8px 0 12px;
@@ -61,13 +97,12 @@
       user-select:none;
     }
 
-    /* === Poster card styles (960:1357) === */
     .anime-card{
       position:relative;
       display:block;
       width:100%;
       max-width:220px;
-      aspect-ratio:960 / 1357; /* poster ratio */
+      aspect-ratio:960 / 1357;
       border-radius:12px;
       overflow:hidden;
       background:var(--nav-color);
@@ -83,7 +118,6 @@
       width:100%; height:100%; object-fit:cover; object-position:center; display:block;
     }
 
-    /* bottom gradient */
     .anime-card::after{
       content:"";
       position:absolute; left:0; bottom:0; width:100%; height:45%;
@@ -101,14 +135,12 @@
     }
     .anime-info p{ margin:0; font-size:13px; color:#e6e6e6; opacity:.95 }
 
-    /* Top lists: horizontal scroll of posters */
     .anime-grid.horizontal{ display:flex; gap:14px; overflow-x:auto; padding-bottom:8px; }
     .anime-grid.horizontal .anime-card{ flex:0 0 140px; max-width:220px; aspect-ratio:960 / 1357; }
 
-    /* Search results grid: mobile 2-per-row, desktop auto-fill */
     #search-results .anime-grid{
       display:grid;
-      grid-template-columns:repeat(2,1fr); /* 2 columns on small screens */
+      grid-template-columns:repeat(2,1fr);
       gap:12px;
       justify-items:center;
       align-items:start;
@@ -121,12 +153,10 @@
       }
     }
 
-    /* not found */
     #notFoundMsg{ text-align:center; color:gray; margin-top:20px; font-size:16px }
 
     footer{ text-align:center; padding:18px; color:#9a9a9a; font-size:13px }
 
-    /* small tweaks for very small phones */
     @media(max-width:360px){
       .anime-card{ max-width:180px }
       .anime-info h3{ font-size:14px }
@@ -147,8 +177,6 @@
 
     <div class="navbar-right">
       <span class="search-toggle-icon" onclick="toggleSearch()">🔍</span>
-
-      <!-- notification (example badge) -->
       <a class="notification-icon" href="Notifications/notification.html">🔔
         <span id="notifBadge">0</span>
       </a>
@@ -159,7 +187,7 @@
     <p>Welcome! Watch All Hindi Dub Animes Here!</p>
   </main>
 
-  <!-- Top Hits (horizontal) -->
+  <!-- Top Hits Section -->
   <section id="top-hits" class="anime-section">
     <h2>🔥 Top Hits Anime</h2>
     <div class="anime-grid horizontal">
@@ -167,12 +195,10 @@
         <img src="https://photo.chelpbot.me/AgACAgUAAxkBXBTyk2jzhTzE8ghcucHBSJShTpoqTwv6AAJ2C2sb3VehV0iyni70-V4mAQADAgADeQADNgQ/photo.jpg" alt="Dan Da Dan">
         <div class="anime-info"><h3>Dan Da Dan</h3><p>Episodes: 12</p></div>
       </a>
-
       <a href="#" class="anime-card" data-title="dr stone">
         <img src="https://photo.chelpbot.me/AgACAgUAAxkBXBUI-2jzhq0o81hpuYMLoME7AgLxAT9WAAJ9C2sb3VehV9Xw-JLl0Z-WAQADAgADdwADNgQ/photo.jpg" alt="Dr Stone">
         <div class="anime-info"><h3>Dr. Stone</h3><p>Episodes: 25+</p></div>
       </a>
-
       <a href="#" class="anime-card" data-title="gachiakuta">
         <img src="https://envs.sh/BNQ.jpg" alt="Gachiakuta">
         <div class="anime-info"><h3>Gachiakuta</h3><p>Episodes: 12</p></div>
@@ -180,7 +206,7 @@
     </div>
   </section>
 
-  <!-- New Releases (horizontal) -->
+  <!-- New Releases Section -->
   <section id="new-releases" class="anime-section">
     <h2>✨ New Releases</h2>
     <div class="anime-grid horizontal">
@@ -188,12 +214,10 @@
         <img src="https://envs.sh/NEW1.jpg" alt="Solo Leveling">
         <div class="anime-info"><h3>Solo Leveling</h3><p>Episodes: 10</p></div>
       </a>
-
       <a href="#" class="anime-card" data-title="kaiju no.8">
         <img src="https://envs.sh/NEW2.jpg" alt="Kaiju No.8">
         <div class="anime-info"><h3>Kaiju No.8</h3><p>Episodes: 8</p></div>
       </a>
-
       <a href="#" class="anime-card" data-title="wind breaker">
         <img src="https://envs.sh/NEW3.jpg" alt="Wind Breaker">
         <div class="anime-info"><h3>Wind Breaker</h3><p>Episodes: 5</p></div>
@@ -201,7 +225,7 @@
     </div>
   </section>
 
-  <!-- Search Result Section (hidden until search) -->
+  <!-- Search Results Section -->
   <section id="search-results" class="anime-section" style="display:none;">
     <h2>🔍 Search Results</h2>
     <div class="anime-grid" id="search-grid"></div>
@@ -211,10 +235,7 @@
   <footer>&copy; 2025 AniReal. All rights reserved.</footer>
 
   <script>
-    /* ====== Search + UI logic ====== */
     const searchInput = document.getElementById('searchExpanded');
-    const searchIcon = document.querySelector('.search-toggle-icon');
-    const slider = document.getElementById('slider'); // might be null here
     const mainTitle = document.getElementById('mainTitle');
     const topHits = document.getElementById('top-hits');
     const newReleases = document.getElementById('new-releases');
@@ -222,10 +243,7 @@
     const searchGrid = document.getElementById('search-grid');
     const notFoundMsg = document.getElementById('notFoundMsg');
 
-    // use live list (querySelectorAll returns static NodeList at load)
-    function getAllCards(){
-      return Array.from(document.querySelectorAll('.anime-card'));
-    }
+    function getAllCards(){ return Array.from(document.querySelectorAll('.anime-card')); }
 
     function toggleSearch(){
       if (searchInput.style.display === 'inline-block'){
@@ -240,7 +258,6 @@
     }
 
     function resetPageView(){
-      if (slider) slider.style.display = 'block';
       if (topHits) topHits.style.display = 'block';
       if (newReleases) newReleases.style.display = 'block';
       if (searchResults) searchResults.style.display = 'none';
@@ -252,58 +269,27 @@
       const q = String(query || '').toLowerCase().trim();
       searchGrid.innerHTML = '';
       notFoundMsg.style.display = 'none';
+      if (!q){ resetPageView(); return; }
 
-      if (!q){
-        resetPageView();
-        return;
-      }
+      topHits.style.display = 'none';
+      newReleases.style.display = 'none';
 
-      // hide main sections
-      if (slider) slider.style.display = 'none';
-      if (topHits) topHits.style.display = 'none';
-      if (newReleases) newReleases.style.display = 'none';
-
-      const all = getAllCards();
       let found = false;
-      all.forEach(card => {
-        const title = (card.getAttribute('data-title') || '').toLowerCase();
-        if (title.includes(q)){
-          // clone to keep original lists intact
+      getAllCards().forEach(card => {
+        if ((card.getAttribute('data-title')||'').toLowerCase().includes(q)){
           searchGrid.appendChild(card.cloneNode(true));
           found = true;
         }
       });
 
       searchResults.style.display = 'block';
-      if (!found){
-        notFoundMsg.style.display = 'block';
-      }
+      if (!found) notFoundMsg.style.display = 'block';
     }
 
-    // events
     searchInput.addEventListener('input', ()=> filterAnime(searchInput.value));
     searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') filterAnime(searchInput.value); });
 
-    // initial reset
     resetPageView();
-
-    /* ====== OPTIONAL: notification badge (read from a simple array in a file) ======
-       If you use Notifications/notificationsData.js on your server which sets `window.notifications`,
-       uncomment this part to auto-update badge. Otherwise hide badge by default.
-    */
-    (function initBadge(){
-      const badge = document.getElementById('notifBadge');
-      if (!badge) return;
-      // If you include a notifications script that sets window.notifications = [...],
-      // update badge based on that array length.
-      if (window.notifications && Array.isArray(window.notifications)){
-        if (window.notifications.length === 0) badge.style.display = 'none';
-        else { badge.style.display = 'inline-block'; badge.textContent = window.notifications.length; }
-      } else {
-        // no external data -> hide badge
-        badge.style.display = 'none';
-      }
-    })();
   </script>
 </body>
 </html>
