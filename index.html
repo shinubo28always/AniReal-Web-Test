@@ -170,59 +170,70 @@
     }
 
     /* === Anime Card Upgrade === */
+<!-- Step 5: Updated Anime Cards Styling with Glow Effect -->
+<style>
 .anime-card {
-    min-width: 160px;              /* slightly wider */
-    flex-shrink: 0;
-    background-color: var(--nav-color);
-    border-radius: 12px;           /* rounded corners */
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);  /* deeper shadow */
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: var(--text-color);
+  border-radius: 12px;           
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4); 
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--text-color);
+  background-color: var(--nav-color);
+  position: relative; /* For glow overlay */
+}
+
+.anime-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.anime-card:hover::after {
+  opacity: 1; /* Glow appears on hover */
 }
 
 .anime-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(255,71,87,0.6);
+  transform: translateY(-5px) scale(1.05); 
+  box-shadow: 0 8px 20px rgba(255, 71, 87, 0.7);
 }
 
 .anime-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;   /* image cover properly */
-    display: block;
-    border-bottom: 1px solid #444;
-    transition: transform 0.25s ease;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #444;
+  transition: transform 0.25s ease;
 }
 
 .anime-card:hover img {
-    transform: scale(1.08);  /* subtle zoom effect */
+  transform: scale(1.05);
 }
 
 .anime-card h3 {
-    font-size: 16px;
-    padding: 10px;
-    margin: 0;
-    flex-grow: 1;
-    text-align: center;
+  font-size: 16px;
+  padding: 10px;
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
 }
 
 .anime-card p {
-    font-size: 13px;
-    color: #aaa;
-    padding: 0 10px 10px;
-    margin: 0;
-    text-align: center;
+  font-size: 13px;
+  padding: 0 10px 10px;
+  margin: 0;
+  color: gray;
+  text-align: center;
 }
-
-    main {
-      padding: 20px;
-      text-align: center;
-    }
+</style>
 
 /* === Footer === */
 footer {
