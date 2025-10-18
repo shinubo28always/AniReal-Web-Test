@@ -12,12 +12,12 @@ body {
     margin:0;
 }
 
-/* Header styled like home page title, responsive */
+/* Header styled like home page title, bigger now */
 h1 { 
     text-align: center; 
-    font-size: 6vw; /* Responsive size */
+    font-size: 10vw; /* Bigger header */
     font-weight: bold; 
-    margin-bottom: 25px; 
+    margin-bottom: 30px; 
     background: linear-gradient(90deg, #FFD700, #FFA500); /* Gold gradient */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -27,11 +27,11 @@ h1 {
 /* Notification card */
 .notification-card { 
     background:#1e1e1e; 
-    padding:15px; 
+    padding:20px; 
     margin-bottom:15px; 
     border-radius:8px; 
     box-shadow: 0 2px 6px rgba(255,215,0,0.3);
-    font-size: 16px;
+    font-size: 18px; /* Bigger text */
     animation: fadeIn 0.6s ease-in-out;
     word-wrap: break-word;
 }
@@ -45,11 +45,11 @@ h1 {
 /* Media queries for small screens */
 @media (max-width: 600px) {
     h1 {
-        font-size: 8vw; /* smaller for phones */
+        font-size: 12vw; /* Bigger header for phones, still fits */
     }
     .notification-card {
-        font-size: 14px;
-        padding: 12px;
+        font-size: 16px; /* Slightly smaller for phone */
+        padding: 15px;
     }
 }
 </style>
