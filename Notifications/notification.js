@@ -1,8 +1,6 @@
 // === Notifications Array ===
 const notifications = [
-    "New episode of Naruto released!",
-    "Server maintenance at 10 PM",
-    "One Piece latest chapter is out!"
+    "Test Msg🤡!"
 ];
 
 // Badge on home page
