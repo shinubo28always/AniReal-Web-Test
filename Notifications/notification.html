@@ -15,13 +15,25 @@
   /* Header */
   h1 {
     text-align:center; 
-    font-size:80px; /* boro header */
-    margin-bottom:30px; 
+    font-size:6vw; /* responsive header font-size */
+    margin-bottom:10px; 
     font-weight: bold;
     background: linear-gradient(90deg, #FFD700, #FFA500);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: fadeIn 1s ease-in-out;
+    position: relative;
+  }
+
+  /* Golden line under header */
+  h1::after {
+    content: "";
+    display: block;
+    width: 60px; /* line width */
+    height: 4px; /* line height */
+    background: #FFD700;
+    margin: 10px auto 0 auto;
+    border-radius:2px;
   }
 
   /* Notification Card */
@@ -30,11 +42,9 @@
     padding:25px 30px; /* boro padding */
     margin-bottom:20px; 
     border-radius:12px; 
-    font-size:44px; /* boro text */
-    max-width:600px;
-    width:100%; /* responsive */
-    margin-left:auto;
-    margin-right:auto;
+    font-size:2vw; /* responsive font */
+    width:100%; /* full width */
+    box-sizing: border-box;
     box-shadow: 0 4px 15px rgba(255,215,0,0.3); /* gold glow */
     animation: fadeIn 0.8s ease-in-out;
     line-height:1.5;
@@ -48,15 +58,20 @@
 
   /* Responsive */
   @media (max-width: 600px) {
-    h1 { font-size:48px; }
-    .notification-card { font-size:30px; padding:20px; }
+    h1 { font-size:8vw; }
+    .notification-card { font-size:4vw; padding:15px 20px; }
   }
 </style>
 </head>
 <body>
 
 <h1>Notifications</h1>
-<div id="notificationList"></div>
+
+<div id="notificationList">
+  <div class="notification-card">Notification 1: Example message here.</div>
+  <div class="notification-card">Notification 2: Another message.</div>
+  <div class="notification-card">Notification 3: More notifications.</div>
+</div>
 
 <script src="notification.js"></script>
 </body>
