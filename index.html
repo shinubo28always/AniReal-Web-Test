@@ -329,114 +329,111 @@
     <p>&copy; 2025 AniReal. All rights reserved.</p>
   </footer>
 
-  <script>
-    // Slider auto-slide with pause on search active
-    let currentSlide = 0;
-    const slides = document.querySelectorAll(".slide");
-    const sliderContainer = document.getElementById("slider");
-    const searchInput = document.getElementById("searchExpanded");
+<script>
+  // Slider auto-slide with pause on search active
+  let currentSlide = 0;
+  const slides = document.querySelectorAll(".slide");
+  const sliderContainer = document.getElementById("slider");
+  const searchInput = document.getElementById("searchExpanded");
+  const mainTitle = document.getElementById("mainTitle");
+  const searchIcon = document.querySelector(".search-toggle-icon");
 
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle("active", i === index);
-      });
-    }
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === index);
+    });
+  }
 
-    function nextSlide() {
-      // Pause slider if search input visible
-      if (searchInput.style.display === "inline-block") return;
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-    }
-
+  function nextSlide() {
+    // Pause slider if search input visible
+    if (searchInput.style.display === "inline-block") return;
+    currentSlide = (currentSlide + 1) % slides.length;
     showSlide(currentSlide);
-    setInterval(nextSlide, 3000);
+  }
 
-    // Dropdown toggle
-    function toggleDropdown() {
-      const menu = document.getElementById("dropdown");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
+  showSlide(currentSlide);
+  setInterval(nextSlide, 3000);
+
+  // Dropdown toggle
+  function toggleDropdown() {
+    const menu = document.getElementById("dropdown");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  }
+
+  // Outside click to close dropdown and search bar
+  document.addEventListener("click", function (event) {
+    const dropdown = document.getElementById("dropdown");
+    const menuIcon = document.querySelector(".menu-icon");
+
+    // Close dropdown if clicked outside
+    if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
+      dropdown.style.display = "none";
     }
 
-    // Outside click to close dropdown and hide search
-    document.addEventListener("click", function (event) {
-      const dropdown = document.getElementById("dropdown");
-      const menuIcon = document.querySelector(".menu-icon");
-      const searchIcon = document.querySelector(".search-toggle-icon");
-      const mainTitle = document.getElementById("mainTitle");
+    // Close search if clicked outside
+    if (!searchInput.contains(event.target) && !searchIcon.contains(event.target)) {
+      searchInput.style.display = "none";
+      mainTitle.style.display = "block";
+    }
+  });
 
-      if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
-        dropdown.style.display = "none";
-      }
+  // Toggle search bar and title
+  function toggleSearch() {
+    if (searchInput.style.display === "inline-block") {
+      searchInput.style.display = "none";
+      mainTitle.style.display = "block";
+    } else {
+      searchInput.style.display = "inline-block";
+      searchInput.focus();
+      mainTitle.style.display = "none";
+    }
+  }
 
-      if (
-        !searchInput.contains(event.target) &&
-        !searchIcon.contains(event.target)
-      ) {
-        searchInput.style.display = "none";
-        mainTitle.style.display = "block";
-      }
+  // Search filter
+  const cards = document.querySelectorAll(".anime-card");
+  const animeSection = document.getElementById("top-hits");
+  const slider = document.getElementById("slider");
+
+  function filterAnime(query) {
+    const lowerQuery = query.toLowerCase();
+    let found = false;
+
+    cards.forEach(card => {
+      const title = card.getAttribute("data-title");
+      const match = title.toLowerCase().includes(lowerQuery);
+      card.style.display = match ? "flex" : "none";
+      if (match) found = true;
     });
 
-    // Toggle search bar and title
-    function toggleSearch() {
-      const mainTitle = document.getElementById("mainTitle");
-
-      if (searchInput.style.display === "inline-block") {
-        searchInput.style.display = "none";
-        mainTitle.style.display = "block";
-      } else {
-        searchInput.style.display = "inline-block";
-        searchInput.focus();
-        mainTitle.style.display = "none";
-      }
+    if (lowerQuery.trim() === "") {
+      // When search bar is active but empty → hide title anyway
+      animeSection.style.display = "block";
+      slider.style.display = "block";
+      mainTitle.style.display = "none"; // 👈 title will never show while search is open
+    } else {
+      animeSection.style.display = found ? "block" : "none";
+      slider.style.display = "none";
+      mainTitle.style.display = "none";
     }
 
-    // Search filter
-    const cards = document.querySelectorAll(".anime-card");
-    const animeSection = document.getElementById("top-hits");
-    const slider = document.getElementById("slider");
-
-    function filterAnime(query) {
-      const lowerQuery = query.toLowerCase();
-      let found = false;
-
-      cards.forEach(card => {
-        const title = card.getAttribute("data-title");
-        const match = title.toLowerCase().includes(lowerQuery);
-        card.style.display = match ? "flex" : "none";
-        if (match) found = true;
-      });
-
-      if (lowerQuery.trim() === "") {
-        animeSection.style.display = "block";
-        slider.style.display = "block";
-        document.getElementById("mainTitle").style.display = "block";
-      } else {
-        animeSection.style.display = found ? "block" : "none";
-        slider.style.display = "none";
-        document.getElementById("mainTitle").style.display = "none";
+    // "No result" message
+    const old = document.getElementById("noResult");
+    if (!found && lowerQuery !== "") {
+      if (!old) {
+        const msg = document.createElement("p");
+        msg.id = "noResult";
+        msg.textContent = "No Anime Found 😢";
+        msg.style.color = "gray";
+        msg.style.textAlign = "center";
+        animeSection.appendChild(msg);
       }
-
-      const old = document.getElementById("noResult");
-      if (!found && lowerQuery !== "") {
-        if (!old) {
-          const msg = document.createElement("p");
-          msg.id = "noResult";
-          msg.textContent = "No Anime Found 😢";
-          msg.style.color = "gray";
-          msg.style.textAlign = "center";
-          animeSection.appendChild(msg);
-        }
-      } else {
-        if (old) old.remove();
-      }
+    } else {
+      if (old) old.remove();
     }
+  }
 
-    searchInput.addEventListener("input", () => filterAnime(searchInput.value));
-    searchInput.addEventListener("keydown", e => {
-      if (e.key === "Enter") filterAnime(searchInput.value);
-    });
-  </script>
-</body>
-</html>
+  searchInput.addEventListener("input", () => filterAnime(searchInput.value));
+  searchInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") filterAnime(searchInput.value);
+  });
+</script>
