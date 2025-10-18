@@ -196,3 +196,119 @@ footer { padding: 20px; text-align: center; font-size: 14px; color: gray; user-s
 <section id="new-releases" class="anime-section">
 <h2>✨ New Releases</h2>
 <div class="anime-grid">
+  <a href="#" class="anime-card" data-title="solo leveling">
+      <img src="https://envs.sh/NEW1.jpg" alt="Solo Leveling" />
+      <div class="anime-info"><h3>Solo Leveling</h3><p>Episodes: 10</p></div>
+    </a>
+    <a href="#" class="anime-card" data-title="kaiju no.8">
+      <img src="https://envs.sh/NEW2.jpg" alt="Kaiju No. 8" />
+      <div class="anime-info"><h3>Kaiju No. 8</h3><p>Episodes: 8</p></div>
+    </a>
+    <a href="#" class="anime-card" data-title="wind breaker">
+      <img src="https://envs.sh/NEW3.jpg" alt="Wind Breaker" />
+      <div class="anime-info"><h3>Wind Breaker</h3><p>Episodes: 5</p></div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 AniReal. All rights reserved.</p>
+</footer>
+
+<!-- Scripts -->
+<script src="Notifications/notification.js"></script>
+<script>
+  // === Select Elements ===
+  const slides = document.querySelectorAll(".slide");
+  const sliderContainer = document.getElementById("slider");
+  const searchInput = document.getElementById("searchExpanded");
+  const mainTitle = document.getElementById("mainTitle");
+  const searchIcon = document.querySelector(".search-toggle-icon");
+  const welcomeMsg = document.querySelector("main");
+  const topHits = document.getElementById("top-hits");
+  const newReleases = document.getElementById("new-releases");
+  const allCards = document.querySelectorAll(".anime-card");
+
+  // === Create Search Result Section ===
+  const searchResults = document.createElement("section");
+  searchResults.id = "search-results";
+  searchResults.className = "anime-section";
+  searchResults.style.display = "none";
+  searchResults.innerHTML =
+    '<h2 id="searchTitle">🔍 Search Results</h2>' +
+    '<div class="anime-grid" id="search-grid"></div>';
+  document.body.insertBefore(searchResults, document.querySelector("footer"));
+
+  const searchGrid = document.getElementById("search-grid");
+
+  // === Create Not Found Message ===
+  const notFoundMsg = document.createElement("p");
+  notFoundMsg.id = "notFoundMsg";
+  notFoundMsg.textContent = "😢 No anime matched your search. Try something else!";
+  notFoundMsg.style.display = "none";
+  searchResults.appendChild(notFoundMsg);
+
+  // === Slider Functions ===
+  let currentSlide = 0;
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === index);
+    });
+  }
+  function nextSlide() {
+    if (searchInput.style.display === "inline-block") return;
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+  showSlide(currentSlide);
+  setInterval(nextSlide, 3000);
+
+  // === Dropdown Toggle ===
+  function toggleDropdown() {
+    const menu = document.getElementById("dropdown");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  }
+
+  // === Click Outside Logic ===
+  document.addEventListener("click", function (event) {
+    const dropdown = document.getElementById("dropdown");
+    const menuIcon = document.querySelector(".menu-icon");
+
+    // Hide dropdown if clicked outside
+    if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
+      dropdown.style.display = "none";
+    }
+
+    // Hide search if clicked outside
+    if (!searchInput.contains(event.target) &&
+        !searchIcon.contains(event.target) &&
+        !searchResults.contains(event.target)) {
+      searchInput.style.display = "none";
+      mainTitle.style.display = "block";
+      resetPageView();
+    }
+  });
+
+  // === Toggle Search Bar ===
+  function toggleSearch() {
+    if (searchInput.style.display === "inline-block") {
+      searchInput.style.display = "none";
+      mainTitle.style.display = "block";
+      resetPageView();
+    } else {
+      searchInput.style.display = "inline-block";
+      searchInput.focus();
+      mainTitle.style.display = "none";
+    }
+  }
+
+  // === Reset Layout ===
+  function resetPageView() {
+    sliderContainer.style.display = "block";
+    welcomeMsg.style.display = "block";
+    topHits.style.display = "block";
+    newReleases.style.display = "block";
+    searchResults.style.display = "none";
+    searchGrid.innerHTML = "";
+    notFoundMsg.style.display = "none";
+  }
