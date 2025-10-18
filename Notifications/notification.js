@@ -64,7 +64,9 @@ function updateBadge() {
 // === Example Notifications ===
 // Add one notice automatically
 addNotification('🎉 One Piece Episode 105 is now live!');
-
+// Call these whenever you want to add a notification
+// addNotification('New episode of Naruto released!');
+// addNotification('Server maintenance at 10 PM');
 // Initial render
 renderNotifications();
 updateBadge();
