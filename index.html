@@ -327,76 +327,71 @@
 
   <footer>
     <p>&copy; 2025 AniReal. All rights reserved.</p>
-  </footer>
-
+  </footer>  
 <script>
-  // Slider auto-slide with pause on search active
-  let currentSlide = 0;
+  // === Select Elements ===
   const slides = document.querySelectorAll(".slide");
   const sliderContainer = document.getElementById("slider");
   const searchInput = document.getElementById("searchExpanded");
   const mainTitle = document.getElementById("mainTitle");
   const searchIcon = document.querySelector(".search-toggle-icon");
-  const welcomeMsg = document.querySelector("main p"); // 👈 Welcome message select
+  const welcomeMsg = document.querySelector("main");
   const topHits = document.getElementById("top-hits");
   const newReleases = document.getElementById("new-releases");
+  const allCards = document.querySelectorAll(".anime-card");
 
+  // === Create Search Result Section ===
+  const searchResults = document.createElement("section");
+  searchResults.id = "search-results";
+  searchResults.className = "anime-section";
+  searchResults.style.display = "none";
+  searchResults.innerHTML = `<div class="anime-grid" id="search-grid"></div>`;
+  document.body.insertBefore(searchResults, document.querySelector("footer"));
+
+  const searchGrid = document.getElementById("search-grid");
+
+  // === Slider ===
+  let currentSlide = 0;
   function showSlide(index) {
     slides.forEach((slide, i) => {
       slide.classList.toggle("active", i === index);
     });
   }
-
   function nextSlide() {
-    // Pause slider if search input visible
     if (searchInput.style.display === "inline-block") return;
     currentSlide = (currentSlide + 1) % slides.length;
     showSlide(currentSlide);
   }
-
   showSlide(currentSlide);
   setInterval(nextSlide, 3000);
 
-  // Dropdown toggle
+  // === Dropdown ===
   function toggleDropdown() {
     const menu = document.getElementById("dropdown");
     menu.style.display = menu.style.display === "block" ? "none" : "block";
   }
 
-  // Outside click to close dropdown and search bar
+  // === Outside click handler ===
   document.addEventListener("click", function (event) {
     const dropdown = document.getElementById("dropdown");
     const menuIcon = document.querySelector(".menu-icon");
-
-    // Close dropdown if clicked outside
     if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
       dropdown.style.display = "none";
     }
 
-    // Close search if clicked outside
     if (!searchInput.contains(event.target) && !searchIcon.contains(event.target)) {
       searchInput.style.display = "none";
       mainTitle.style.display = "block";
-
-      // Restore all sections when search closed
-      welcomeMsg.style.display = "block";
-      topHits.style.display = "block";
-      newReleases.style.display = "block";
-      sliderContainer.style.display = "block";
+      resetPageView();
     }
   });
 
-  // Toggle search bar and title
+  // === Toggle Search Bar ===
   function toggleSearch() {
     if (searchInput.style.display === "inline-block") {
       searchInput.style.display = "none";
       mainTitle.style.display = "block";
-
-      // Restore sections when closed
-      welcomeMsg.style.display = "block";
-      topHits.style.display = "block";
-      newReleases.style.display = "block";
-      sliderContainer.style.display = "block";
+      resetPageView();
     } else {
       searchInput.style.display = "inline-block";
       searchInput.focus();
@@ -404,53 +399,49 @@
     }
   }
 
-  // Search filter
-  const cards = document.querySelectorAll(".anime-card");
-
-  function filterAnime(query) {
-    const lowerQuery = query.toLowerCase();
-    let found = false;
-
-    cards.forEach(card => {
-      const title = card.getAttribute("data-title");
-      const match = title.toLowerCase().includes(lowerQuery);
-      card.style.display = match ? "flex" : "none";
-      if (match) found = true;
-    });
-
-    const old = document.getElementById("noResult");
-
-    if (lowerQuery.trim() === "") {
-      // Empty search → restore all
-      sliderContainer.style.display = "block";
-      topHits.style.display = "block";
-      newReleases.style.display = "block";
-      welcomeMsg.style.display = "block";
-      mainTitle.style.display = "none"; // keep hidden while search visible
-      if (old) old.remove();
-    } else {
-      // When searching → hide everything except results
-      sliderContainer.style.display = "none";
-      topHits.style.display = found ? "block" : "none";
-      newReleases.style.display = "none";
-      welcomeMsg.style.display = "none";
-      mainTitle.style.display = "none";
-
-      if (!found) {
-        if (!old) {
-          const msg = document.createElement("p");
-          msg.id = "noResult";
-          msg.textContent = "No Anime Found 😢";
-          msg.style.color = "gray";
-          msg.style.textAlign = "center";
-          topHits.appendChild(msg);
-        }
-      } else {
-        if (old) old.remove();
-      }
-    }
+  // === Reset full layout ===
+  function resetPageView() {
+    sliderContainer.style.display = "block";
+    welcomeMsg.style.display = "block";
+    topHits.style.display = "block";
+    newReleases.style.display = "block";
+    searchResults.style.display = "none";
+    searchGrid.innerHTML = "";
   }
 
+  // === Filter Search ===
+  function filterAnime(query) {
+    const lowerQuery = query.toLowerCase().trim();
+    searchGrid.innerHTML = "";
+
+    if (lowerQuery === "") {
+      resetPageView();
+      mainTitle.style.display = "none";
+      return;
+    }
+
+    // Hide everything except search result section
+    sliderContainer.style.display = "none";
+    welcomeMsg.style.display = "none";
+    topHits.style.display = "none";
+    newReleases.style.display = "none";
+    mainTitle.style.display = "none";
+
+    let found = false;
+
+    allCards.forEach(card => {
+      const title = card.getAttribute("data-title");
+      if (title.toLowerCase().includes(lowerQuery)) {
+        const clone = card.cloneNode(true);
+        searchGrid.appendChild(clone);
+        found = true;
+      }
+    });
+
+    searchResults.style.display = found ? "block" : "none";
+  }
+
+  // === Input Event ===
   searchInput.addEventListener("input", () => filterAnime(searchInput.value));
   searchInput.addEventListener("keydown", e => {
     if (e.key === "Enter") filterAnime(searchInput.value);
