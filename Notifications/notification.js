@@ -1,6 +1,5 @@
 // === Notifications Array (Je text add korbe, sheta show hobe) ===
 const notifications = [
-    "Pta nii kon bahenchod ka najar lag gye🤬"
 ];
 
 // Home page badge
