@@ -1,60 +1,71 @@
-// ====== Central Notification Array ======
-let notifications = [
-  "Welcome to AniReal!",
-  "New Episode Released: One Piece",
-  "Don't miss Attack on Titan!"
-];
+// === Notification Data ===
+// Initially empty
+let notifications = [];
 
-// ====== Update Home Page Badge ======
-function updateBadge() {
-  const badge = document.getElementById("notifBadge");
-  if (!badge) return;
-  badge.textContent = notifications.length;
-  badge.style.display = notifications.length > 0 ? "inline-block" : "none";
+// Badge on home page
+const badge = document.getElementById('notifBadge');
+
+// Notification list in notification.html
+const notificationList = document.getElementById('notificationList');
+
+// Admin flag (true means delete button visible)
+const isAdmin = true; // Change false for normal users
+
+// === Add Notification Function ===
+function addNotification(message) {
+    const id = Date.now();
+    const notif = { id, message };
+    notifications.push(notif);
+    renderNotifications();
+    updateBadge();
 }
 
-// ====== Add New Notification ======
-function addNotification(msg) {
-  if (!msg || msg.trim() === "") return;
-  notifications.push(msg.trim());
-  updateBadge();
-  renderNotifications();
+// === Delete Notification Function (Admin Only) ===
+function deleteNotification(id) {
+    notifications = notifications.filter(n => n.id !== id);
+    renderNotifications();
+    updateBadge();
 }
 
-// ====== Delete Notification ======
-function deleteNotification(index) {
-  notifications.splice(index, 1);
-  updateBadge();
-  renderNotifications();
-}
-
-// ====== Render Notifications on Management Page ======
+// === Render Notifications ===
 function renderNotifications() {
-  const listContainer = document.getElementById("notifList");
-  if (!listContainer) return;
-  listContainer.innerHTML = "";
+    if (!notificationList) return; // in home page, skip
+    notificationList.innerHTML = '';
+    notifications.forEach(n => {
+        const div = document.createElement('div');
+        div.className = 'notification-card';
+        div.textContent = n.message;
 
-  if (notifications.length === 0) {
-    const emptyMsg = document.createElement("p");
-    emptyMsg.textContent = "No notifications available!";
-    emptyMsg.style.textAlign = "center";
-    emptyMsg.style.color = "gray";
-    listContainer.appendChild(emptyMsg);
-    return;
-  }
+        // Admin delete button
+        if (isAdmin) {
+            const btn = document.createElement('button');
+            btn.className = 'delete-btn';
+            btn.textContent = 'Delete';
+            btn.style.display = 'block';
+            btn.onclick = () => deleteNotification(n.id);
+            div.appendChild(btn);
+        }
 
-  notifications.forEach((msg, i) => {
-    const card = document.createElement("div");
-    card.className = "notif-card";
-    card.innerHTML = `
-      <span>${msg}</span>
-      <button class="deleteBtn" onclick="deleteNotification(${i})">Delete</button>
-    `;
-    listContainer.appendChild(card);
-  });
+        notificationList.appendChild(div);
+    });
 }
 
-// ====== Initialize Badge ======
-document.addEventListener("DOMContentLoaded", () => {
-  updateBadge();
-});
+// === Update Badge on Home Page ===
+function updateBadge() {
+    if (!badge) return;
+    if (notifications.length === 0) {
+        badge.style.display = 'none';
+    } else {
+        badge.style.display = 'inline-block';
+        badge.textContent = notifications.length;
+    }
+}
+
+// === Example Notifications ===
+// Call these whenever you want to add a notification
+// addNotification('New episode of Naruto released!');
+// addNotification('Server maintenance at 10 PM');
+
+// Initial render
+renderNotifications();
+updateBadge();
