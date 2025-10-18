@@ -36,6 +36,9 @@ function updateBadge() {
 renderNotifications();
 updateBadge();
 
+notifications.push("Test Msg😂");
+renderNotifications();
+updateBadge();
 // === Example: add notification dynamically ===
 // notifications.push("New episode of Demon Slayer released!");
 // renderNotifications();
