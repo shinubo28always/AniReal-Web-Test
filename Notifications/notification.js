@@ -1,6 +1,6 @@
 // === Notifications Array ===
 const notifications = [
-    "Test Msg🤡!"
+    "👄👄👄"
 ];
 
 // Badge on home page
