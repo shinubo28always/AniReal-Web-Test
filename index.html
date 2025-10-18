@@ -328,7 +328,8 @@
   <footer>
     <p>&copy; 2025 AniReal. All rights reserved.</p>
   </footer>  
-<script>
+
+  <script>
   // === Select Elements ===
   const slides = document.querySelectorAll(".slide");
   const sliderContainer = document.getElementById("slider");
@@ -345,10 +346,24 @@
   searchResults.id = "search-results";
   searchResults.className = "anime-section";
   searchResults.style.display = "none";
-  searchResults.innerHTML = `<div class="anime-grid" id="search-grid"></div>`;
+  searchResults.innerHTML = `
+    <h2 id="searchTitle">🔍 Search Results</h2>
+    <div class="anime-grid" id="search-grid"></div>
+  `;
   document.body.insertBefore(searchResults, document.querySelector("footer"));
 
   const searchGrid = document.getElementById("search-grid");
+
+  // === Create Not Found Message ===
+  const notFoundMsg = document.createElement("p");
+  notFoundMsg.id = "notFoundMsg";
+  notFoundMsg.textContent = "😢 No anime matched your search. Try something else!";
+  notFoundMsg.style.textAlign = "center";
+  notFoundMsg.style.color = "gray";
+  notFoundMsg.style.fontSize = "16px";
+  notFoundMsg.style.marginTop = "40px";
+  notFoundMsg.style.display = "none";
+  searchResults.appendChild(notFoundMsg);
 
   // === Slider ===
   let currentSlide = 0;
@@ -407,12 +422,14 @@
     newReleases.style.display = "block";
     searchResults.style.display = "none";
     searchGrid.innerHTML = "";
+    notFoundMsg.style.display = "none";
   }
 
   // === Filter Search ===
   function filterAnime(query) {
     const lowerQuery = query.toLowerCase().trim();
     searchGrid.innerHTML = "";
+    notFoundMsg.style.display = "none";
 
     if (lowerQuery === "") {
       resetPageView();
@@ -438,7 +455,9 @@
       }
     });
 
-    searchResults.style.display = found ? "block" : "none";
+    searchResults.style.display = "block";
+    document.getElementById("searchTitle").style.display = found ? "block" : "none";
+    notFoundMsg.style.display = found ? "none" : "block";
   }
 
   // === Input Event ===
@@ -446,6 +465,6 @@
   searchInput.addEventListener("keydown", e => {
     if (e.key === "Enter") filterAnime(searchInput.value);
   });
-</script>
+  </script>
 </body>
 </html>
