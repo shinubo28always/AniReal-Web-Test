@@ -21,42 +21,34 @@
 
     /* Navbar */
 .navbar{
+.navbar{
   background:var(--nav-color);
   padding:12px 20px;
   display:flex;
   align-items:center;
-  justify-content:center;  /* center everything */
+  justify-content:space-between;
   gap:10px;
   position:relative;
   box-shadow:0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* keep menu icon fixed left */
-.menu-icon{
-  position:absolute;
-  left:20px;
-  font-size:22px;
-  cursor:pointer;
-  user-select:none;
-  color:var(--text-color);
-}
-
-/* keep right icons fixed right */
-.navbar-right{
-  position:absolute;
-  right:20px;
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-/* title center aligned like a banner */
+/* title absolute center aligned between left & right icons */
 .title{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
   font-size:22px;
   font-weight:bold;
   white-space:nowrap;
   text-align:center;
   transition:all 0.3s ease;
+}
+
+/* keep other parts unchanged */
+.navbar-left, .navbar-right {
+  display:flex;
+  align-items:center;
+  gap:15px;
 }
     .search-box{
       display:none;
