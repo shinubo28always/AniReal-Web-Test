@@ -20,34 +20,35 @@
     }
 
 /* Navbar */
-.navbar{
-  background:var(--nav-color);
-  padding:12px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  position:relative;
-  box-shadow:0 2px 4px rgba(0,0,0,0.1);
+.navbar {
+  background-color: var(--nav-color);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative;
 }
 
-/* title absolute center aligned between left & right icons */
-.title{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:22px;
-  font-weight:bold;
-  white-space:nowrap;
-  text-align:center;
-  transition:all 0.3s ease;
-}
-
-/* keep other parts unchanged */
+/* keep left and right same */
 .navbar-left, .navbar-right {
-  display:flex;
-  align-items:center;
-  gap:15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* title center between left and right icons */
+.title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  text-align: center;
 }
     .search-box{
       display:none;
