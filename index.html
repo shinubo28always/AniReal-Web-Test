@@ -20,35 +20,44 @@
     }
 
     /* Navbar */
-    .navbar{
-      background:var(--nav-color);
-      padding: 12px 20px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      box-shadow:0 2px 4px rgba(0,0,0,0.1);
-      position: relative;
-    }
-    
-    .navbar-left, .navbar-right {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
+.navbar{
+  background:var(--nav-color);
+  padding:12px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;  /* center everything */
+  gap:10px;
+  position:relative;
+  box-shadow:0 2px 4px rgba(0,0,0,0.1);
+}
 
-    .menu-icon {
-      font-size: 22px;
-      cursor: pointer;
-      user-select: none;
-      color: var(--text-color);
-    }
-    .title {
-      font-size: 20px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      white-space: nowrap;
-    }
+/* keep menu icon fixed left */
+.menu-icon{
+  position:absolute;
+  left:20px;
+  font-size:22px;
+  cursor:pointer;
+  user-select:none;
+  color:var(--text-color);
+}
+
+/* keep right icons fixed right */
+.navbar-right{
+  position:absolute;
+  right:20px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+/* title center aligned like a banner */
+.title{
+  font-size:22px;
+  font-weight:bold;
+  white-space:nowrap;
+  text-align:center;
+  transition:all 0.3s ease;
+}
     .search-box{
       display:none;
       padding:5px 10px;
