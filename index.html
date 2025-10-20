@@ -415,3 +415,22 @@
     resetPageView();
 
     // Notification badge
+(function initBadge(){
+  const badge = document.getElementById('notifBadge');
+  if(!badge) return;
+  // If you include a notifications script that sets window.notifications = [...],
+  // update badge based on that array length.
+  if(window.notifications && Array.isArray(window.notifications)){
+    if(window.notifications.length === 0) badge.style.display = 'none';
+    else {
+      badge.style.display = 'inline-block';
+      badge.textContent = window.notifications.length;
+    }
+  } else {
+    // no external data -> hide badge
+    badge.style.display = 'none';
+  }
+})();
+</script>
+</body>
+</html>
