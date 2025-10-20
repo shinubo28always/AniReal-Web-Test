@@ -30,20 +30,17 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       position: relative;
     }
-
     .navbar-left, .navbar-right {
       display: flex;
       align-items: center;
       gap: 15px;
     }
-
     .menu-icon {
       font-size: 22px;
       cursor: pointer;
       user-select: none;
       color: var(--text-color);
     }
-
     .dropdown {
       position: absolute;
       top: 50px;
@@ -55,7 +52,6 @@
       z-index: 10;
       border-radius: 5px;
     }
-
     .title {
       font-size: 20px;
       font-weight: bold;
@@ -66,7 +62,6 @@
       transform: translateX(-50%);
       text-align: center;
     }
-
     .search-box {
       padding: 5px 10px;
       font-size: 14px;
@@ -79,12 +74,17 @@
       display: none;
       transition: all 0.3s ease;
     }
-
     .notification-icon,
     .search-toggle-icon {
       font-size: 18px;
       cursor: pointer;
       user-select: none;
+      position: relative;
+    }
+    #notifBadge{
+      position:absolute; top:-5px; right:-5px;
+      background:red; color:#fff; font-size:12px;
+      padding:2px 6px; border-radius:50%; display:none;
     }
 
     /* ===== SLIDER ===== */
@@ -97,7 +97,6 @@
       border-bottom: 2px solid #ff4757;
       border-radius: 10px;
     }
-
     .slide {
       position: absolute;
       top: 0;
@@ -109,12 +108,7 @@
       text-decoration: none;
       color: #fff;
     }
-
-    .slide.active {
-      opacity: 1;
-      z-index: 1;
-    }
-
+    .slide.active { opacity: 1; z-index: 1; }
     .slide img {
       width: 100%;
       height: 400px;
@@ -122,7 +116,6 @@
       filter: brightness(0.85);
       display: block;
     }
-
     .slide-text {
       position: absolute;
       bottom: 40px;
@@ -130,30 +123,18 @@
       color: #fff;
       text-shadow: 0 2px 8px rgba(0,0,0,0.7);
     }
-
     .slide-text strong {
       font-size: 28px;
       color: #FFD700;
       display: block;
       margin-bottom: 5px;
     }
-
-    .slide-text .genre {
-      font-size: 16px;
-      opacity: 0.9;
-    }
+    .slide-text .genre { font-size: 16px; opacity: 0.9; }
 
     @media(max-width:600px){
       .slide img { height: 250px; }
       .slide-text strong { font-size: 20px; }
       .slide-text .genre { font-size: 13px; }
-    }
-
-    /* Notification badge */
-    #notifBadge{
-      position:absolute; top:-5px; right:-5px;
-      background:red; color:#fff; font-size:12px;
-      padding:2px 6px; border-radius:50%; display:none;
     }
 
     /* Other page styles same as before */
@@ -252,7 +233,6 @@
         <div class="genre">Action, Adventure, Comedy, Drama, Fantasy</div>
       </div>
     </a>
-
     <a href="https://t.me/+k2wGvZpxSU41NWI1" target="_blank" class="slide">
       <img src="https://photo.chelpbot.me/AgACAgUAAxkBVhdORmiU132Pt3NlsFIXOi6PARnW3iWFAAIhyTEbjUPRVqohEV0vJ2NAAQADAgADeQADNgQ/photo.jpg" alt="Attack on Titan" />
       <div class="slide-text">
@@ -260,7 +240,6 @@
         <div class="genre">Action, Drama</div>
       </div>
     </a>
-
     <a href="https://t.me/+Py8nEUlgG01mYjE1" target="_blank" class="slide">
       <img src="https://photo.chelpbot.me/AgACAgUAAxkBVhdTuGiU1-iUZpaw4pulnSu1qaN0RYkhAAIzxjEbgIdYVn_RSBv7wE6rAQADAgADeQADNgQ/photo.jpg" alt="Naruto" />
       <div class="slide-text">
@@ -268,9 +247,8 @@
         <div class="genre">Action, Ninja</div>
       </div>
     </a>
-
     <a href="https://t.me/Demon_Slayer_Hindi_Dub05" target="_blank" class="slide">
-      <img src="https://photo.chelpbot.me/AgACAgUAAxkBVhelmmiU3ZF_ytS68JPcstgBzUKdXqonAAI5yTEbGFqhVC7yka4lms_GAQADAgADeAADNgQ/photo.jpg" alt="Demon Slayer" />
+      <img src="https://photo.chelpbot.me/AgACAgUAAxkBVhelmmiU3ZF_ytS68JPcstgBzUKdXqonAAI5yTEbGFqhVC7yka44lms_GAQADAgADeAADNgQ/photo.jpg" alt="Demon Slayer" />
       <div class="slide-text">
         <strong>Demon Slayer</strong>
         <div class="genre">Supernatural, Sword</div>
@@ -282,7 +260,7 @@
     <p>Welcome! Watch All Hindi Dub Animes Here!</p>
   </main>
 
-  <!-- Top Hits Section -->
+  <!-- Top Hits (horizontal) -->
   <section id="top-hits" class="anime-section">
     <h2>🔥 Top Hits Anime</h2>
     <div class="anime-grid horizontal">
@@ -301,7 +279,7 @@
     </div>
   </section>
 
-  <!-- New Releases Section -->
+  <!-- New Releases (horizontal) -->
   <section id="new-releases" class="anime-section">
     <h2>✨ New Releases</h2>
     <div class="anime-grid horizontal">
@@ -320,7 +298,7 @@
     </div>
   </section>
 
-  <!-- Search Results Section -->
+  <!-- Search Result Section -->
   <section id="search-results" class="anime-section" style="display:none;">
     <h2>🔍 Search Results</h2>
     <div class="anime-grid" id="search-grid"></div>
@@ -330,59 +308,32 @@
   <footer>&copy; 2025 AniReal. All rights reserved.</footer>
 
   <script>
-    // ===== SLIDER SCRIPT =====
-    const slides = document.querySelectorAll(".slide");
-    let currentSlide = 0;
-    let slideInterval;
-    let startX = 0;
-    let endX = 0;
-
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle("active", i === index);
-      });
-      currentSlide = index;
-    }
-
-    function nextSlide() { showSlide((currentSlide + 1) % slides.length); }
-    function prevSlide() { showSlide((currentSlide - 1 + slides.length) % slides.length); }
-    function startSlider() { slideInterval = setInterval(nextSlide, 5000); }
-    function stopSlider() { clearInterval(slideInterval); }
-
-    const slider = document.querySelector(".slider");
-    slider.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; stopSlider(); });
-    slider.addEventListener("touchmove", (e) => { endX = e.touches[0].clientX; });
-    slider.addEventListener("touchend", () => { if(startX - endX>50) nextSlide(); else if(endX - startX>50) prevSlide(); startSlider(); });
-    startSlider();
-
-    // ===== NAVBAR SEARCH =====
-    function toggleDropdown() {
-      const menu = document.getElementById("dropdown");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-    }
-
-    const searchInput = document.getElementById("searchExpanded");
-    const mainTitle = document.getElementById("mainTitle");
-
-    function toggleSearch() {
-      if (searchInput.style.display === "inline-block") {
-        searchInput.style.display = "none";
-        mainTitle.style.display = "block";
-      } else {
-        searchInput.style.display = "inline-block";
-        mainTitle.style.display = "none";
-        searchInput.focus();
-      }
-    }
-
-    // ===== SEARCH FILTER =====
-    const searchResults = document.getElementById('search-results');
-    const searchGrid = document.getElementById('search-grid');
+    /* ====== Search + UI logic ====== */
+    const searchInput = document.getElementById('searchExpanded');
+    const searchIcon = document.querySelector('.search-toggle-icon');
+    const slider = document.getElementById('slider');
+    const mainTitle = document.getElementById('mainTitle');
     const topHits = document.getElementById('top-hits');
     const newReleases = document.getElementById('new-releases');
+    const searchResults = document.getElementById('search-results');
+    const searchGrid = document.getElementById('search-grid');
     const notFoundMsg = document.getElementById('notFoundMsg');
 
-    function getAllCards(){ return Array.from(document.querySelectorAll('.anime-card')); }
+    function getAllCards(){
+      return Array.from(document.querySelectorAll('.anime-card'));
+    }
+
+    function toggleSearch(){
+      if(searchInput.style.display==='inline-block'){
+        searchInput.style.display='none';
+        mainTitle.style.display='block';
+        resetPageView();
+      } else {
+        searchInput.style.display='inline-block';
+        searchInput.focus();
+        mainTitle.style.display='none';
+      }
+    }
 
     function resetPageView(){
       if(slider) slider.style.display='block';
@@ -394,43 +345,76 @@
     }
 
     function filterAnime(query){
-      const q = String(query||'').toLowerCase().trim();
-      searchGrid.innerHTML=''; notFoundMsg.style.display='none';
-      if(!q){ resetPageView(); return; }
+      const q=String(query||'').toLowerCase().trim();
+      searchGrid.innerHTML='';
+      notFoundMsg.style.display='none';
+
+      if(!q){
+        resetPageView();
+        return;
+      }
+
       if(slider) slider.style.display='none';
       if(topHits) topHits.style.display='none';
       if(newReleases) newReleases.style.display='none';
+
+      const all = getAllCards();
       let found=false;
-      getAllCards().forEach(card=>{
+      all.forEach(card=>{
         const title=(card.getAttribute('data-title')||'').toLowerCase();
-        if(title.includes(q)){ searchGrid.appendChild(card.cloneNode(true)); found=true; }
+        if(title.includes(q)){
+          searchGrid.appendChild(card.cloneNode(true));
+          found=true;
+        }
       });
+
       searchResults.style.display='block';
       if(!found) notFoundMsg.style.display='block';
     }
 
-    searchInput.addEventListener('input', ()=> filterAnime(searchInput.value));
-    searchInput.addEventListener('keydown', e => { if(e.key==='Enter') filterAnime(searchInput.value); });
+    searchInput.addEventListener('input',()=>filterAnime(searchInput.value));
+    searchInput.addEventListener('keydown',e=>{if(e.key==='Enter')filterAnime(searchInput.value);});
 
     resetPageView();
 
-    // Notification badge
-(function initBadge(){
-  const badge = document.getElementById('notifBadge');
-  if(!badge) return;
-  // If you include a notifications script that sets window.notifications = [...],
-  // update badge based on that array length.
-  if(window.notifications && Array.isArray(window.notifications)){
-    if(window.notifications.length === 0) badge.style.display = 'none';
-    else {
-      badge.style.display = 'inline-block';
-      badge.textContent = window.notifications.length;
+    /* ====== Slider Script ====== */
+    const slides = document.querySelectorAll(".slide");
+    let currentSlide = 0;
+    let slideInterval;
+    let startX=0, endX=0;
+
+    function showSlide(index){
+      slides.forEach((slide,i)=>{
+        slide.classList.toggle("active", i===index);
+      });
+      currentSlide=index;
     }
-  } else {
-    // no external data -> hide badge
-    badge.style.display = 'none';
-  }
-})();
-</script>
+    function nextSlide(){ showSlide((currentSlide+1)%slides.length); }
+    function prevSlide(){ showSlide((currentSlide-1+slides.length)%slides.length); }
+    function startSlider(){ slideInterval=setInterval(nextSlide,5000); }
+    function stopSlider(){ clearInterval(slideInterval); }
+
+    const sliderEl=document.querySelector(".slider");
+    sliderEl.addEventListener("touchstart",(e)=>{startX=e.touches[0].clientX; stopSlider();});
+    sliderEl.addEventListener("touchmove",(e)=>{endX=e.touches[0].clientX;});
+    sliderEl.addEventListener("touchend",()=>{if(startX-endX>50) nextSlide(); else if(endX-startX>50) prevSlide(); startSlider();});
+    startSlider();
+
+    /* ====== Dropdown Menu ===== */
+    function toggleDropdown(){
+      const menu=document.getElementById("dropdown");
+      menu.style.display=menu.style.display==="block"?"none":"block";
+    }
+
+    /* ====== Notification Badge ===== */
+    (function initBadge(){
+      const badge=document.getElementById('notifBadge');
+      if(!badge) return;
+      if(window.notifications && Array.isArray(window.notifications)){
+        if(window.notifications.length===0) badge.style.display='none';
+        else { badge.style.display='inline-block'; badge.textContent=window.notifications.length; }
+      } else { badge.style.display='none'; }
+    })();
+  </script>
 </body>
-</html>
+          </html>
