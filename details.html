@@ -1,156 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AniReal - Details</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniReal - Details Page</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ====================================================== */
+        /* === ANI-REAL FINAL THEME (UNCHANGED) === */
+        /* ===================================================== */
 
-<style>
-html, body { margin:0; padding:0; width:100%; font-family:'Outfit', sans-serif; background:#080808; color:white; overflow-x:hidden; }
-body::-webkit-scrollbar{display:none;}
-.banner-container {position:absolute; top:0; left:0; width:100%; height:480px; z-index:0;}
-.banner-img {width:100%; height:100%; object-fit:cover; object-position:center top; opacity:0; transition:opacity 1s ease;}
-.banner-overlay {position:absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.9) 60%, #080808 100%);}
-header {position:fixed; top:0; left:0; width:100%; height:65px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; z-index:1000; background:rgba(20,20,20,0.4); backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px); border-bottom:1px solid rgba(255,255,255,0.08);}
-.page-title{font-size:20px;font-weight:700;color:#fff;}
-.icon-btn{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;border:1px solid rgba(255,255,255,0.1);transition:0.2s;flex-shrink:0;}
-.icon-btn:active{transform:scale(0.9);background:rgba(255,255,255,0.2);}
-.details-container{position:relative; z-index:2; margin-top:130px; padding:0 24px 40px; display:flex; flex-direction:column; gap:24px;}
-.hero-section{display:flex; gap:20px; align-items:flex-end; animation:fadeInUp 0.8s cubic-bezier(0.2,0.8,0.2,1) forwards; opacity:0; transform:translateY(30px);}
-.poster-wrapper{flex-shrink:0; width:140px;height:210px;border-radius:16px; overflow:hidden; box-shadow:0 15px 35px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.1); background:#1a1a1a; position:relative;}
-.poster-wrapper img{width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 0.5s;}
-.info-wrapper{flex-grow:1; padding-bottom:5px; display:flex; flex-direction:column; justify-content:flex-end;}
-.anime-title{font-size:28px;font-weight:800;color:#fff;margin:0 0 5px 0; line-height:1.1;text-shadow:0 2px 15px rgba(0,0,0,1);}
-.meta-row-1{display:flex; align-items:center; gap:8px; margin-top:5px; margin-bottom:6px;}
-.meta-row-2{display:flex; flex-wrap:wrap; gap:6px;}
-.tag{font-size:11px; font-weight:600;color:#ddd;background:rgba(255,255,255,0.1); padding:4px 10px; border-radius:20px; backdrop-filter:blur(4px);}
-.tag-ep{background: rgba(255, 215, 0, 0.15); color: #FFD700; border:1px solid rgba(255,215,0,0.3);}
-.rating-box{display:flex; align-items:center; gap:5px; color:#FFD700; font-weight:800; font-size:14px; margin-bottom:5px;}
-.action-buttons{display:flex; gap:12px; animation:fadeInUp 0.8s cubic-bezier(0.2,0.8,0.2,1) 0.2s forwards; opacity:0; transform:translateY(20px);}
-.btn-play{flex:1; background:linear-gradient(90deg,#1e90ff,#0073e6); color:white; border:none; padding:14px; border-radius:16px; font-family:'Outfit',sans-serif; font-weight:700; font-size:16px; display:flex; align-items:center; justify-content:center; gap:10px; box-shadow:0 8px 25px rgba(30,144,255,0.3); cursor:pointer; position:relative; overflow:hidden; text-decoration:none;}
-.btn-play:active{transform:scale(0.95);}
-.btn-circle{width:52px; height:52px; border-radius:16px; background:#1a1a1a;border:1px solid #333;color:white;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer; transition:all 0.2s ease;}
-.btn-circle:active{transform:scale(0.9);background:#222;}
-.btn-circle.added{background-color:#28a745;border-color:#28a745;}
-.synopsis-box{background:rgba(255,255,255,0.03); padding:20px; border-radius:20px; border:1px solid rgba(255,255,255,0.05); animation:fadeInUp 0.8s cubic-bezier(0.2,0.8,0.2,1) 0.3s forwards; opacity:0; transform:translateY(20px);}
-.synopsis-title{font-size:16px;font-weight:700;color:#fff; display:block; margin-bottom:8px;}
-.synopsis-text{font-size:13px;color:#aaa;line-height:1.7;font-weight:300;}
-.skeleton{background:#1a1a1a;background-image:linear-gradient(90deg,#1a1a1a 0%,#222 50%,#1a1a1a 100%); background-size:200% 100%; animation:shimmer 1.2s infinite linear; color:transparent!important;border-radius:6px;}
-@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
-@keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
-#page-loader{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:2000; display:flex; align-items:center; justify-content:center;}
-.spinner{width:40px;height:40px;border:4px solid #333; border-top:4px solid #1e90ff; border-radius:50%; animation:spin 1s linear infinite;}
-@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-</style>
+        html, body {
+            margin: 0; padding: 0; width: 100%;
+            font-family: 'Outfit', sans-serif;
+            background-color: #080808; 
+            min-height: 100vh; color: white;
+            overflow-x: hidden;
+        }
+        body::-webkit-scrollbar { display: none; }
+
+        /* --- BANNER --- */
+        .banner-container {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 480px;
+            z-index: 0;
+        }
+        .banner-img {
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center top;
+            opacity: 0; transition: opacity 0.5s ease; /* Added transition for smooth load */
+        }
+        .banner-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.9) 60%, #080808 100%);
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 65px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; z-index: 1000; box-sizing: border-box;
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .header-right { display: flex; align-items: center; gap: 12px; }
+        
+        .page-title { 
+            font-size: 20px; 
+            font-weight: 700; 
+            color: #fff; 
+            letter-spacing: 0.5px; 
+        }
+
+        .icon-btn {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none; 
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.2s; flex-shrink: 0;
+        }
+        .icon-btn:active { transform: scale(0.9); background: rgba(255,255,255,0.2); }
+
+        /* --- CONTAINER --- */
+        .details-container {
+            position: relative; z-index: 2;
+            margin-top: 130px; padding: 0 24px 40px 24px;
+            display: flex; flex-direction: column; gap: 24px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section { 
+            display: flex; gap: 20px; align-items: flex-end; 
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            opacity: 0; transform: translateY(30px);
+        }
+
+        .poster-wrapper {
+            flex-shrink: 0; width: 140px; height: 210px;
+            border-radius: 16px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.1);
+            position: relative; background: #1a1a1a;
+        }
+        .poster-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .info-wrapper { flex-grow: 1; padding-bottom: 5px; display: flex; flex-direction: column; justify-content: flex-end; }
+        
+        .anime-title {
+            font-size: 28px; font-weight: 800; color: #fff;
+            margin: 0 0 5px 0; line-height: 1.1;
+            text-shadow: 0 2px 15px rgba(0,0,0,1);
+        }
+
+        .meta-row-1 { display: flex; align-items: center; gap: 8px; margin-top: 5px; margin-bottom: 6px; }
+        .meta-row-2 { display: flex; flex-wrap: wrap; gap: 6px; }
+
+        .tag { 
+            font-size: 11px; font-weight: 600; color: #ddd;
+            background: rgba(255,255,255,0.1); padding: 4px 10px; 
+            border-radius: 20px; backdrop-filter: blur(4px);
+        }
+        .tag-ep { background: rgba(255, 215, 0, 0.15); color: #FFD700; border: 1px solid rgba(255, 215, 0, 0.3); }
+        .rating-box { display: flex; align-items: center; gap: 5px; color: #FFD700; font-weight: 800; font-size: 14px; margin-bottom: 5px; }
+
+        /* --- ACTION BUTTONS --- */
+        .action-buttons { 
+            display: flex; gap: 12px; 
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards; 
+            opacity: 0; transform: translateY(20px);
+        }
+        .btn-play {
+            flex: 1; background: linear-gradient(90deg, #1e90ff, #0073e6);
+            color: white; border: none; padding: 14px; border-radius: 16px;
+            font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 16px;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 8px 25px rgba(30, 144, 255, 0.3); cursor: pointer; position: relative; overflow: hidden;
+            transition: transform 0.1s ease; text-decoration: none; /* Ensure link looks like button */
+        }
+        .btn-play:active { transform: scale(0.95); }
+        .btn-play::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: btnShine 3s infinite;
+        }
+        @keyframes btnShine { 100% { left: 100%; } }
+
+        .btn-circle {
+            width: 52px; height: 52px; border-radius: 16px; background: #1a1a1a; border: 1px solid #333;
+            color: white; font-size: 18px; display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s ease; cursor: pointer;
+        }
+        .btn-circle:active { transform: scale(0.90); background: #222; }
+        .btn-circle.added { background-color: #28a745; border-color: #28a745; box-shadow: 0 0 15px rgba(40, 167, 69, 0.4); }
+        .btn-circle.bell-active { color: #FFD700; border-color: #FFD700; }
+
+        /* --- SYNOPSIS --- */
+        .synopsis-box {
+            background: rgba(255, 255, 255, 0.03); padding: 20px; border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards; opacity: 0; transform: translateY(20px);
+        }
+        .synopsis-title { font-size: 16px; font-weight: 700; color: #fff; display: block; margin-bottom: 8px; }
+        .synopsis-text { font-size: 13px; color: #aaa; line-height: 1.7; font-weight: 300; }
+
+        /* --- COMMENTS SECTION --- */
+        .comments-section {
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards; opacity: 0; transform: translateY(20px);
+            margin-top: 10px;
+        }
+        .comments-header { margin-bottom: 15px; font-size: 18px; font-weight: 700; color: white; }
+
+        .comment-input-area {
+            display: flex; gap: 12px; align-items: center;
+        }
+        
+        .user-icon { 
+            width: 42px; height: 42px; border-radius: 50%; 
+            background: #1a1a1a; border: 1px solid #333;
+            display: flex; align-items: center; justify-content: center;
+            color: #666; font-size: 20px; flex-shrink: 0;
+        }
+        
+        .input-wrapper {
+            flex-grow: 1; background: rgba(255,255,255,0.05); border-radius: 25px;
+            display: flex; align-items: center; padding: 5px 5px 5px 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .input-wrapper input {
+            width: 100%; background: transparent; border: none; 
+            color: white; font-family: 'Outfit', sans-serif; outline: none; font-size: 14px;
+        }
+        .input-wrapper input::placeholder { color: #777; }
+
+        .send-btn {
+            width: 35px; height: 35px; border-radius: 50%; 
+            background: #1e90ff; border: none; color: white;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: transform 0.2s; font-size: 14px;
+            flex-shrink: 0;
+        }
+        .send-btn:active { transform: scale(0.9); }
+
+        /* --- SKELETON --- */
+        .skeleton {
+            background: #1a1a1a; background-image: linear-gradient(90deg, #1a1a1a 0%, #222 50%, #1a1a1a 100%);
+            background-size: 200% 100%; animation: shimmer 1.2s infinite linear; color: transparent !important; border-radius: 6px;
+        }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* Page Loader */
+        #page-loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; display: flex; align-items: center; justify-content: center; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #333; border-top: 4px solid #1e90ff; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    </style>
 </head>
 <body>
-<div id="page-loader"><div class="spinner"></div></div>
 
-<div class="banner-container">
-    <img id="bannerImg" class="banner-img" src="" alt="Banner">
-    <div class="banner-overlay"></div>
-</div>
+    <div id="page-loader"><div class="spinner"></div></div>
 
-<header>
-    <a href="index.html" class="icon-btn"><i class="fas fa-chevron-left"></i></a>
-    <div class="header-right">
-        <span class="page-title">Details</span>
-        <a href="#" class="icon-btn"><i class="fas fa-info-circle"></i></a>
+    <!-- BANNER -->
+    <div class="banner-container">
+        <img id="bannerImg" class="banner-img" src="" alt="Banner">
+        <div class="banner-overlay"></div>
     </div>
-</header>
 
-<div class="details-container">
-    <div class="hero-section">
-        <div class="poster-wrapper skeleton" id="posterWrapper">
-            <img id="posterImg" src="" alt="Poster" onload="this.style.opacity='1'; this.parentElement.classList.remove('skeleton');">
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="icon-btn"><i class="fas fa-chevron-left"></i></a>
+        <div class="header-right">
+            <span class="page-title">Details Page</span>
+            <a href="#" class="icon-btn"><i class="fas fa-info-circle"></i></a>
         </div>
-        <div class="info-wrapper">
-            <div class="rating-box skeleton" id="ratingBox"><i class="fas fa-star"></i> <span id="animeRating">0.0</span></div>
-            <h1 class="anime-title skeleton" id="animeTitle">Loading...</h1>
-            <div class="meta-row-1" id="metaRow1"></div>
-            <div class="meta-row-2" id="metaRow2"></div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="details-container">
+        
+        <!-- HERO -->
+        <div class="hero-section">
+            <div class="poster-wrapper skeleton" id="posterWrapper">
+                <img id="posterImg" src="" alt="Poster" style="opacity:0; transition:opacity 0.5s;" onload="this.style.opacity='1'; this.parentElement.classList.remove('skeleton');">
+            </div>
+            
+            <div class="info-wrapper">
+                <div class="rating-box skeleton" id="ratingBox">
+                    <i class="fas fa-star"></i> <span id="animeRating">0.0</span>
+                </div>
+                <h1 class="anime-title skeleton" id="animeTitle">Loading...</h1>
+                <div class="meta-row-1" id="metaRow1"></div>
+                <div class="meta-row-2" id="metaRow2"></div>
+            </div>
         </div>
+
+        <!-- BUTTONS -->
+        <div class="action-buttons">
+            <!-- Changed button to anchor tag for dynamic link but kept styles exactly same -->
+            <a id="watchBtn" href="#" class="btn-play"><i class="fas fa-play"></i> Watch Now</a>
+            <button class="btn-circle" id="myListBtn"><i class="fas fa-plus"></i></button>
+            <button class="btn-circle" id="bellBtn"><i class="far fa-bell"></i></button>
+        </div>
+
+        <!-- SYNOPSIS -->
+        <div class="synopsis-box">
+            <span class="synopsis-title">Storyline</span>
+            <p id="animeDesc" class="synopsis-text skeleton">Loading...</p>
+        </div>
+
+        <!-- COMMENTS -->
+        <div class="comments-section">
+            <div class="comments-header">Comments</div>
+            <div class="comment-input-area">
+                <div class="user-icon"><i class="fas fa-user"></i></div>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Add a comment..." id="commentInput">
+                    <button class="send-btn" id="sendBtn"><i class="fas fa-arrow-up"></i></button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="action-buttons">
-        <a id="watchBtn" href="#" class="btn-play"><i class="fas fa-play"></i> Watch Now</a>
-        <button class="btn-circle" id="myListBtn"><i class="fas fa-plus"></i></button>
-        <button class="btn-circle"><i class="fas fa-share-alt"></i></button>
-    </div>
+    <!-- JS (FIREBASE DYNAMIC LOGIC) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
-    <div class="synopsis-box">
-        <span class="synopsis-title">Storyline</span>
-        <p id="animeDesc" class="synopsis-text skeleton">Loading description...</p>
-    </div>
-</div>
+        const firebaseConfig = {
+            apiKey: "AIzaSyADkvP-TKwlV4JfYfY6rlfyhcRKmfc_Cqw",
+            authDomain: "anireal-web-68c69.firebaseapp.com",
+            databaseURL: "https://anireal-web-68c69-default-rtdb.firebaseio.com",
+            projectId: "anireal-web-68c69",
+            storageBucket: "anireal-web-68c69.appspot.com",
+            messagingSenderId: "1065490338135",
+            appId: "1:1065490338135:web:eaf17782c03343f3a3ae12"
+        };
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-const firebaseConfig = {
-    apiKey: "AIzaSyADkvP-TKwlV4JfYfY6rlfyhcRKmfc_Cqw",
-    authDomain: "anireal-web-68c69.firebaseapp.com",
-    databaseURL: "https://anireal-web-68c69-default-rtdb.firebaseio.com",
-    projectId: "anireal-web-68c69",
-    storageBucket: "anireal-web-68c69.appspot.com",
-    messagingSenderId: "1065490338135",
-    appId: "1:1065490338135:web:eaf17782c03343f3a3ae12"
-};
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+        // Get ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const animeId = urlParams.get('id');
 
-const urlParams = new URLSearchParams(window.location.search);
-const animeId = urlParams.get('id');
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!animeId) {
+                document.getElementById('page-loader').style.display = 'none';
+                // Optional: Redirect to home if no ID
+                // window.location.href = "index.html";
+                return;
+            }
 
-async function fetchAnimeDetails(){
-    if(!animeId){alert("No Anime ID!"); window.location.href="index.html"; return;}
-    try{
-        const docRef = doc(db,"anime_details", animeId);
-        const docSnap = await getDoc(docRef);
-        if(docSnap.exists()){ populateUI(docSnap.data()); } 
-        else { document.getElementById('animeTitle').textContent="Anime Not Found"; }
-    } catch(e){console.error(e);}
-    finally{ document.getElementById('page-loader').style.display='none'; }
-}
+            try {
+                const docRef = doc(db, "anime_details", animeId);
+                const docSnap = await getDoc(docRef);
 
-function populateUI(data){
-    document.getElementById('bannerImg').src = data.bannerImage || data.imageUrl;
-    document.getElementById('bannerImg').onload = ()=>document.getElementById('bannerImg').style.opacity=1;
-    document.getElementById('posterImg').src = data.imageUrl;
-    const titleEl = document.getElementById('animeTitle'); titleEl.textContent = data.title; titleEl.classList.remove('skeleton');
-    const ratingEl = document.getElementById('animeRating'); ratingEl.textContent = data.rating||"N/A"; document.getElementById('ratingBox').classList.remove('skeleton');
-    const descEl = document.getElementById('animeDesc'); descEl.textContent = data.description||"No description available."; descEl.classList.remove('skeleton');
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    populateData(data);
+                } else {
+                    console.log("No details found!");
+                    document.getElementById('animeTitle').textContent = "Anime Not Found";
+                    document.getElementById('animeTitle').classList.remove('skeleton');
+                }
+            } catch (error) {
+                console.error("Error getting document:", error);
+            } finally {
+                document.getElementById('page-loader').style.display = 'none';
+            }
 
-    const watchBtn = document.getElementById('watchBtn');
-    if(data.watchLink){ watchBtn.href = data.watchLink; } 
-    else { watchBtn.style.opacity=0.5; watchBtn.style.pointerEvents='none'; watchBtn.innerHTML="Coming Soon"; }
+            // Button Logic
+            const myListBtn = document.getElementById('myListBtn');
+            const listIcon = myListBtn.querySelector('i');
+            myListBtn.addEventListener('click', () => {
+                myListBtn.classList.toggle('added');
+                listIcon.className = myListBtn.classList.contains('added') ? 'fas fa-check' : 'fas fa-plus';
+            });
 
-    let row1 = document.getElementById('metaRow1'); 
-    let metaHTML = '<span class="tag" style="background:#1e90ff;color:white;">HD</span>';
-    if(data.year) metaHTML+=`<span class="tag">${data.year}</span>`;
-    if(data.episodes) metaHTML+=`<span class="tag tag-ep">${data.episodes} Eps</span>`;
-    row1.innerHTML = metaHTML;
+            const bellBtn = document.getElementById('bellBtn');
+            const bellIcon = bellBtn.querySelector('i');
+            bellBtn.addEventListener('click', () => {
+                bellBtn.classList.toggle('bell-active');
+                bellIcon.className = bellBtn.classList.contains('bell-active') ? 'fas fa-bell' : 'far fa-bell';
+            });
 
-    let row2 = document.getElementById('metaRow2');
-    if(data.genres){
-        let genres = Array.isArray(data.genres)? data.genres : data.genres.split(',').map(s=>s.trim());
-        genres.forEach(g=>row2.innerHTML+=`<span class="tag">${g}</span>`);
-    }
-}
+            // Comment Logic
+            const sendBtn = document.getElementById('sendBtn');
+            const commentInput = document.getElementById('commentInput');
+            sendBtn.addEventListener('click', () => {
+                if(commentInput.value.trim() !== "") {
+                    alert("Comment feature coming soon!");
+                    commentInput.value = ""; 
+                }
+            });
+        });
 
-fetchAnimeDetails();
+        function populateData(data) {
+            // Images
+            const banner = document.getElementById('bannerImg');
+            const poster = document.getElementById('posterImg');
+            
+            banner.src = data.bannerImage || data.imageUrl;
+            banner.onload = () => banner.style.opacity = 1;
+            poster.src = data.imageUrl;
 
-// Buttons interaction
-const myListBtn = document.getElementById('myListBtn');
-myListBtn.addEventListener('click', ()=>{
-    myListBtn.classList.toggle('added');
-    myListBtn.querySelector('i').className = myListBtn.classList.contains('added') ? 'fas fa-check':'fas fa-plus';
-});
-</script>
+            // Text Fields
+            const titleEl = document.getElementById('animeTitle');
+            titleEl.textContent = data.title;
+            titleEl.classList.remove('skeleton');
+
+            const ratingEl = document.getElementById('animeRating');
+            ratingEl.textContent = data.rating || "N/A";
+            document.getElementById('ratingBox').classList.remove('skeleton');
+
+            const descEl = document.getElementById('animeDesc');
+            descEl.textContent = data.description || "No description available.";
+            descEl.classList.remove('skeleton');
+
+            // Watch Link
+            const watchBtn = document.getElementById('watchBtn');
+            if(data.watchLink) {
+                watchBtn.href = data.watchLink;
+            } else {
+                watchBtn.href = "#";
+                watchBtn.style.opacity = 0.6;
+                watchBtn.innerText = "Coming Soon";
+            }
+
+            // Meta Row 1
+            const row1 = document.getElementById('metaRow1');
+            let metaHTML = `<span class="tag" style="background:#1e90ff; color:white;">HD</span>`;
+            if(data.year) metaHTML += `<span class="tag">${data.year}</span>`;
+            if(data.episodes) metaHTML += `<span class="tag tag-ep">${data.episodes} Episodes</span>`;
+            row1.innerHTML = metaHTML;
+
+            // Meta Row 2 (Genres)
+            const row2 = document.getElementById('metaRow2');
+            if (data.genres) {
+                // Handle both comma-separated string or array
+                let genreArray = [];
+                if (Array.isArray(data.genres)) {
+                    genreArray = data.genres;
+                } else if (typeof data.genres === 'string') {
+                    genreArray = data.genres.split(',').map(g => g.trim());
+                }
+                
+                genreArray.forEach(g => {
+                    row2.innerHTML += `<span class="tag">${g}</span>`;
+                });
+            }
+        }
+    </script>
+
 </body>
 </html>
