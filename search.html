@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniReal - Search Results</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* SAME THEME AS HOME PAGE */
+        html, body { margin: 0; padding: 0; width: 100%; font-family: 'Outfit', sans-serif; background-color: #080808; min-height: 100vh; color: white; overflow-x: hidden; }
+        body::-webkit-scrollbar { display: none; }
+
+        /* HEADER */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 65px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; z-index: 1000; box-sizing: border-box;
+            background: rgba(20, 20, 20, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .page-title { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+        
+        .icon-btn {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none; 
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.2s; flex-shrink: 0;
+        }
+        .icon-btn:active { transform: scale(0.9); background: rgba(255,255,255,0.2); }
+
+        /* GRID CONTAINER */
+        .results-container {
+            margin-top: 80px; padding: 0 15px 40px 15px;
+        }
+        .search-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px;
+        }
+        .no-results { text-align: center; color: #777; margin-top: 100px; font-size: 18px; width: 100%; }
+
+        /* CARD STYLES (Same as Home) */
+        .standard-img-wrapper { width: 100%; height: 100%; }
+        .standard-anime-card {
+            flex: 0 0 160px; width: 100%; aspect-ratio: 2 / 3; border-radius: 12px; overflow: hidden; position: relative; cursor: pointer; display: block; text-decoration: none; transition: box-shadow 0.3s ease-in-out; 
+            background-color: #1a1a1a; 
+        }
+        .standard-anime-card .card-poster { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        .standard-anime-card .card-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 70%; 
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 45%, transparent 100%);
+            display: flex; align-items: flex-end; padding: 12px; box-sizing: border-box; z-index: 2;
+        }
+        .standard-anime-card .card-info { width: 100%; }
+        .standard-anime-card .title { font-size: 15px; font-weight: bold; color: #FFD700; margin: 0; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .standard-anime-card .episodes { font-size: 12px; color: #ccc; margin: 4px 0 0 0; }
+        .standard-anime-card .rating-badge {
+            position: absolute; top: 8px; right: 8px; background-color: rgba(0, 0, 0, 0.7); color: #1e90ff; padding: 3px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1px solid rgba(30, 144, 255, 0.5); z-index: 2;
+        }
+        .hd-badge { font-size: 10px; background: #1e90ff; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; display: inline-block; margin-right: 5px; }
+
+        /* LOADER */
+        #page-loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #080808; z-index: 2000; display: flex; align-items: center; justify-content: center; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #333; border-top: 4px solid #1e90ff; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+
+    <div id="page-loader"><div class="spinner"></div></div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-left">
+            <!-- Back Button: Goes to Home -->
+            <a href="index.html" class="icon-btn"><i class="fas fa-arrow-left"></i></a>
+            <span class="page-title" id="resultTitle">Search Results</span>
+        </div>
+        <a href="#" class="icon-btn"><i class="fas fa-search"></i></a>
+    </header>
+
+    <!-- RESULTS -->
+    <div class="results-container">
+        <div class="search-grid" id="searchResultsGrid">
+            <!-- Cards will load here -->
+        </div>
+    </div>
+
+    <!-- FIREBASE LOGIC -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyADkvP-TKwlV4JfYfY6rlfyhcRKmfc_Cqw",
+            authDomain: "anireal-web-68c69.firebaseapp.com",
+            databaseURL: "https://anireal-web-68c69-default-rtdb.firebaseio.com",
+            projectId: "anireal-web-68c69",
+            storageBucket: "anireal-web-68c69.appspot.com",
+            messagingSenderId: "1065490338135",
+            appId: "1:1065490338135:web:eaf17782c03343f3a3ae12"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // GET SEARCH QUERY FROM URL (?q=naruto)
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('q') ? urlParams.get('q').toLowerCase() : "";
+
+        document.getElementById('resultTitle').innerText = query ? `Results: "${query}"` : "Search";
+
+        async function fetchResults() {
+            if(!query) {
+                document.getElementById('searchResultsGrid').innerHTML = '<div class="no-results">Type something to search.</div>';
+                document.getElementById('page-loader').style.display = 'none';
+                return;
+            }
+
+            const uniqueAnimeMap = new Map(); 
+
+            try {
+                // 1. Fetch Animes
+                const animeSnapshot = await getDocs(collection(db, "animes"));
+                animeSnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.title && data.title.toLowerCase().includes(query)) {
+                        const key = data.title.trim().toLowerCase();
+                        if (!uniqueAnimeMap.has(key)) uniqueAnimeMap.set(key, { id: doc.id, ...data });
+                    }
+                });
+
+                // 2. Fetch Slides
+                const slideSnapshot = await getDocs(collection(db, "slides"));
+                slideSnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.title && data.title.toLowerCase().includes(query)) {
+                        const key = data.title.trim().toLowerCase();
+                        if (!uniqueAnimeMap.has(key)) {
+                            uniqueAnimeMap.set(key, { 
+                                id: doc.id, 
+                                title: data.title,
+                                imageUrl: data.cardImage || data.bannerImage, 
+                                link: data.link,
+                                rating: 'N/A',
+                                episode: data.episode || 'N/A'
+                            });
+                        }
+                    }
+                });
+
+                renderResults(Array.from(uniqueAnimeMap.values()));
+
+            } catch (e) {
+                console.error("Error", e);
+            } finally {
+                document.getElementById('page-loader').style.display = 'none';
+            }
+        }
+
+        function renderResults(animes) {
+            const grid = document.getElementById('searchResultsGrid');
+            grid.innerHTML = '';
+
+            if (animes.length === 0) {
+                grid.innerHTML = '<div class="no-results">No Anime Found :(</div>';
+                return;
+            }
+
+            animes.forEach(anime => {
+                const link = anime.link || '#';
+                const epText = anime.episode ? `Ep: ${anime.episode}` : 'Ep: N/A';
+                const rating = anime.rating || 'N/A';
+
+                const card = `
+                    <a href="${link}" class="standard-anime-card">
+                        <div class="standard-img-wrapper">
+                            <img class="card-poster" src="${anime.imageUrl}">
+                        </div>
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <h3 class="title">${anime.title}</h3>
+                                <div style="display:flex; align-items:center; gap:5px; margin-top:3px;">
+                                    <span class="hd-badge">HD</span>
+                                    <p class="episodes" style="margin:0;">${epText}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rating-badge">${rating}</div>
+                    </a>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        fetchResults();
+
+    </script>
+</body>
+</html>
